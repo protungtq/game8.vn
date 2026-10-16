@@ -55,24 +55,6 @@
     "seoKeywords": "Đại Chiến Tam Quốc, tải Đại Chiến Tam Quốc, VTC Mobile, SLG Tam Quốc"
   },
   {
-    "slug": "au-top",
-    "name": "Au Top",
-    "publisher": "VTC Mobile",
-    "genre": "Game nhảy 3D",
-    "platforms": [
-      "Mobile"
-    ],
-    "category": "mobile",
-    "icon": "",
-    "cover": "https://i.ibb.co/Ps0ZtHRz/au-top-cover.webp",
-    "trailer": "https://www.youtube.com/watch?v=8uYxqbhfu5c",
-    "description": "Thế hệ tiếp theo của Audition với đồ họa 3D, chế độ nhảy đa dạng, thời trang nghìn bộ.",
-    "website": "https://autop.vn",
-    "seoTitle": "Au Top - Tải game, tin tức, review | Game8.VN",
-    "seoDescription": "Thế hệ tiếp theo của Audition với đồ họa 3D, chế độ nhảy đa dạng, thời trang nghìn bộ.",
-    "seoKeywords": "Au Top, tải Au Top, VTC Mobile, Game nhảy 3D"
-  },
-  {
     "slug": "ts-origin-vtc",
     "name": "TS Origin VTC",
     "publisher": "VTC Mobile",
@@ -306,24 +288,6 @@
     "seoTitle": "Cửu Dương Truyền Kỳ 2 - Tải game, tin tức, review | Game8.VN",
     "seoDescription": "MMORPG kiếm hiệp 3D trên mobile.",
     "seoKeywords": "Cửu Dương Truyền Kỳ 2, tải Cửu Dương Truyền Kỳ 2, Gosu, MMORPG kiếm hiệp"
-  },
-  {
-    "slug": "au-beat",
-    "name": "AU BEAT",
-    "publisher": "VTC Game",
-    "genre": "Game nhảy",
-    "platforms": [
-      "Mobile"
-    ],
-    "category": "mobile",
-    "icon": "",
-    "cover": "https://i.ibb.co/HLyXB4TM/au-beat-cover.webp",
-    "trailer": "",
-    "description": "Game nhảy trong vũ trụ Audition.",
-    "website": "https://vutruaudition.vtcgame.vn/",
-    "seoTitle": "AU BEAT - Tải game, tin tức, review | Game8.VN",
-    "seoDescription": "Game nhảy trong vũ trụ Audition.",
-    "seoKeywords": "AU BEAT, tải AU BEAT, VTC Game, Game nhảy"
   },
   {
     "slug": "au-2",
@@ -850,23 +814,5 @@
     "seoTitle": "Silkroad Origin VTC - Tải game, tin tức, review | Game8.VN",
     "seoDescription": "Phiên bản chính thống duy nhất của Con Đường Tơ Lụa tại VN, ủy quyền WEMADEMAX.",
     "seoKeywords": "Silkroad Origin VTC, tải Silkroad Origin VTC, VTC Game, MMORPG"
-  },
-  {
-    "slug": "mat-lenh-fps-pc",
-    "name": "Mật Lệnh FPS PC",
-    "publisher": "VTC Game",
-    "genre": "FPS",
-    "platforms": [
-      "PC"
-    ],
-    "category": "pc-console",
-    "icon": "",
-    "cover": "https://i.ibb.co/FbrN5nSR/mat-lenh-fps-pc-cover.webp",
-    "trailer": "",
-    "description": "Game FPS cổ điển của Kingsoft, VTC Game phát hành chính thống tại VN.",
-    "website": "",
-    "seoTitle": "Mật Lệnh FPS PC - Tải game, tin tức, review | Game8.VN",
-    "seoDescription": "Game FPS cổ điển của Kingsoft, VTC Game phát hành chính thống tại VN.",
-    "seoKeywords": "Mật Lệnh FPS PC, tải Mật Lệnh FPS PC, VTC Game, FPS"
   }
 ]
