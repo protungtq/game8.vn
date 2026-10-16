@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Manager - Game8.VN Control</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Inter', sans-serif; background: #f4f5f6; color: #1f2937; padding: 24px; }
+    .container { max-width: 1200px; margin: auto; }
+    .header { margin-bottom: 24px; border-left: 5px solid #dc2626; padding-left: 16px; }
+    .header h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.05em; }
+    .header p { margin-top: 4px; color: #6b7280; font-size: 14px; }
+    .card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; margin-bottom: 24px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #374151; text-transform: uppercase; letter-spacing: 0.05em; }
+    input, textarea, select { width: 100%; border: 1px solid #d1d5db; border-radius: 10px; padding: 12px 14px; font-size: 14px; font-family: inherit; }
+    input:focus, textarea:focus, select:focus { border-color: #dc2626; box-shadow: 0 0 0 3px rgba(220,38,38,0.1); outline: none; }
+    textarea { min-height: 100px; resize: vertical; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn { border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: 14px; transition: all 0.2s; }
+    .btn-primary { background: #dc2626; color: white; }
+    .btn-primary:hover { background: #b91c1c; }
+    .btn-secondary { background: #e5e7eb; color: #374151; }
+    .btn-secondary:hover { background: #d1d5db; }
+    .btn-danger { background: #fee2e2; color: #dc2626; }
+    .btn-danger:hover { background: #fecaca; }
+    .game-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .game-item { border: 1px solid #e5e7eb; border-radius: 12px; padding: 16px; display: flex; gap: 12px; align-items: center; }
+    .game-item img { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; }
+    .game-item .placeholder { width: 56px; height: 56px; border-radius: 12px; background: linear-gradient(135deg, #dc2626, #f97316); color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; flex-shrink: 0; }
+    .game-item .info { flex: 1; min-width: 0; }
+    .game-item .info h3 { margin: 0 0 4px; font-size: 15px; }
+    .game-item .info p { margin: 0; font-size: 12px; color: #6b7280; }
+    .game-item .actions { display: flex; gap: 8px; }
+    .game-item .actions button { padding: 6px 12px; font-size: 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: white; cursor: pointer; }
+    .game-item .actions button:hover { background: #f9fafb; }
+    .status { padding: 12px; border-radius: 10px; margin-top: 16px; font-size: 14px; display: none; }
+    .status.show { display: block; }
+    .status.success { background: #d1fae5; color: #065f46; }
+    .status.error { background: #fee2e2; color: #991b1b; }
+    .status.loading { background: #dbeafe; color: #1e40af; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tabs button { padding: 10px 20px; border-radius: 10px; border: 1px solid #e5e7eb; background: white; cursor: pointer; font-weight: 600; }
+    .tabs button.active { background: #dc2626; color: white; border-color: #dc2626; }
+    .preview-img { max-width: 200px; max-height: 120px; border-radius: 8px; margin-top: 8px; }
+    #configBox { background: #fef3c7; border: 1px solid #f59e0b; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>🎮 Game Manager</h1>
+    <p>Quản lý game trên Game8.VN — thêm / sửa / xóa, đẩy lên GitHub qua Worker Proxy</p>
+  </div>
+
+  <!-- Config -->
+  <div class="card" id="configBox">
+    <div class="field">
+      <label>Worker Proxy URL</label>
+      <input type="text" id="workerProxyUrl" value="https://tq-upload-proxy.mobitungtq.workers.dev/" />
+    </div>
+    <div class="field">
+      <label>GitHub Repo (owner/repo)</label>
+      <input type="text" id="githubRepo" value="protungtq/game8.vn" />
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="active" onclick="showTab('list')">📋 Danh sách game</button>
+    <button onclick="showTab('form')">➕ Thêm / Sửa game</button>
+  </div>
+
+  <!-- List tab -->
+  <div id="tab-list">
+    <div class="card">
+      <div style="display:flex; gap:12px; margin-bottom:16px;">
+        <input type="text" id="searchBox" placeholder="🔍 Tìm game..." oninput="filterGames()" style="flex:1;" />
+        <select id="filterCategory" onchange="filterGames()" style="width:200px;">
+          <option value="">Tất cả</option>
+          <option value="mobile">Game Mobile</option>
+          <option value="pc-console">Game PC/Console</option>
+        </select>
+        <button class="btn btn-secondary" onclick="loadGames()">🔄 Tải lại</button>
+      </div>
+      <div id="gameCount" style="margin-bottom:12px; color:#6b7280; font-size:14px;"></div>
+      <div class="game-list" id="gameList"></div>
+    </div>
+  </div>
+
+  <!-- Form tab -->
+  <div id="tab-form" style="display:none;">
+    <div class="card">
+      <h2 id="formTitle" style="margin-top:0;">Thêm game mới</h2>
+      <input type="hidden" id="editSlug" />
+
+      <div class="grid2">
+        <div class="field">
+          <label>Tên game *</label>
+          <input type="text" id="fName" placeholder="VD: Au Mobile" oninput="autoSlug()" />
+        </div>
+        <div class="field">
+          <label>Slug *</label>
+          <input type="text" id="fSlug" placeholder="vd: au-mobile" />
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Nhà phát hành</label>
+          <input type="text" id="fPublisher" placeholder="VD: VTC Mobile" />
+        </div>
+        <div class="field">
+          <label>Thể loại</label>
+          <input type="text" id="fGenre" placeholder="VD: Game nhảy Casual" />
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Danh mục *</label>
+          <select id="fCategory">
+            <option value="mobile">📱 Game Mobile</option>
+            <option value="pc-console">🖥️ Game PC/Console</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Nền tảng (cách nhau bằng dấu phẩy)</label>
+          <input type="text" id="fPlatforms" placeholder="VD: Mobile hoặc PC, PS5" />
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label>Icon URL</label>
+          <input type="text" id="fIcon" placeholder="https://..." oninput="previewImage('fIcon','iconPreview')" />
+          <img id="iconPreview" class="preview-img" style="display:none;" />
+        </div>
+        <div class="field">
+          <label>Cover URL</label>
+          <input type="text" id="fCover" placeholder="https://..." oninput="previewImage('fCover','coverPreview')" />
+          <img id="coverPreview" class="preview-img" style="display:none;" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Trailer YouTube URL</label>
+        <input type="text" id="fTrailer" placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+
+      <div class="field">
+        <label>Mô tả</label>
+        <textarea id="fDescription" placeholder="Mô tả ngắn về game (2-3 câu)"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Website / Fanpage</label>
+        <input type="text" id="fWebsite" placeholder="https://..." />
+      </div>
+
+      <div class="field">
+        <label>SEO Title</label>
+        <input type="text" id="fSeoTitle" placeholder="Tự động từ tên game nếu để trống" />
+      </div>
+      <div class="field">
+        <label>SEO Description</label>
+        <textarea id="fSeoDescription" placeholder="Tự động từ mô tả nếu để trống" style="min-height:60px;"></textarea>
+      </div>
+      <div class="field">
+        <label>SEO Keywords</label>
+        <input type="text" id="fSeoKeywords" placeholder="Tự động nếu để trống" />
+      </div>
+
+      <div style="display:flex; gap:12px; margin-top:20px;">
+        <button class="btn btn-primary" onclick="saveGame()">💾 Lưu game</button>
+        <button class="btn btn-secondary" onclick="resetForm()">🗑️ Xóa form</button>
+        <button class="btn btn-secondary" onclick="showTab('list')">← Về danh sách</button>
+      </div>
+      <div id="formStatus" class="status"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-top:0;">🚀 Đẩy games.json lên GitHub</h3>
+    <p style="color:#6b7280; font-size:14px;">Sau khi thêm/sửa/xóa game, bấm nút bên dưới để đẩy file games.json đã cập nhật lên GitHub. Cloudflare Pages sẽ tự rebuild.</p>
+    <button class="btn btn-primary" onclick="pushToGitHub()">🚀 Đẩy lên GitHub</button>
+    <div id="pushStatus" class="status"></div>
+  </div>
+</div>
+
+<script>
+let allGames = [];
+let isEditMode = false;
+
+function showTab(tab) {
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-list').style.display = tab === 'list' ? 'block' : 'none';
+  document.getElementById('tab-form').style.display = tab === 'form' ? 'block' : 'none';
+}
+
+function slugify(s) {
+  const map = {'à':'a','á':'a','ạ':'a','ả':'a','ã':'a','â':'a','ầ':'a','ấ':'a','ậ':'a','ẩ':'a','ẫ':'a','ă':'a','ằ':'a','ắ':'a','ặ':'a','ẳ':'a','ẵ':'a','è':'e','é':'e','ẹ':'e','ẻ':'e','ẽ':'e','ê':'e','ề':'e','ế':'e','ệ':'e','ể':'e','ễ':'e','ì':'i','í':'i','ị':'i','ỉ':'i','ĩ':'i','ò':'o','ó':'o','ọ':'o','ỏ':'o','õ':'o','ô':'o','ồ':'o','ố':'o','ộ':'o','ổ':'o','ỗ':'o','ơ':'o','ờ':'o','ớ':'o','ợ':'o','ở':'o','ỡ':'o','ù':'u','ú':'u','ụ':'u','ủ':'u','ũ':'u','ư':'u','ừ':'u','ứ':'u','ự':'u','ử':'u','ữ':'u','ỳ':'y','ý':'y','ỵ':'y','ỷ':'y','ỹ':'y','đ':'d'};
+  s = s.toLowerCase();
+  for (const k in map) s = s.split(k).join(map[k]);
+  return s.replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function autoSlug() {
+  if (isEditMode) return;
+  document.getElementById('fSlug').value = slugify(document.getElementById('fName').value);
+}
+
+function previewImage(inputId, imgId) {
+  const url = document.getElementById(inputId).value.trim();
+  const img = document.getElementById(imgId);
+  if (url) { img.src = url; img.style.display = 'block'; }
+  else { img.style.display = 'none'; }
+}
+
+async function loadGames() {
+  const status = document.getElementById('gameCount');
+  status.textContent = '⏳ Đang tải danh sách game...';
+  try {
+    const res = await fetch('/src/data/games.json');
+    // Fallback: try relative path for local dev
+    let data;
+    if (res.ok) {
+      data = await res.json();
+    } else {
+      // Try loading from GitHub raw
+      const repo = document.getElementById('githubRepo').value;
+      const ghRes = await fetch(`https://raw.githubusercontent.com/${repo}/main/src/data/games.json`);
+      data = await ghRes.json();
+    }
+    allGames = Array.isArray(data) ? data : [];
+    renderGames();
+  } catch (e) {
+    status.textContent = '❌ Không tải được games.json: ' + e.message;
+  }
+}
+
+function renderGames() {
+  const list = document.getElementById('gameList');
+  const query = document.getElementById('searchBox').value.toLowerCase();
+  const cat = document.getElementById('filterCategory').value;
+
+  const filtered = allGames.filter(g => {
+    const matchQ = !query || g.name.toLowerCase().includes(query) || (g.publisher||'').toLowerCase().includes(query);
+    const matchC = !cat || g.category === cat;
+    return matchQ && matchC;
+  });
+
+  document.getElementById('gameCount').textContent = `Tổng: ${allGames.length} game | Hiển thị: ${filtered.length}`;
+
+  list.innerHTML = filtered.map(g => `
+    <div class="game-item">
+      ${g.icon ? `<img src="${g.icon}" alt="${g.name}" loading="lazy" onerror="this.style.display='none'" />` : `<div class="placeholder">${g.name.charAt(0)}</div>`}
+      <div class="info">
+        <h3>${g.name}</h3>
+        <p>${g.publisher || ''} · ${g.genre || ''}</p>
+        <p style="color:#9ca3af;">${g.category === 'mobile' ? '📱' : '🖥️'} ${g.slug}</p>
+      </div>
+      <div class="actions">
+        <button onclick="editGame('${g.slug}')">✏️ Sửa</button>
+        <button onclick="deleteGame('${g.slug}')" style="color:#dc2626;">🗑️ Xóa</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterGames() { renderGames(); }
+
+function editGame(slug) {
+  const g = allGames.find(x => x.slug === slug);
+  if (!g) return;
+  isEditMode = true;
+  document.getElementById('formTitle').textContent = 'Sửa game: ' + g.name;
+  document.getElementById('editSlug').value = slug;
+  document.getElementById('fName').value = g.name || '';
+  document.getElementById('fSlug').value = g.slug || '';
+  document.getElementById('fSlug').disabled = true;
+  document.getElementById('fPublisher').value = g.publisher || '';
+  document.getElementById('fGenre').value = g.genre || '';
+  document.getElementById('fCategory').value = g.category || 'mobile';
+  document.getElementById('fPlatforms').value = (g.platforms || []).join(', ');
+  document.getElementById('fIcon').value = g.icon || '';
+  document.getElementById('fCover').value = g.cover || '';
+  document.getElementById('fTrailer').value = g.trailer || '';
+  document.getElementById('fDescription').value = g.description || '';
+  document.getElementById('fWebsite').value = g.website || '';
+  document.getElementById('fSeoTitle').value = g.seoTitle || '';
+  document.getElementById('fSeoDescription').value = g.seoDescription || '';
+  document.getElementById('fSeoKeywords').value = g.seoKeywords || '';
+  previewImage('fIcon', 'iconPreview');
+  previewImage('fCover', 'coverPreview');
+  showTab('form');
+  document.querySelectorAll('.tabs button')[1].classList.add('active');
+  document.querySelectorAll('.tabs button')[0].classList.remove('active');
+}
+
+function deleteGame(slug) {
+  const g = allGames.find(x => x.slug === slug);
+  if (!g) return;
+  if (!confirm(`⚠️ Xóa game "${g.name}" khỏi danh sách?`)) return;
+  allGames = allGames.filter(x => x.slug !== slug);
+  renderGames();
+  alert(`Đã xóa "${g.name}" khỏi danh sách local. Nhớ bấm "Đẩy lên GitHub" để lưu!`);
+}
+
+function resetForm() {
+  isEditMode = false;
+  document.getElementById('formTitle').textContent = 'Thêm game mới';
+  document.getElementById('editSlug').value = '';
+  ['fName','fSlug','fPublisher','fGenre','fPlatforms','fIcon','fCover','fTrailer','fDescription','fWebsite','fSeoTitle','fSeoDescription','fSeoKeywords'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('fSlug').disabled = false;
+  document.getElementById('fCategory').value = 'mobile';
+  document.getElementById('iconPreview').style.display = 'none';
+  document.getElementById('coverPreview').style.display = 'none';
+}
+
+function saveGame() {
+  const name = document.getElementById('fName').value.trim();
+  const slug = document.getElementById('fSlug').value.trim();
+  if (!name || !slug) { alert('Vui lòng nhập Tên game và Slug!'); return; }
+
+  const publisher = document.getElementById('fPublisher').value.trim();
+  const genre = document.getElementById('fGenre').value.trim();
+  const description = document.getElementById('fDescription').value.trim();
+
+  const game = {
+    slug,
+    name,
+    publisher,
+    genre,
+    platforms: document.getElementById('fPlatforms').value.split(',').map(s => s.trim()).filter(Boolean),
+    category: document.getElementById('fCategory').value,
+    icon: document.getElementById('fIcon').value.trim(),
+    cover: document.getElementById('fCover').value.trim(),
+    trailer: document.getElementById('fTrailer').value.trim(),
+    description,
+    website: document.getElementById('fWebsite').value.trim(),
+    seoTitle: document.getElementById('fSeoTitle').value.trim() || `${name} - Tải game, tin tức, review | Game8.VN`,
+    seoDescription: document.getElementById('fSeoDescription').value.trim() || description.substring(0, 150),
+    seoKeywords: document.getElementById('fSeoKeywords').value.trim() || `${name}, tải ${name}, ${publisher}, ${genre}`
+  };
+
+  // Default platforms by category
+  if (game.platforms.length === 0) {
+    game.platforms = game.category === 'mobile' ? ['Mobile'] : ['PC'];
+  }
+
+  const existingIdx = allGames.findIndex(x => x.slug === slug);
+  if (existingIdx >= 0) {
+    allGames[existingIdx] = game;
+  } else {
+    // Check duplicate slug for new games
+    if (allGames.some(x => x.slug === slug)) {
+      alert('Slug đã tồn tại! Vui lòng chọn slug khác.');
+      return;
+    }
+    allGames.push(game);
+  }
+
+  const st = document.getElementById('formStatus');
+  st.className = 'status show success';
+  st.textContent = `✅ Đã lưu "${name}" vào danh sách local. Nhớ bấm "Đẩy lên GitHub" để lưu!`;
+  renderGames();
+  setTimeout(() => { st.className = 'status'; }, 5000);
+}
+
+async function pushToGitHub() {
+  const workerUrl = document.getElementById('workerProxyUrl').value.replace(/\/+$/, '');
+  const repo = document.getElementById('githubRepo').value.trim();
+  const st = document.getElementById('pushStatus');
+
+  if (!confirm(`Đẩy ${allGames.length} game lên GitHub (${repo})?`)) return;
+
+  st.className = 'status show loading';
+  st.textContent = '⏳ Đang đẩy lên GitHub...';
+
+  try {
+    const jsonContent = JSON.stringify(allGames, null, 2);
+    const response = await fetch(`${workerUrl}/github-push`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        title: `Cập nhật games.json (${allGames.length} game)`,
+        filename: 'games.json',
+        path: 'src/data/games.json',
+        markdownContent: jsonContent,
+        repo: repo
+      })
+    });
+
+    const result = await response.json();
+    if (response.ok && result.success) {
+      st.className = 'status show success';
+      st.textContent = '🚀 Đẩy thành công! Cloudflare Pages sẽ tự rebuild trong vài phút.';
+    } else {
+      st.className = 'status show error';
+      st.textContent = '❌ Thất bại: ' + (result.error || 'Lỗi không xác định');
+    }
+  } catch (e) {
+    st.className = 'status show error';
+    st.textContent = '❌ Lỗi kết nối Worker: ' + e.message;
+  }
+}
+
+// Init
+loadGames();
+</script>
+</body>
+</html>

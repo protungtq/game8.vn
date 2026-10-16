@@ -1,0 +1,85 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  ogImage?: string;
+  ogType?: string;
+  canonical?: string;
+  jsonLd?: object;
+}
+
+const { title, description, keywords, ogImage, ogType = 'website', canonical, jsonLd } = Astro.props;
+const siteName = 'Game8.VN';
+const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+---
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  {keywords && <meta name="keywords" content={keywords} />}
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href={canonical || Astro.url.href} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:locale" content="vi_VN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  {ogImage && <meta name="twitter:image" content={ogImage} />}
+
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+</head>
+<body class="bg-gray-50 text-gray-900 min-h-screen flex flex-col">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <span class="text-2xl font-extrabold text-red-600">Game8<span class="text-gray-900">.VN</span></span>
+      </a>
+      <nav class="flex gap-6 text-sm font-semibold">
+        <a href="/" class="hover:text-red-600">Trang chủ</a>
+        <a href="/#mobile" class="hover:text-red-600">Game Mobile</a>
+        <a href="/#pc-console" class="hover:text-red-600">Game PC/Console</a>
+        <a href="/tin-tuc" class="hover:text-red-600">Tin tức</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    <slot />
+  </main>
+
+  <footer class="bg-gray-900 text-gray-300 mt-12">
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="flex flex-col md:flex-row justify-between gap-6">
+        <div>
+          <p class="text-xl font-extrabold text-white">Game8<span class="text-red-500">.VN</span></p>
+          <p class="text-sm mt-2">Cổng thông tin game Việt Nam — tải game, tin tức, review.</p>
+        </div>
+        <div class="text-sm">
+          <p class="font-bold text-white mb-2">Liên kết</p>
+          <ul class="space-y-1">
+            <li><a href="/" class="hover:text-white">Trang chủ</a></li>
+            <li><a href="/tin-tuc" class="hover:text-white">Tin tức</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-xs text-gray-500 mt-6 pt-6 border-t border-gray-800">© 2026 Game8.VN. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

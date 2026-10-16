@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Posts will be loaded from content collection in production.
+// For now, this page lists posts from a static data source.
+const posts: any[] = [];
+---
+
+<Layout
+  title="Tin tức game mới nhất"
+  description="Tin tức game mới nhất: game mobile, game PC/console, review và sự kiện từ các NPH VTC, VNG, Funtap, Gosu."
+  keywords="tin game, tin tức game, review game, game mới ra mắt"
+>
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-extrabold mb-8">📰 Tin tức game</h1>
+
+    {posts.length > 0 ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <a href={`/tin/${post.slug}/`} class="bg-white rounded-xl shadow-sm hover:shadow-lg transition overflow-hidden">
+            {post.image && <img src={post.image} alt={post.title} class="w-full h-48 object-cover" loading="lazy" />}
+            <div class="p-5">
+              <h2 class="font-bold text-lg line-clamp-2 mb-2">{post.title}</h2>
+              <p class="text-sm text-gray-600 line-clamp-3">{post.description}</p>
+              <p class="text-xs text-gray-400 mt-3">{post.date}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    ) : (
+      <div class="bg-white rounded-2xl shadow-sm p-12 text-center">
+        <p class="text-gray-500">Chưa có bài viết nào. Hãy quay lại sau!</p>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .line-clamp-2, .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-2 { -webkit-line-clamp: 2; }
+  .line-clamp-3 { -webkit-line-clamp: 3; }
+</style>

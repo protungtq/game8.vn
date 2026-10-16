@@ -1,0 +1,147 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import games from '../../data/games.json';
+
+export function getStaticPaths() {
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+
+// Placeholder: in production, posts are loaded from content collection
+// and filtered by game slug. For now, related posts come from a data file
+// or are empty until posts are added.
+const relatedPosts: any[] = [];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VideoGame",
+  "name": game.name,
+  "description": game.description,
+  "genre": game.genre,
+  "publisher": { "@type": "Organization", "name": game.publisher },
+  ...(game.icon && { "image": game.icon }),
+  ...(game.trailer && { "trailer": { "@type": "VideoObject", "embedUrl": game.trailer } }),
+};
+
+function youtubeEmbed(url: string): string {
+  if (!url) return '';
+  const m = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]+)/);
+  return m ? `https://www.youtube.com/embed/${m[1]}` : '';
+}
+
+const embedUrl = youtubeEmbed(game.trailer);
+---
+
+<Layout
+  title={game.seoTitle || `${game.name} | Game8.VN`}
+  description={game.seoDescription || game.description}
+  keywords={game.seoKeywords}
+  ogImage={game.cover || game.icon}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="text-sm text-gray-500 mb-6">
+      <a href="/" class="hover:text-red-600">Trang chủ</a>
+      <span class="mx-2">/</span>
+      <a href={game.category === 'mobile' ? '/#mobile' : '/#pc-console'} class="hover:text-red-600">
+        {game.category === 'mobile' ? 'Game Mobile' : 'Game PC/Console'}
+      </a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900 font-medium">{game.name}</span>
+    </nav>
+
+    <!-- Game header -->
+    <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8">
+      <div class="flex flex-col md:flex-row gap-6">
+        <div class="flex-shrink-0">
+          {game.icon ? (
+            <img src={game.icon} alt={`Icon ${game.name}`} class="w-32 h-32 md:w-40 md:h-40 rounded-2xl object-cover shadow-md" loading="eager" />
+          ) : (
+            <div class="w-32 h-32 md:w-40 md:h-40 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-4xl font-extrabold shadow-md">
+              {game.name.charAt(0)}
+            </div>
+          )}
+        </div>
+        <div class="flex-1">
+          <h1 class="text-3xl md:text-4xl font-extrabold mb-2">{game.name}</h1>
+          <div class="flex flex-wrap gap-2 mb-4">
+            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">{game.genre}</span>
+            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">{game.publisher}</span>
+            {game.platforms.map((p) => (
+              <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">{p}</span>
+            ))}
+          </div>
+          <p class="text-gray-600 leading-relaxed">{game.description}</p>
+          {game.website && (
+            <a href={game.website} target="_blank" rel="noopener" class="inline-block mt-4 px-6 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition">
+              Trang chủ chính thức
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+
+    <!-- Cover -->
+    {game.cover && (
+      <div class="mb-8">
+        <img src={game.cover} alt={`Cover ${game.name}`} class="w-full rounded-2xl shadow-md object-cover max-h-96" loading="lazy" />
+      </div>
+    )}
+
+    <!-- Trailer -->
+    {embedUrl && (
+      <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+        <h2 class="text-xl font-bold mb-4">Trailer</h2>
+        <div class="aspect-video rounded-xl overflow-hidden">
+          <iframe src={embedUrl} title={`Trailer ${game.name}`} class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+        </div>
+      </div>
+    )}
+
+    <!-- Game info -->
+    <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+      <h2 class="text-xl font-bold mb-4">Thông tin game</h2>
+      <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+        <div><dt class="font-semibold text-gray-500">Tên game</dt><dd class="mt-1">{game.name}</dd></div>
+        <div><dt class="font-semibold text-gray-500">Nhà phát hành</dt><dd class="mt-1">{game.publisher}</dd></div>
+        <div><dt class="font-semibold text-gray-500">Thể loại</dt><dd class="mt-1">{game.genre}</dd></div>
+        <div><dt class="font-semibold text-gray-500">Nền tảng</dt><dd class="mt-1">{game.platforms.join(', ')}</dd></div>
+      </dl>
+    </div>
+
+    <!-- Related posts -->
+    <div class="bg-white rounded-2xl shadow-sm p-6">
+      <h2 class="text-xl font-bold mb-4">Tin tức về {game.name}</h2>
+      {relatedPosts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {relatedPosts.map((post) => (
+            <a href={`/tin/${post.slug}/`} class="block border rounded-xl overflow-hidden hover:shadow-md transition">
+              {post.image && <img src={post.image} alt={post.title} class="w-full h-40 object-cover" loading="lazy" />}
+              <div class="p-4">
+                <h3 class="font-bold line-clamp-2">{post.title}</h3>
+                <p class="text-sm text-gray-500 mt-2 line-clamp-2">{post.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      ) : (
+        <p class="text-gray-500 text-sm">Chưa có bài viết nào về game này. Hãy quay lại sau!</p>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

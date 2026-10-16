@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+// In production, this uses getStaticPaths with content collection.
+// Placeholder for article detail page.
+const post = {
+  title: 'Bài viết mẫu',
+  description: 'Đây là bài viết mẫu cho Game8.VN',
+  date: '2026-10-16',
+  image: '',
+  game: '',
+  content: '<p>Nội dung bài viết sẽ được render từ Markdown.</p>',
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "description": post.description,
+  "datePublished": post.date,
+};
+---
+
+<Layout
+  title={post.title}
+  description={post.description}
+  ogImage={post.image}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-4xl mx-auto px-4 py-8">
+    <nav class="text-sm text-gray-500 mb-6">
+      <a href="/" class="hover:text-red-600">Trang chủ</a>
+      <span class="mx-2">/</span>
+      <a href="/tin-tuc" class="hover:text-red-600">Tin tức</a>
+      <span class="mx-2">/</span>
+      <span class="text-gray-900 font-medium">{post.title}</span>
+    </nav>
+
+    <article class="bg-white rounded-2xl shadow-sm p-6 md:p-10">
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">{post.title}</h1>
+      <p class="text-sm text-gray-500 mb-6">{post.date}</p>
+      {post.image && <img src={post.image} alt={post.title} class="w-full rounded-xl mb-6" />}
+      <div class="prose max-w-none" set:html={post.content} />
+    </article>
+  </div>
+</Layout>

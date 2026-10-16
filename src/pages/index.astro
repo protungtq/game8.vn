@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+import games from '../data/games.json';
+
+const mobileGames = games.filter((g) => g.category === 'mobile');
+const pcGames = games.filter((g) => g.category === 'pc-console');
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Game8.VN",
+  "url": "https://game8.vn",
+  "description": "Cổng thông tin game Việt Nam — tải game mobile, game PC/console, tin tức và review.",
+};
+---
+
+<Layout
+  title="Game8.VN - Tải game mobile, game PC, tin tức game mới nhất"
+  description="Game8.VN — cổng thông tin game Việt Nam: tải game mobile VTC, VNG, Funtap, Gosu; game PC/console; tin tức và review game mới nhất."
+  keywords="game mobile, game pc, tải game, VTC Game, VNG, Funtap, Gosu, tin game, review game"
+  jsonLd={jsonLd}
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-red-600 to-orange-500 text-white">
+    <div class="max-w-7xl mx-auto px-4 py-12 md:py-16">
+      <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Khám phá thế giới game</h1>
+      <p class="text-lg opacity-90 max-w-2xl">Tải game mobile, game PC/console từ các NPH hàng đầu Việt Nam: VTC, VNG, Funtap, Gosu — cùng tin tức và review mới nhất.</p>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-8">
+    <!-- Mobile games -->
+    <section id="mobile" class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-extrabold">📱 Game Mobile</h2>
+        <span class="text-sm text-gray-500">{mobileGames.length} game</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {mobileGames.map((game) => (
+          <a href={`/game/${game.slug}/`} class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-4 flex flex-col items-center text-center group">
+            {game.icon ? (
+              <img src={game.icon} alt={`Icon ${game.name}`} class="w-20 h-20 rounded-2xl object-cover mb-3 group-hover:scale-105 transition" loading="lazy" />
+            ) : (
+              <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-2xl font-extrabold mb-3">
+                {game.name.charAt(0)}
+              </div>
+            )}
+            <h3 class="font-bold text-sm line-clamp-2 mb-1">{game.name}</h3>
+            <p class="text-xs text-gray-500">{game.genre}</p>
+            <p class="text-xs text-gray-400 mt-1">{game.publisher}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- PC/Console games -->
+    <section id="pc-console" class="mb-12">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-extrabold">🖥️ Game PC / Console</h2>
+        <span class="text-sm text-gray-500">{pcGames.length} game</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {pcGames.map((game) => (
+          <a href={`/game/${game.slug}/`} class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-4 flex flex-col items-center text-center group">
+            {game.icon ? (
+              <img src={game.icon} alt={`Icon ${game.name}`} class="w-20 h-20 rounded-2xl object-cover mb-3 group-hover:scale-105 transition" loading="lazy" />
+            ) : (
+              <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-extrabold mb-3">
+                {game.name.charAt(0)}
+              </div>
+            )}
+            <h3 class="font-bold text-sm line-clamp-2 mb-1">{game.name}</h3>
+            <p class="text-xs text-gray-500">{game.genre}</p>
+            <p class="text-xs text-gray-400 mt-1">{game.publisher}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

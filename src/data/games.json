@@ -1,0 +1,872 @@
+[
+  {
+    "slug": "au-mobile",
+    "name": "Au Mobile",
+    "publisher": "VTC Mobile",
+    "genre": "Game nhảy Casual",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "https://s3.vtcmobile.vn/vtcm/logo-game/470842877-122114480438614612-7212981665346610229-n.webp",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=zn4YIljNiPQ",
+    "description": "Game nhảy số 1 dòng Casual Dancing tại VN. Thi đấu vũ đạo trên nền nhạc hit, phối đồ thời trang, cộng đồng cực lớn.",
+    "website": "https://aumobile.vn",
+    "seoTitle": "Au Mobile - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game nhảy số 1 dòng Casual Dancing tại VN. Thi đấu vũ đạo trên nền nhạc hit, phối đồ thời trang, cộng đồng cực lớn.",
+    "seoKeywords": "Au Mobile, tải Au Mobile, VTC Mobile, Game nhảy Casual"
+  },
+  {
+    "slug": "gunbound-legend-vua-toa-do",
+    "name": "Gunbound Legend: Vua Toạ Độ",
+    "publisher": "VTC Mobile",
+    "genre": "Bắn tọa độ",
+    "platforms": [
+      "Mobile",
+      "PC"
+    ],
+    "category": "mobile",
+    "icon": "https://s3.vtcmobile.vn/vtcm/logo-game/571141432-122098655211086632-3860032038050313352-n.webp",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=1-hkJci8XCA",
+    "description": "Tái sinh huyền thoại Gunbound, 50+ tank, map Hồ Gươm riêng cho VN. Ra mắt 23/12/2025.",
+    "website": "https://www.facebook.com/gunbound.vtcm",
+    "seoTitle": "Gunbound Legend: Vua Toạ Độ - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Tái sinh huyền thoại Gunbound, 50+ tank, map Hồ Gươm riêng cho VN. Ra mắt 23/12/2025.",
+    "seoKeywords": "Gunbound Legend: Vua Toạ Độ, tải Gunbound Legend: Vua Toạ Độ, VTC Mobile, Bắn tọa độ"
+  },
+  {
+    "slug": "dai-chien-tam-quoc",
+    "name": "Đại Chiến Tam Quốc",
+    "publisher": "VTC Mobile",
+    "genre": "SLG Tam Quốc",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "https://s3.vtcmobile.vn/vtcm/logo-game/daichien.webp",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=jiE9dX847LM",
+    "description": "Game chiến thuật Tam Quốc, 1 server kết nối 20+ quốc gia. Chiêu mộ danh tướng, PvP quy mô lớn.",
+    "website": "https://daichien.vn",
+    "seoTitle": "Đại Chiến Tam Quốc - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game chiến thuật Tam Quốc, 1 server kết nối 20+ quốc gia. Chiêu mộ danh tướng, PvP quy mô lớn.",
+    "seoKeywords": "Đại Chiến Tam Quốc, tải Đại Chiến Tam Quốc, VTC Mobile, SLG Tam Quốc"
+  },
+  {
+    "slug": "au-top",
+    "name": "Au Top",
+    "publisher": "VTC Mobile",
+    "genre": "Game nhảy 3D",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=8uYxqbhfu5c",
+    "description": "Thế hệ tiếp theo của Audition với đồ họa 3D, chế độ nhảy đa dạng, thời trang nghìn bộ.",
+    "website": "https://autop.vn",
+    "seoTitle": "Au Top - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Thế hệ tiếp theo của Audition với đồ họa 3D, chế độ nhảy đa dạng, thời trang nghìn bộ.",
+    "seoKeywords": "Au Top, tải Au Top, VTC Mobile, Game nhảy 3D"
+  },
+  {
+    "slug": "ts-origin-vtc",
+    "name": "TS Origin VTC",
+    "publisher": "VTC Mobile",
+    "genre": "Turn-based Tam Quốc",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Hồi sinh TS Online trên mobile. Xuyên không về Tam Quốc, chiêu mộ danh tướng, chiến đấu theo lượt.",
+    "website": "https://ts.vtczone.vn",
+    "seoTitle": "TS Origin VTC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Hồi sinh TS Online trên mobile. Xuyên không về Tam Quốc, chiêu mộ danh tướng, chiến đấu theo lượt.",
+    "seoKeywords": "TS Origin VTC, tải TS Origin VTC, VTC Mobile, Turn-based Tam Quốc"
+  },
+  {
+    "slug": "tam-quoc-chi-vtc",
+    "name": "Tam Quốc Chí VTC",
+    "publisher": "VTC Mobile",
+    "genre": "SLG + đấu tướng",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game chiến thuật Tam Quốc kết hợp SLG và đấu tướng. Điều binh khiển tướng, mở rộng thành trì.",
+    "website": "https://tamquocchi.vn",
+    "seoTitle": "Tam Quốc Chí VTC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game chiến thuật Tam Quốc kết hợp SLG và đấu tướng. Điều binh khiển tướng, mở rộng thành trì.",
+    "seoKeywords": "Tam Quốc Chí VTC, tải Tam Quốc Chí VTC, VTC Mobile, SLG + đấu tướng"
+  },
+  {
+    "slug": "epic-seven",
+    "name": "Epic Seven",
+    "publisher": "VTC Mobile",
+    "genre": "Anime RPG",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Anime RPG turn-based của Smilegate, VTC phát hành tại VN Q4/2026. Chơi chung server quốc tế.",
+    "website": "",
+    "seoTitle": "Epic Seven - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Anime RPG turn-based của Smilegate, VTC phát hành tại VN Q4/2026. Chơi chung server quốc tế.",
+    "seoKeywords": "Epic Seven, tải Epic Seven, VTC Mobile, Anime RPG"
+  },
+  {
+    "slug": "arcane-hunter-soul-survivor",
+    "name": "Arcane Hunter: Soul Survivor",
+    "publisher": "VTC Intecom",
+    "genre": "Survivors RPG",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game Việt tự phát triển, thắng giải Game Việt của năm 2026.",
+    "website": "",
+    "seoTitle": "Arcane Hunter: Soul Survivor - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game Việt tự phát triển, thắng giải Game Việt của năm 2026.",
+    "seoKeywords": "Arcane Hunter: Soul Survivor, tải Arcane Hunter: Soul Survivor, VTC Intecom, Survivors RPG"
+  },
+  {
+    "slug": "pubg-mobile",
+    "name": "PUBG Mobile",
+    "publisher": "VNG",
+    "genre": "Battle Royale",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0c/fc/92/0cfc9276-06f6-e694-b971-d7ada9e3e26a/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=_mlzDLruNvc",
+    "description": "Game battle royale số 1 thế giới, VNG phát hành tại VN.",
+    "website": "https://www.facebook.com/PUBGMobileVN",
+    "seoTitle": "PUBG Mobile - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game battle royale số 1 thế giới, VNG phát hành tại VN.",
+    "seoKeywords": "PUBG Mobile, tải PUBG Mobile, VNG, Battle Royale"
+  },
+  {
+    "slug": "lien-minh-huyen-thoai-toc-chien",
+    "name": "Liên Minh Huyền Thoại: Tốc Chiến",
+    "publisher": "VNG",
+    "genre": "MOBA",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/ae/a3/2daea374-791c-2d94-8662-33b0aaf2a944/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=JeB5_AwCLVA",
+    "description": "Bản mobile của LMHT, VNG phát hành tại VN.",
+    "website": "https://www.facebook.com/tocchien",
+    "seoTitle": "Liên Minh Huyền Thoại: Tốc Chiến - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Bản mobile của LMHT, VNG phát hành tại VN.",
+    "seoKeywords": "Liên Minh Huyền Thoại: Tốc Chiến, tải Liên Minh Huyền Thoại: Tốc Chiến, VNG, MOBA"
+  },
+  {
+    "slug": "vo-lam-truyen-ky-mobile",
+    "name": "Võ Lâm Truyền Kỳ Mobile",
+    "publisher": "VNG",
+    "genre": "MMORPG kiếm hiệp",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/fd/e0/07/fde00759-37c6-ebb4-49ce-aca54e69ffda/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=jXEqtlvzqv4",
+    "description": "MMORPG kiếm hiệp kinh điển, VNG phát hành. Sự kiện 10 năm 25/10/2026.",
+    "website": "https://www.facebook.com/vltkm.zing.vn",
+    "seoTitle": "Võ Lâm Truyền Kỳ Mobile - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG kiếm hiệp kinh điển, VNG phát hành. Sự kiện 10 năm 25/10/2026.",
+    "seoKeywords": "Võ Lâm Truyền Kỳ Mobile, tải Võ Lâm Truyền Kỳ Mobile, VNG, MMORPG kiếm hiệp"
+  },
+  {
+    "slug": "genshin-impact",
+    "name": "Genshin Impact",
+    "publisher": "Funtap",
+    "genre": "ARPG thế giới mở",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=p02WXZZ84M4",
+    "description": "ARPG thế giới mở của HoYoverse, Funtap NPH bản mobile VN.",
+    "website": "https://genshin.hoyoverse.com/vi/home",
+    "seoTitle": "Genshin Impact - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "ARPG thế giới mở của HoYoverse, Funtap NPH bản mobile VN.",
+    "seoKeywords": "Genshin Impact, tải Genshin Impact, Funtap, ARPG thế giới mở"
+  },
+  {
+    "slug": "infinity-kingdom",
+    "name": "Infinity Kingdom",
+    "publisher": "Funtap",
+    "genre": "SLG",
+    "platforms": [
+      "Mobile",
+      "PC"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "https://oss.gtarcade.com/ucms/4804f32d-d616-4b11-8d6c-daa0d67a5376_2021-09-27.jpg",
+    "trailer": "",
+    "description": "Game SLG Vương Quyền Bất Diệt.",
+    "website": "https://www.facebook.com/IKFUNTAPVN",
+    "seoTitle": "Infinity Kingdom - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game SLG Vương Quyền Bất Diệt.",
+    "seoKeywords": "Infinity Kingdom, tải Infinity Kingdom, Funtap, SLG"
+  },
+  {
+    "slug": "sword-x-staff",
+    "name": "Sword x Staff",
+    "publisher": "Funtap",
+    "genre": "Idle RPG",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Idle RPG dọc, ra mắt 10/2026.",
+    "website": "https://sxs.funtap.games",
+    "seoTitle": "Sword x Staff - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Idle RPG dọc, ra mắt 10/2026.",
+    "seoKeywords": "Sword x Staff, tải Sword x Staff, Funtap, Idle RPG"
+  },
+  {
+    "slug": "yen-van-thap-luc-thanh",
+    "name": "Yến Vân Thập Lục Thanh",
+    "publisher": "Funtap",
+    "genre": "ARPG võ hiệp",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "ARPG võ hiệp (Where Winds Meet bản Funtap).",
+    "website": "https://www.facebook.com/yenvanthaplucthanh.funtapgames",
+    "seoTitle": "Yến Vân Thập Lục Thanh - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "ARPG võ hiệp (Where Winds Meet bản Funtap).",
+    "seoKeywords": "Yến Vân Thập Lục Thanh, tải Yến Vân Thập Lục Thanh, Funtap, ARPG võ hiệp"
+  },
+  {
+    "slug": "silkroad-origin-mobile",
+    "name": "Silkroad Origin Mobile",
+    "publisher": "Gosu",
+    "genre": "MMORPG",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "https://sromobile.com/static/uploads/home-1.jpg",
+    "trailer": "https://youtu.be/UVQN8puVqB4",
+    "description": "MMORPG Con Đường Tơ Lụa, studio Việt GihOT phát triển.",
+    "website": "https://sromobile.com/",
+    "seoTitle": "Silkroad Origin Mobile - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG Con Đường Tơ Lụa, studio Việt GihOT phát triển.",
+    "seoKeywords": "Silkroad Origin Mobile, tải Silkroad Origin Mobile, Gosu, MMORPG"
+  },
+  {
+    "slug": "cuu-duong-truyen-ky-2",
+    "name": "Cửu Dương Truyền Kỳ 2",
+    "publisher": "Gosu",
+    "genre": "MMORPG kiếm hiệp",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "MMORPG kiếm hiệp 3D trên mobile.",
+    "website": "https://9dtruyenky2.gosu.vn/",
+    "seoTitle": "Cửu Dương Truyền Kỳ 2 - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG kiếm hiệp 3D trên mobile.",
+    "seoKeywords": "Cửu Dương Truyền Kỳ 2, tải Cửu Dương Truyền Kỳ 2, Gosu, MMORPG kiếm hiệp"
+  },
+  {
+    "slug": "au-beat",
+    "name": "AU BEAT",
+    "publisher": "VTC Game",
+    "genre": "Game nhảy",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game nhảy trong vũ trụ Audition.",
+    "website": "https://vutruaudition.vtcgame.vn/",
+    "seoTitle": "AU BEAT - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game nhảy trong vũ trụ Audition.",
+    "seoKeywords": "AU BEAT, tải AU BEAT, VTC Game, Game nhảy"
+  },
+  {
+    "slug": "au-2",
+    "name": "AU 2",
+    "publisher": "VTC Game",
+    "genre": "Game nhảy",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game nhảy trong vũ trụ Audition.",
+    "website": "https://vutruaudition.vtcgame.vn/",
+    "seoTitle": "AU 2 - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game nhảy trong vũ trụ Audition.",
+    "seoKeywords": "AU 2, tải AU 2, VTC Game, Game nhảy"
+  },
+  {
+    "slug": "be-a-pro-football",
+    "name": "Be A Pro: Football",
+    "publisher": "VTC Game",
+    "genre": "Bóng đá",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game bóng đá mobile từ NPH của FIFA Online 2. Trải nghiệm bóng đá kỹ năng đỉnh cao.",
+    "website": "",
+    "seoTitle": "Be A Pro: Football - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game bóng đá mobile từ NPH của FIFA Online 2. Trải nghiệm bóng đá kỹ năng đỉnh cao.",
+    "seoKeywords": "Be A Pro: Football, tải Be A Pro: Football, VTC Game, Bóng đá"
+  },
+  {
+    "slug": "ufc-sieu-sao-bong-da",
+    "name": "UFC Siêu Sao Bóng Đá",
+    "publisher": "VTC Game",
+    "genre": "Quản lý bóng đá",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game quản lý bóng đá hàng đầu VN. Sắm vai HLV, dẫn dắt đội bóng trong mơ.",
+    "website": "",
+    "seoTitle": "UFC Siêu Sao Bóng Đá - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game quản lý bóng đá hàng đầu VN. Sắm vai HLV, dẫn dắt đội bóng trong mơ.",
+    "seoKeywords": "UFC Siêu Sao Bóng Đá, tải UFC Siêu Sao Bóng Đá, VTC Game, Quản lý bóng đá"
+  },
+  {
+    "slug": "phuc-kich",
+    "name": "Phục Kích",
+    "publisher": "VTC Game",
+    "genre": "FPS",
+    "platforms": [
+      "Mobile"
+    ],
+    "category": "mobile",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game bắn súng trên mobile của VTC Game.",
+    "website": "",
+    "seoTitle": "Phục Kích - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game bắn súng trên mobile của VTC Game.",
+    "seoKeywords": "Phục Kích, tải Phục Kích, VTC Game, FPS"
+  },
+  {
+    "slug": "cabal-origin-vtc",
+    "name": "Cabal Origin VTC",
+    "publisher": "VTC Mobile",
+    "genre": "MMORPG",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Tái sinh Cabal Online, Open Beta 12/06/2025. Combo chiến đấu hành động đặc trưng.",
+    "website": "https://cabal.vn/",
+    "seoTitle": "Cabal Origin VTC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Tái sinh Cabal Online, Open Beta 12/06/2025. Combo chiến đấu hành động đặc trưng.",
+    "seoKeywords": "Cabal Origin VTC, tải Cabal Origin VTC, VTC Mobile, MMORPG"
+  },
+  {
+    "slug": "ghost-online",
+    "name": "Ghost Online",
+    "publisher": "VTC Online",
+    "genre": "MMORPG 2D",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=ZGC3Z3yABI",
+    "description": "MMORPG săn quỷ Hàn Quốc trở lại VN sau 16 năm. Open Beta 15/01/2026.",
+    "website": "https://ghostonline.vn",
+    "seoTitle": "Ghost Online - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG săn quỷ Hàn Quốc trở lại VN sau 16 năm. Open Beta 15/01/2026.",
+    "seoKeywords": "Ghost Online, tải Ghost Online, VTC Online, MMORPG 2D"
+  },
+  {
+    "slug": "priston-tale-vtc",
+    "name": "Priston Tale VTC",
+    "publisher": "VTC Mobile",
+    "genre": "MMORPG 3D",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=s3vpwLuw0-w",
+    "description": "Huyền thoại MMORPG 3D trở lại sau 25 năm. 11 class kinh điển.",
+    "website": "https://pristontale.vn",
+    "seoTitle": "Priston Tale VTC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Huyền thoại MMORPG 3D trở lại sau 25 năm. 11 class kinh điển.",
+    "seoKeywords": "Priston Tale VTC, tải Priston Tale VTC, VTC Mobile, MMORPG 3D"
+  },
+  {
+    "slug": "mu-legend-pc",
+    "name": "MU Legend PC",
+    "publisher": "VTC Mobile",
+    "genre": "MMORPG",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "MMORPG MU trên PC.",
+    "website": "",
+    "seoTitle": "MU Legend PC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG MU trên PC.",
+    "seoKeywords": "MU Legend PC, tải MU Legend PC, VTC Mobile, MMORPG"
+  },
+  {
+    "slug": "lien-minh-huyen-thoai",
+    "name": "Liên Minh Huyền Thoại",
+    "publisher": "VNG",
+    "genre": "MOBA",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/d/d8/League_of_Legends_2019_vector.svg",
+    "cover": "https://i.ytimg.com/vi/s7mb2kOpdW0/maxresdefault.jpg",
+    "trailer": "https://www.youtube.com/watch?v=s7mb2kOpdW0",
+    "description": "MOBA số 1 thế giới, VNG phát hành tại VN.",
+    "website": "https://www.facebook.com/Leagueoflegendsvn",
+    "seoTitle": "Liên Minh Huyền Thoại - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MOBA số 1 thế giới, VNG phát hành tại VN.",
+    "seoKeywords": "Liên Minh Huyền Thoại, tải Liên Minh Huyền Thoại, VNG, MOBA"
+  },
+  {
+    "slug": "valorant",
+    "name": "VALORANT",
+    "publisher": "VNG",
+    "genre": "FPS chiến thuật",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/44/Valorant_logo.svg",
+    "cover": "https://i.ytimg.com/vi/62fatPKCiFU/maxresdefault.jpg",
+    "trailer": "https://www.youtube.com/watch?v=62fatPKCiFU",
+    "description": "FPS chiến thuật 5v5 của Riot, VNG phát hành tại VN.",
+    "website": "https://www.facebook.com/VALORANTvn",
+    "seoTitle": "VALORANT - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "FPS chiến thuật 5v5 của Riot, VNG phát hành tại VN.",
+    "seoKeywords": "VALORANT, tải VALORANT, VNG, FPS chiến thuật"
+  },
+  {
+    "slug": "cuu-am-chan-kinh",
+    "name": "Cửu Âm Chân Kinh",
+    "publisher": "Gosu",
+    "genre": "MMORPG kiếm hiệp",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/watch?v=0aQivyXrK9A",
+    "description": "MMORPG kiếm hiệp 3D. Máy chủ mới 18/12/2025.",
+    "website": "https://cuuam.gosu.vn/home/",
+    "seoTitle": "Cửu Âm Chân Kinh - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG kiếm hiệp 3D. Máy chủ mới 18/12/2025.",
+    "seoKeywords": "Cửu Âm Chân Kinh, tải Cửu Âm Chân Kinh, Gosu, MMORPG kiếm hiệp"
+  },
+  {
+    "slug": "ngao-kiem-vo-song-origin",
+    "name": "Ngạo Kiếm Vô Song Origin",
+    "publisher": "Gosu",
+    "genre": "MMORPG kiếm hiệp",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "https://nkvso.gosu.vn/assets/frontend/home/assets/images/img-slogan.png",
+    "trailer": "https://www.youtube.com/watch?v=hLlYjzICATQ",
+    "description": "MMORPG kiếm hiệp 2D. Ra mắt 23/08/2024.",
+    "website": "https://www.facebook.com/nkvsogosu",
+    "seoTitle": "Ngạo Kiếm Vô Song Origin - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "MMORPG kiếm hiệp 2D. Ra mắt 23/08/2024.",
+    "seoKeywords": "Ngạo Kiếm Vô Song Origin, tải Ngạo Kiếm Vô Song Origin, Gosu, MMORPG kiếm hiệp"
+  },
+  {
+    "slug": "clair-obscur-expedition-33",
+    "name": "Clair Obscur: Expedition 33",
+    "publisher": "Kepler Interactive",
+    "genre": "RPG theo lượt",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/1903340/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/1903340/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=EtBRte_cDv0",
+    "description": "RPG theo lượt của studio Pháp, ứng viên GOTY 2025.",
+    "website": "https://store.steampowered.com/app/1903340/",
+    "seoTitle": "Clair Obscur: Expedition 33 - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "RPG theo lượt của studio Pháp, ứng viên GOTY 2025.",
+    "seoKeywords": "Clair Obscur: Expedition 33, tải Clair Obscur: Expedition 33, Kepler Interactive, RPG theo lượt"
+  },
+  {
+    "slug": "hollow-knight-silksong",
+    "name": "Hollow Knight: Silksong",
+    "publisher": "Team Cherry",
+    "genre": "Metroidvania",
+    "platforms": [
+      "PC",
+      "PS",
+      "Xbox",
+      "Switch"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/1030300/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/1030300/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=6XGeJwsUP9c",
+    "description": "Phần tiếp theo Hollow Knight, vai Hornet. Overwhelmingly Positive.",
+    "website": "https://store.steampowered.com/app/1030300/",
+    "seoTitle": "Hollow Knight: Silksong - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Phần tiếp theo Hollow Knight, vai Hornet. Overwhelmingly Positive.",
+    "seoKeywords": "Hollow Knight: Silksong, tải Hollow Knight: Silksong, Team Cherry, Metroidvania"
+  },
+  {
+    "slug": "hades-ii",
+    "name": "Hades II",
+    "publisher": "Supergiant Games",
+    "genre": "Roguelike",
+    "platforms": [
+      "PC",
+      "PS",
+      "Xbox",
+      "Switch"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/1145350/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/1145350/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=U8lJRcUeEMs",
+    "description": "Roguelike, vai Melinoë chống Chronos. Điểm cao nhất 2025 Metacritic.",
+    "website": "https://store.steampowered.com/app/1145350/",
+    "seoTitle": "Hades II - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Roguelike, vai Melinoë chống Chronos. Điểm cao nhất 2025 Metacritic.",
+    "seoKeywords": "Hades II, tải Hades II, Supergiant Games, Roguelike"
+  },
+  {
+    "slug": "split-fiction",
+    "name": "Split Fiction",
+    "publisher": "EA",
+    "genre": "Co-op Action",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/2001120/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/2001120/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=w7EgbCc81KI",
+    "description": "Game co-op từ cha đẻ It Takes Two. Friend's Pass, cross-play.",
+    "website": "https://store.steampowered.com/app/2001120/",
+    "seoTitle": "Split Fiction - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game co-op từ cha đẻ It Takes Two. Friend's Pass, cross-play.",
+    "seoKeywords": "Split Fiction, tải Split Fiction, EA, Co-op Action"
+  },
+  {
+    "slug": "monster-hunter-wilds",
+    "name": "Monster Hunter Wilds",
+    "publisher": "CAPCOM",
+    "genre": "Action RPG",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/2246340/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/2246340/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=a_wNFT4j6qI",
+    "description": "Săn quái thế giới mở, môi trường biến đổi động, cross-play.",
+    "website": "https://store.steampowered.com/app/2246340/",
+    "seoTitle": "Monster Hunter Wilds - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Săn quái thế giới mở, môi trường biến đổi động, cross-play.",
+    "seoKeywords": "Monster Hunter Wilds, tải Monster Hunter Wilds, CAPCOM, Action RPG"
+  },
+  {
+    "slug": "kingdom-come-deliverance-ii",
+    "name": "Kingdom Come: Deliverance II",
+    "publisher": "Deep Silver",
+    "genre": "Action RPG",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/1771300/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/1771300/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=7ynJN-HejlY",
+    "description": "RPG trung cổ chân thực, bán 4 triệu bản, Metacritic 88.",
+    "website": "https://store.steampowered.com/app/1771300/",
+    "seoTitle": "Kingdom Come: Deliverance II - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "RPG trung cổ chân thực, bán 4 triệu bản, Metacritic 88.",
+    "seoKeywords": "Kingdom Come: Deliverance II, tải Kingdom Come: Deliverance II, Deep Silver, Action RPG"
+  },
+  {
+    "slug": "elden-ring-nightreign",
+    "name": "ELDEN RING NIGHTREIGN",
+    "publisher": "Bandai Namco",
+    "genre": "Action RPG co-op",
+    "platforms": [
+      "PC",
+      "PS",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/2622380/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/2622380/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=AWrXpJQBJF0",
+    "description": "Spin-off Elden Ring, co-op 3 người, bán 2M bản ngày đầu.",
+    "website": "https://store.steampowered.com/app/2622380/",
+    "seoTitle": "ELDEN RING NIGHTREIGN - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Spin-off Elden Ring, co-op 3 người, bán 2M bản ngày đầu.",
+    "seoKeywords": "ELDEN RING NIGHTREIGN, tải ELDEN RING NIGHTREIGN, Bandai Namco, Action RPG co-op"
+  },
+  {
+    "slug": "battlefield-6",
+    "name": "Battlefield 6",
+    "publisher": "EA",
+    "genre": "FPS",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/2807960/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/2807960/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=LqWVp3p-FPk",
+    "description": "FPS chiến tranh 128 người, bối cảnh 2027. Metacritic 82.",
+    "website": "https://store.steampowered.com/app/2807960/",
+    "seoTitle": "Battlefield 6 - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "FPS chiến tranh 128 người, bối cảnh 2027. Metacritic 82.",
+    "seoKeywords": "Battlefield 6, tải Battlefield 6, EA, FPS"
+  },
+  {
+    "slug": "doom-the-dark-ages",
+    "name": "DOOM: The Dark Ages",
+    "publisher": "Bethesda",
+    "genre": "FPS",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/3017860/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/3017860/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=S7IEg0_qNXs",
+    "description": "Tiền truyện DOOM, thời trung cổ đen tối, Shield Saw.",
+    "website": "https://store.steampowered.com/app/3017860/",
+    "seoTitle": "DOOM: The Dark Ages - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Tiền truyện DOOM, thời trung cổ đen tối, Shield Saw.",
+    "seoKeywords": "DOOM: The Dark Ages, tải DOOM: The Dark Ages, Bethesda, FPS"
+  },
+  {
+    "slug": "crimson-desert",
+    "name": "Crimson Desert",
+    "publisher": "Pearl Abyss",
+    "genre": "Action Adventure",
+    "platforms": [
+      "PC",
+      "PS5",
+      "Xbox"
+    ],
+    "category": "pc-console",
+    "icon": "https://cdn.akamai.steamstatic.com/steam/apps/3321460/capsule_231x87.jpg",
+    "cover": "https://cdn.akamai.steamstatic.com/steam/apps/3321460/header.jpg",
+    "trailer": "https://www.youtube.com/watch?v=VWIw_f8e9Pg",
+    "description": "Thế giới mở từ cha đẻ Black Desert. Bán 4M bản.",
+    "website": "https://store.steampowered.com/app/3321460/",
+    "seoTitle": "Crimson Desert - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Thế giới mở từ cha đẻ Black Desert. Bán 4M bản.",
+    "seoKeywords": "Crimson Desert, tải Crimson Desert, Pearl Abyss, Action Adventure"
+  },
+  {
+    "slug": "audition",
+    "name": "Audition",
+    "publisher": "VTC Game",
+    "genre": "Game nhảy Casual",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/@AuditionVietNam",
+    "description": "Game Âm nhạc - Thời trang - Hẹn hò số 1 VN trên PC từ 2006. Huyền thoại dòng casual dancing, đội tuyển VN thi đấu SEA Games 33.",
+    "website": "https://www.facebook.com/AuditionVTC",
+    "seoTitle": "Audition - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game Âm nhạc - Thời trang - Hẹn hò số 1 VN trên PC từ 2006. Huyền thoại dòng casual dancing, đội tuyển VN thi đấu SEA Games 33.",
+    "seoKeywords": "Audition, tải Audition, VTC Game, Game nhảy Casual"
+  },
+  {
+    "slug": "dot-kich-cross-fire",
+    "name": "Đột Kích (Cross Fire)",
+    "publisher": "VTC Online",
+    "genre": "FPS",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "https://www.youtube.com/@CrossFireVietNam",
+    "description": "FPS huyền thoại VN từ 2008 (VTC Game 2008-2020, VTC Online từ 2020). Esports Tournament of the Year CFS Summer 2024.",
+    "website": "https://www.facebook.com/cfvietnamvtc",
+    "seoTitle": "Đột Kích (Cross Fire) - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "FPS huyền thoại VN từ 2008 (VTC Game 2008-2020, VTC Online từ 2020). Esports Tournament of the Year CFS Summer 2024.",
+    "seoKeywords": "Đột Kích (Cross Fire), tải Đột Kích (Cross Fire), VTC Online, FPS"
+  },
+  {
+    "slug": "phi-doi",
+    "name": "Phi Đội",
+    "publisher": "VTC Game",
+    "genre": "Không chiến",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game không chiến eSports trên PC. Gồm Phi Đội 1 Olympus, Phi Đội 2 Arkon, Phi Đội 3 Legend.",
+    "website": "https://phidoi.vtcgame.vn/taigame",
+    "seoTitle": "Phi Đội - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game không chiến eSports trên PC. Gồm Phi Đội 1 Olympus, Phi Đội 2 Arkon, Phi Đội 3 Legend.",
+    "seoKeywords": "Phi Đội, tải Phi Đội, VTC Game, Không chiến"
+  },
+  {
+    "slug": "truy-kich-pc",
+    "name": "Truy Kích PC",
+    "publisher": "VTC Game",
+    "genre": "FPS",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game bắn súng chiến thuật FPS được giới trẻ ưa chuộng.",
+    "website": "",
+    "seoTitle": "Truy Kích PC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game bắn súng chiến thuật FPS được giới trẻ ưa chuộng.",
+    "seoKeywords": "Truy Kích PC, tải Truy Kích PC, VTC Game, FPS"
+  },
+  {
+    "slug": "tieu-ngao-giang-ho",
+    "name": "Tiếu Ngạo Giang Hồ",
+    "publisher": "VTC Game",
+    "genre": "MMORPG kiếm hiệp",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game PC kiếm hiệp của Perfect World, VTC phát hành độc quyền tại VN.",
+    "website": "",
+    "seoTitle": "Tiếu Ngạo Giang Hồ - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game PC kiếm hiệp của Perfect World, VTC phát hành độc quyền tại VN.",
+    "seoKeywords": "Tiếu Ngạo Giang Hồ, tải Tiếu Ngạo Giang Hồ, VTC Game, MMORPG kiếm hiệp"
+  },
+  {
+    "slug": "silkroad-origin-vtc",
+    "name": "Silkroad Origin VTC",
+    "publisher": "VTC Game",
+    "genre": "MMORPG",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Phiên bản chính thống duy nhất của Con Đường Tơ Lụa tại VN, ủy quyền WEMADEMAX.",
+    "website": "",
+    "seoTitle": "Silkroad Origin VTC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Phiên bản chính thống duy nhất của Con Đường Tơ Lụa tại VN, ủy quyền WEMADEMAX.",
+    "seoKeywords": "Silkroad Origin VTC, tải Silkroad Origin VTC, VTC Game, MMORPG"
+  },
+  {
+    "slug": "mat-lenh-fps-pc",
+    "name": "Mật Lệnh FPS PC",
+    "publisher": "VTC Game",
+    "genre": "FPS",
+    "platforms": [
+      "PC"
+    ],
+    "category": "pc-console",
+    "icon": "",
+    "cover": "",
+    "trailer": "",
+    "description": "Game FPS cổ điển của Kingsoft, VTC Game phát hành chính thống tại VN.",
+    "website": "",
+    "seoTitle": "Mật Lệnh FPS PC - Tải game, tin tức, review | Game8.VN",
+    "seoDescription": "Game FPS cổ điển của Kingsoft, VTC Game phát hành chính thống tại VN.",
+    "seoKeywords": "Mật Lệnh FPS PC, tải Mật Lệnh FPS PC, VTC Game, FPS"
+  }
+]
