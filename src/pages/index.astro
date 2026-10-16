@@ -21,57 +21,71 @@ const jsonLd = {
   jsonLd={jsonLd}
 >
   <!-- Hero -->
-  <section class="bg-gradient-to-r from-red-600 to-orange-500 text-white">
-    <div class="max-w-7xl mx-auto px-4 py-12 md:py-16">
-      <h1 class="text-3xl md:text-5xl font-extrabold mb-4">Khám phá thế giới game</h1>
-      <p class="text-lg opacity-90 max-w-2xl">Tải game mobile, game PC/console từ các NPH hàng đầu Việt Nam: VTC, VNG, Funtap, Gosu — cùng tin tức và review mới nhất.</p>
+  <section class="relative overflow-hidden bg-slate-950 text-white">
+    <div class="absolute inset-0 bg-gradient-to-br from-red-600/90 via-orange-600/80 to-amber-500/70"></div>
+    <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 20%, white 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="relative max-w-7xl mx-auto px-4 py-16 md:py-24">
+      <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight">Khám phá thế giới game</h1>
+      <p class="text-lg md:text-xl opacity-90 max-w-2xl font-medium">Tải game mobile, game PC/console từ các NPH hàng đầu Việt Nam: VTC, VNG, Funtap, Gosu — cùng tin tức và review mới nhất.</p>
+      <div class="flex gap-3 mt-8">
+        <a href="#mobile" class="bg-white text-slate-900 font-bold px-6 py-3 rounded-full hover:bg-slate-100 transition shadow-lg">📱 Game Mobile</a>
+        <a href="#pc-console" class="bg-white/20 backdrop-blur font-bold px-6 py-3 rounded-full hover:bg-white/30 transition border border-white/30">🖥️ PC / Console</a>
+      </div>
     </div>
   </section>
 
-  <div class="max-w-7xl mx-auto px-4 py-8">
+  <div class="max-w-7xl mx-auto px-4 py-10 bg-slate-50">
     <!-- Mobile games -->
-    <section id="mobile" class="mb-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-extrabold">📱 Game Mobile</h2>
-        <span class="text-sm text-gray-500">{mobileGames.length} game</span>
+    <section id="mobile" class="mb-14">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-black tracking-tight">📱 Game Mobile</h2>
+          <p class="text-slate-500 mt-1">{mobileGames.length} game từ VTC, VNG, Funtap, Gosu</p>
+        </div>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
         {mobileGames.map((game) => (
-          <a href={`/game/${game.slug}/`} class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-4 flex flex-col items-center text-center group">
-            {game.icon ? (
-              <img src={game.icon} alt={`Icon ${game.name}`} class="w-20 h-20 rounded-2xl object-cover mb-3 group-hover:scale-105 transition" loading="lazy" />
-            ) : (
-              <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-2xl font-extrabold mb-3">
-                {game.name.charAt(0)}
-              </div>
-            )}
-            <h3 class="font-bold text-sm line-clamp-2 mb-1">{game.name}</h3>
-            <p class="text-xs text-gray-500">{game.genre}</p>
-            <p class="text-xs text-gray-400 mt-1">{game.publisher}</p>
+          <a href={`/game/${game.slug}/`} class="group bg-white rounded-3xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-slate-100">
+            <div class="relative mb-4">
+              {game.icon ? (
+                <img src={game.icon} alt={`Icon ${game.name}`} width="130" height="130" class="w-[130px] h-[130px] rounded-[28px] object-cover shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300" loading="lazy" />
+              ) : (
+                <div class="w-[130px] h-[130px] rounded-[28px] bg-gradient-to-br from-red-500 via-orange-500 to-amber-500 flex items-center justify-center text-white text-5xl font-black shadow-lg">
+                  {game.name.charAt(0)}
+                </div>
+              )}
+            </div>
+            <h3 class="font-bold text-[15px] leading-snug line-clamp-2 mb-1.5 min-h-[2.6em]">{game.name}</h3>
+            <span class="text-xs font-semibold text-orange-600 bg-orange-50 px-2.5 py-1 rounded-full mb-1">{game.genre}</span>
+            <p class="text-xs text-slate-400">{game.publisher}</p>
           </a>
         ))}
       </div>
     </section>
 
     <!-- PC/Console games -->
-    <section id="pc-console" class="mb-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl font-extrabold">🖥️ Game PC / Console</h2>
-        <span class="text-sm text-gray-500">{pcGames.length} game</span>
+    <section id="pc-console" class="mb-14">
+      <div class="flex items-center justify-between mb-8">
+        <div>
+          <h2 class="text-3xl font-black tracking-tight">🖥️ Game PC / Console</h2>
+          <p class="text-slate-500 mt-1">{pcGames.length} game từ VTC Game, VNG, Gosu và Steam</p>
+        </div>
       </div>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
         {pcGames.map((game) => (
-          <a href={`/game/${game.slug}/`} class="bg-white rounded-xl shadow-sm hover:shadow-lg transition p-4 flex flex-col items-center text-center group">
-            {game.icon ? (
-              <img src={game.icon} alt={`Icon ${game.name}`} class="w-20 h-20 rounded-2xl object-cover mb-3 group-hover:scale-105 transition" loading="lazy" />
-            ) : (
-              <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-extrabold mb-3">
-                {game.name.charAt(0)}
-              </div>
-            )}
-            <h3 class="font-bold text-sm line-clamp-2 mb-1">{game.name}</h3>
-            <p class="text-xs text-gray-500">{game.genre}</p>
-            <p class="text-xs text-gray-400 mt-1">{game.publisher}</p>
+          <a href={`/game/${game.slug}/`} class="group bg-white rounded-3xl p-6 flex flex-col items-center text-center shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-slate-100">
+            <div class="relative mb-4">
+              {game.icon ? (
+                <img src={game.icon} alt={`Icon ${game.name}`} width="130" height="130" class="w-[130px] h-[130px] rounded-[28px] object-cover shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300" loading="lazy" />
+              ) : (
+                <div class="w-[130px] h-[130px] rounded-[28px] bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center text-white text-5xl font-black shadow-lg">
+                  {game.name.charAt(0)}
+                </div>
+              )}
+            </div>
+            <h3 class="font-bold text-[15px] leading-snug line-clamp-2 mb-1.5 min-h-[2.6em]">{game.name}</h3>
+            <span class="text-xs font-semibold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full mb-1">{game.genre}</span>
+            <p class="text-xs text-slate-400">{game.publisher}</p>
           </a>
         ))}
       </div>
@@ -86,4 +100,5 @@ const jsonLd = {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  html { scroll-behavior: smooth; }
 </style>
