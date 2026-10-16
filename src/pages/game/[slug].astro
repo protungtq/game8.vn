@@ -46,18 +46,18 @@ const embedUrl = youtubeEmbed(game.trailer);
 >
   <div class="max-w-7xl mx-auto px-4 py-8">
     <!-- Breadcrumb -->
-    <nav class="text-sm text-gray-500 mb-6">
-      <a href="/" class="hover:text-red-600">Trang chủ</a>
+    <nav class="text-sm text-gray-500 dark:text-slate-400 mb-6">
+      <a href="/" class="hover:text-red-600 dark:hover:text-red-400">Trang chủ</a>
       <span class="mx-2">/</span>
-      <a href={game.category === 'mobile' ? '/#mobile' : '/#pc-console'} class="hover:text-red-600">
+      <a href={game.category === 'mobile' ? '/#mobile' : '/#pc-console'} class="hover:text-red-600 dark:hover:text-red-400">
         {game.category === 'mobile' ? 'Game Mobile' : 'Game PC/Console'}
       </a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900 font-medium">{game.name}</span>
+      <span class="text-gray-900 dark:text-white font-medium">{game.name}</span>
     </nav>
 
     <!-- Game header -->
-    <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6 md:p-8 mb-8 border border-gray-100 dark:border-slate-800">
       <div class="flex flex-col md:flex-row gap-6">
         <div class="flex-shrink-0">
           {game.icon ? (
@@ -71,13 +71,13 @@ const embedUrl = youtubeEmbed(game.trailer);
         <div class="flex-1">
           <h1 class="text-3xl md:text-4xl font-extrabold mb-2">{game.name}</h1>
           <div class="flex flex-wrap gap-2 mb-4">
-            <span class="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">{game.genre}</span>
-            <span class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">{game.publisher}</span>
+            <span class="px-3 py-1 bg-red-100 dark:bg-red-500/10 text-red-700 dark:text-red-400 rounded-full text-sm font-medium">{game.genre}</span>
+            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 rounded-full text-sm font-medium">{game.publisher}</span>
             {game.platforms.map((p) => (
-              <span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">{p}</span>
+              <span class="px-3 py-1 bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300 rounded-full text-sm font-medium">{p}</span>
             ))}
           </div>
-          <p class="text-gray-600 leading-relaxed">{game.description}</p>
+          <p class="text-gray-600 dark:text-slate-300 leading-relaxed">{game.description}</p>
           {game.website && (
             <a href={game.website} target="_blank" rel="noopener" class="inline-block mt-4 px-6 py-2 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 transition">
               Trang chủ chính thức
@@ -96,7 +96,7 @@ const embedUrl = youtubeEmbed(game.trailer);
 
     <!-- Trailer -->
     {embedUrl && (
-      <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+      <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6 mb-8 border border-gray-100 dark:border-slate-800">
         <h2 class="text-xl font-bold mb-4">Trailer</h2>
         <div class="aspect-video rounded-xl overflow-hidden">
           <iframe src={embedUrl} title={`Trailer ${game.name}`} class="w-full h-full" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
@@ -105,33 +105,33 @@ const embedUrl = youtubeEmbed(game.trailer);
     )}
 
     <!-- Game info -->
-    <div class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6 mb-8 border border-gray-100 dark:border-slate-800">
       <h2 class="text-xl font-bold mb-4">Thông tin game</h2>
       <dl class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-        <div><dt class="font-semibold text-gray-500">Tên game</dt><dd class="mt-1">{game.name}</dd></div>
-        <div><dt class="font-semibold text-gray-500">Nhà phát hành</dt><dd class="mt-1">{game.publisher}</dd></div>
-        <div><dt class="font-semibold text-gray-500">Thể loại</dt><dd class="mt-1">{game.genre}</dd></div>
-        <div><dt class="font-semibold text-gray-500">Nền tảng</dt><dd class="mt-1">{game.platforms.join(', ')}</dd></div>
+        <div><dt class="font-semibold text-gray-500 dark:text-slate-400">Tên game</dt><dd class="mt-1">{game.name}</dd></div>
+        <div><dt class="font-semibold text-gray-500 dark:text-slate-400">Nhà phát hành</dt><dd class="mt-1">{game.publisher}</dd></div>
+        <div><dt class="font-semibold text-gray-500 dark:text-slate-400">Thể loại</dt><dd class="mt-1">{game.genre}</dd></div>
+        <div><dt class="font-semibold text-gray-500 dark:text-slate-400">Nền tảng</dt><dd class="mt-1">{game.platforms.join(', ')}</dd></div>
       </dl>
     </div>
 
     <!-- Related posts -->
-    <div class="bg-white rounded-2xl shadow-sm p-6">
+    <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6 border border-gray-100 dark:border-slate-800">
       <h2 class="text-xl font-bold mb-4">Tin tức về {game.name}</h2>
       {relatedPosts.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           {relatedPosts.map((post) => (
-            <a href={`/tin/${post.slug}/`} class="block border rounded-xl overflow-hidden hover:shadow-md transition">
+            <a href={`/tin/${post.slug}/`} class="block border border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden hover:shadow-md transition">
               {post.image && <img src={post.image} alt={post.title} class="w-full h-40 object-cover" loading="lazy" />}
               <div class="p-4">
                 <h3 class="font-bold line-clamp-2">{post.title}</h3>
-                <p class="text-sm text-gray-500 mt-2 line-clamp-2">{post.description}</p>
+                <p class="text-sm text-gray-500 dark:text-slate-400 mt-2 line-clamp-2">{post.description}</p>
               </div>
             </a>
           ))}
         </div>
       ) : (
-        <p class="text-gray-500 text-sm">Chưa có bài viết nào về game này. Hãy quay lại sau!</p>
+        <p class="text-gray-500 dark:text-slate-400 text-sm">Chưa có bài viết nào về game này. Hãy quay lại sau!</p>
       )}
     </div>
   </div>
