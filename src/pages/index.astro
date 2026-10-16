@@ -2,18 +2,25 @@
 import Layout from '../layouts/Layout.astro';
 import games from '../data/games.json';
 
-const mobileGames = games.filter((g) => g.category === 'mobile');
-const pcGames = games.filter((g) => g.category === 'pc-console');
-
-const featuredSlugs = ['crimson-desert', 'monster-hunter-wilds', 'hollow-knight-silksong', 'elden-ring-nightreign', 'audition'];
+const featuredSlugs = ['crimson-desert', 'monster-hunter-wilds', 'elden-ring-nightreign', 'hollow-knight-silksong', 'valorant'];
 const featuredGames = featuredSlugs
   .map((s) => games.find((g) => g.slug === s))
-  .filter(Boolean);
+  .filter((g) => g && g.cover);
 
-const getGame = (slug) => games.find((g) => g.slug === slug);
-const mobileCover = getGame('genshin-impact')?.cover;
-const pcCover = getGame('monster-hunter-wilds')?.cover;
-const hotCover = getGame('crimson-desert')?.cover;
+const sideBanners = ['lien-minh-huyen-thoai', 'genshin-impact']
+  .map((s) => games.find((g) => g.slug === s))
+  .filter((g) => g && g.cover);
+
+const pubKey = (p) => {
+  const s = (p || '').toLowerCase();
+  if (s.includes('vtc')) return 'vtc';
+  if (s.includes('vng')) return 'vng';
+  if (s.includes('funtap')) return 'funtap';
+  if (s.includes('gosu')) return 'gosu';
+  return 'other';
+};
+
+const catLabel = (c) => (c === 'mobile' ? '📱 Mobile' : '🖥️ PC/Console');
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -30,164 +37,130 @@ const jsonLd = {
   keywords="game mobile, game pc, tải game, VTC Game, VNG, Funtap, Gosu, tin game, review game"
   jsonLd={jsonLd}
 >
-  <div class="bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-white min-h-screen transition-colors duration-200">
-    <!-- ============ HERO CAROUSEL ============ -->
-    <section id="hero-carousel" class="relative overflow-hidden h-[540px] md:h-[600px]">
-      {featuredGames.map((game, i) => (
-        <div
-          class={`hero-slide absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
-          data-slide={i}
-        >
-          <img src={game.cover} alt={game.name} class="absolute inset-0 w-full h-full object-cover" />
-          <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-transparent"></div>
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-slate-950/40"></div>
-          <div class="relative h-full max-w-7xl mx-auto px-4 flex flex-col justify-center">
-            <span class="inline-flex w-fit items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 border border-amber-400/30 px-3 py-1.5 rounded-full mb-5">
-              🔥 Nổi bật
-            </span>
-            <h1 class="text-4xl md:text-6xl font-black tracking-tight mb-4 max-w-2xl drop-shadow-2xl">{game.name}</h1>
-            <div class="flex flex-wrap gap-2 mb-4">
-              <span class="text-xs font-semibold bg-white/10 backdrop-blur border border-white/20 px-3 py-1.5 rounded-full">{game.genre}</span>
-              <span class="text-xs font-semibold bg-white/10 backdrop-blur border border-white/20 px-3 py-1.5 rounded-full">{game.publisher}</span>
-            </div>
-            <p class="text-slate-300 max-w-xl mb-8 line-clamp-2">{game.description}</p>
-            <div>
-              <a href={`/game/${game.slug}/`} class="inline-flex items-center gap-2 bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 font-bold px-8 py-3.5 rounded-full shadow-2xl shadow-orange-900/50 hover:shadow-orange-800/60 hover:-translate-y-0.5 transition-all duration-300">
-                Xem chi tiết
-                <span>→</span>
-              </a>
-            </div>
+  <div class="bg-gray-50 dark:bg-[#0d0a1f] text-gray-900 dark:text-white min-h-screen transition-colors duration-200">
+
+    <!-- ============ HERO: banner lớn + 2 banner nhỏ ============ -->
+    <section class="max-w-7xl mx-auto px-4 pt-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- Banner lớn (xoay slide) -->
+        <div id="hero-main" class="relative md:col-span-2 h-[300px] md:h-[460px] rounded-2xl overflow-hidden group/hero">
+          {featuredGames.map((game, i) => (
+            <a
+              href={`/game/${game.slug}/`}
+              class={`hero-slide absolute inset-0 transition-opacity duration-1000 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
+              data-slide={i}
+            >
+              <img src={game.cover} alt={game.name} class="absolute inset-0 w-full h-full object-cover" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-black/40 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+                <span class="inline-flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-widest text-amber-300 bg-amber-400/15 border border-amber-300/30 px-3 py-1.5 rounded-full mb-3 backdrop-blur">
+                  🔥 Nổi bật
+                </span>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white mb-3 drop-shadow-2xl line-clamp-1">{game.name}</h1>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  <span class="text-xs font-semibold text-white bg-white/15 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full">{game.genre}</span>
+                  <span class="text-xs font-semibold text-white bg-white/15 backdrop-blur border border-white/25 px-3 py-1.5 rounded-full">{game.publisher}</span>
+                </div>
+                <span class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-bold px-6 py-2.5 rounded-full text-sm shadow-lg shadow-violet-900/50 transition">
+                  Xem chi tiết <span>→</span>
+                </span>
+              </div>
+            </a>
+          ))}
+          <!-- Arrows -->
+          <button id="hero-prev" aria-label="Slide trước" class="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur border border-white/20 text-white items-center justify-center text-xl transition hidden md:flex opacity-0 group-hover/hero:opacity-100">‹</button>
+          <button id="hero-next" aria-label="Slide tiếp" class="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/40 hover:bg-black/70 backdrop-blur border border-white/20 text-white items-center justify-center text-xl transition hidden md:flex opacity-0 group-hover/hero:opacity-100">›</button>
+          <!-- Dots -->
+          <div class="absolute bottom-4 right-6 z-20 flex gap-2">
+            {featuredGames.map((_, i) => (
+              <button
+                aria-label={`Slide ${i + 1}`}
+                data-dot={i}
+                class={`hero-dot h-2 rounded-full transition-all duration-300 ${i === 0 ? 'w-7 bg-violet-400' : 'w-2 bg-white/40 hover:bg-white/70'}`}
+              ></button>
+            ))}
           </div>
         </div>
-      ))}
 
-      <!-- Arrows -->
-      <button id="hero-prev" aria-label="Slide trước" class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur border border-white/20 flex items-center justify-center text-2xl transition">‹</button>
-      <button id="hero-next" aria-label="Slide tiếp" class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 hover:bg-white/25 backdrop-blur border border-white/20 flex items-center justify-center text-2xl transition">›</button>
-
-      <!-- Dots -->
-      <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2.5">
-        {featuredGames.map((_, i) => (
-          <button
-            aria-label={`Slide ${i + 1}`}
-            data-dot={i}
-            class={`hero-dot h-2.5 rounded-full transition-all duration-300 ${i === 0 ? 'w-8 bg-orange-500' : 'w-2.5 bg-white/40 hover:bg-white/70'}`}
-          ></button>
-        ))}
+        <!-- 2 banner nhỏ bên phải -->
+        <div class="grid grid-cols-2 md:grid-cols-1 gap-4">
+          {sideBanners.map((game) => (
+            <a href={`/game/${game.slug}/`} class="group relative h-[140px] md:h-[222px] rounded-2xl overflow-hidden block">
+              <img src={game.cover} alt={game.name} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-4">
+                <h3 class="text-white font-extrabold text-sm md:text-lg line-clamp-1 drop-shadow">{game.name}</h3>
+                <p class="text-xs text-white/70 truncate">{game.genre} • {game.publisher}</p>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
 
-    <!-- ============ CATEGORY CARDS ============ -->
-    <section class="max-w-7xl mx-auto px-4 -mt-2 py-12">
-      <h2 class="text-2xl md:text-3xl font-black tracking-tight mb-6">Khám phá Game8.VN</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <a href="#mobile" class="group relative overflow-hidden rounded-3xl h-44 md:h-52 block">
-          {mobileCover && <img src={mobileCover} alt="Game Mobile" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />}
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
-          <div class="absolute bottom-0 p-6">
-            <h3 class="text-2xl font-black mb-1">📱 Game Mobile</h3>
-            <p class="text-sm text-slate-300">Game mobile từ VTC, VNG, Funtap, Gosu</p>
-            <span class="inline-flex items-center gap-1 text-sm font-bold text-orange-400 mt-2 group-hover:gap-3 transition-all">Khám phá <span>→</span></span>
-          </div>
-        </a>
-        <a href="#pc-console" class="group relative overflow-hidden rounded-3xl h-44 md:h-52 block">
-          {pcCover && <img src={pcCover} alt="Game PC Console" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />}
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
-          <div class="absolute bottom-0 p-6">
-            <h3 class="text-2xl font-black mb-1">🖥️ Game PC / Console</h3>
-            <p class="text-sm text-slate-300">Game PC, Steam và console bom tấn</p>
-            <span class="inline-flex items-center gap-1 text-sm font-bold text-orange-400 mt-2 group-hover:gap-3 transition-all">Khám phá <span>→</span></span>
-          </div>
-        </a>
-        <a href="#hot" class="group relative overflow-hidden rounded-3xl h-44 md:h-52 block">
-          {hotCover && <img src={hotCover} alt="Game Hot" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" loading="lazy" />}
-          <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent"></div>
-          <div class="absolute bottom-0 p-6">
-            <h3 class="text-2xl font-black mb-1">🔥 Game Hot</h3>
-            <p class="text-sm text-slate-300">Những tựa game đang được săn đón nhất</p>
-            <span class="inline-flex items-center gap-1 text-sm font-bold text-orange-400 mt-2 group-hover:gap-3 transition-all">Khám phá <span>→</span></span>
-          </div>
-        </a>
-      </div>
-    </section>
+    <!-- ============ GAME NỔI BẬT + FILTER TABS ============ -->
+    <section class="max-w-7xl mx-auto px-4 pt-12 pb-16">
+      <h2 class="text-2xl md:text-3xl font-black tracking-tight mb-6">🔥 Game nổi bật</h2>
 
-    <!-- ============ GAME HOT ROW ============ -->
-    <section id="hot" class="max-w-7xl mx-auto px-4 pb-12">
-      <div class="flex items-center justify-between mb-6">
-        <h2 class="text-2xl md:text-3xl font-black tracking-tight">🔥 Game Hot</h2>
+      <!-- Filter tabs + search -->
+      <div class="flex flex-col lg:flex-row lg:items-center gap-4 mb-8">
+        <div class="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 lg:mx-0 lg:px-0 no-scrollbar">
+          <button data-filter="all" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-violet-600 text-white shadow-lg shadow-violet-900/40">Tất cả</button>
+          <button data-filter="mobile" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">Game Mobile</button>
+          <button data-filter="pc-console" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">Game PC/Console</button>
+          <button data-filter="vtc" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">VTC</button>
+          <button data-filter="vng" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">VNG</button>
+          <button data-filter="funtap" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">Funtap</button>
+          <button data-filter="gosu" class="filter-tab shrink-0 text-sm font-bold px-5 py-2.5 rounded-full transition bg-white dark:bg-[#1a1433] text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-white/10 hover:border-violet-500/60">Gosu</button>
+        </div>
+        <div class="relative lg:ml-auto lg:w-64 shrink-0">
+          <input
+            id="game-search"
+            type="text"
+            placeholder="Tìm game..."
+            class="w-full bg-white dark:bg-[#1a1433] border border-gray-200 dark:border-white/10 rounded-full pl-10 pr-4 py-2.5 text-sm font-medium placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:border-violet-500 focus:ring-2 focus:ring-violet-500/30 transition"
+          />
+          <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"/></svg>
+        </div>
       </div>
-      <div class="flex gap-5 overflow-x-auto pb-4 snap-x" style="scrollbar-width: thin;">
-        {featuredGames.map((game) => (
-          <a href={`/game/${game.slug}/`} class="group snap-start shrink-0 w-64 bg-white dark:bg-slate-900 rounded-3xl overflow-hidden border border-gray-200 dark:border-slate-800 hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-200 dark:hover:shadow-orange-950/50 hover:-translate-y-1.5 transition-all duration-300">
-            <div class="relative h-36 overflow-hidden">
+
+      <!-- Game grid -->
+      <div id="game-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {games.map((game) => (
+          <a
+            href={`/game/${game.slug}/`}
+            class="game-card group bg-white dark:bg-[#1a1433] rounded-2xl overflow-hidden border border-gray-200 dark:border-white/10 hover:border-violet-500/60 hover:shadow-[0_16px_40px_-12px_rgba(139,92,246,0.45)] hover:-translate-y-1 transition-all duration-300"
+            data-cat={game.category}
+            data-pub={pubKey(game.publisher)}
+            data-name={(game.name || '').toLowerCase()}
+          >
+            <div class="relative aspect-video overflow-hidden bg-gradient-to-br from-violet-900 to-slate-900">
               {game.cover ? (
-                <img src={game.cover} alt={game.name} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                <img src={game.cover} alt={game.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+              ) : game.icon ? (
+                <img src={game.icon} alt={game.name} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
               ) : (
-                <div class="w-full h-full bg-gradient-to-br from-red-600 to-orange-500"></div>
+                <div class="w-full h-full flex items-center justify-center text-white/30 text-4xl font-black">{game.name.charAt(0)}</div>
               )}
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 dark:from-slate-900 to-transparent"></div>
+              <span class="absolute top-2 left-2 text-[11px] font-bold text-white bg-black/55 backdrop-blur px-2.5 py-1 rounded-full border border-white/15">
+                {catLabel(game.category)}
+              </span>
             </div>
-            <div class="p-4 flex items-center gap-3">
-              {game.icon ? (
-                <img src={game.icon} alt={`Icon ${game.name}`} width="56" height="56" class="w-14 h-14 rounded-2xl object-cover shadow-lg shrink-0" loading="lazy" />
-              ) : (
-                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-500 to-orange-500 flex items-center justify-center text-white text-xl font-black shrink-0">{game.name.charAt(0)}</div>
-              )}
-              <div class="min-w-0">
-                <h3 class="font-bold text-sm line-clamp-1">{game.name}</h3>
-                <p class="text-xs text-gray-500 dark:text-slate-400 truncate">{game.publisher}</p>
-              </div>
+            <div class="p-3.5 md:p-4">
+              <h3 class="font-bold text-sm md:text-[15px] line-clamp-1 mb-1">{game.name}</h3>
+              <p class="text-xs text-gray-500 dark:text-slate-400 line-clamp-1">{game.genre} • {game.publisher}</p>
             </div>
           </a>
         ))}
       </div>
-    </section>
-
-    <!-- ============ GAME MOBILE GRID ============ -->
-    <section id="mobile" class="max-w-7xl mx-auto px-4 pb-14">
-      <h2 class="text-2xl md:text-3xl font-black tracking-tight mb-6">📱 Game Mobile</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-        {mobileGames.map((game) => (
-          <a href={`/game/${game.slug}/`} class="group bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col items-center text-center border border-gray-200 dark:border-slate-800 hover:border-orange-500/60 hover:shadow-2xl hover:shadow-orange-200 dark:hover:shadow-orange-950/40 hover:-translate-y-1.5 transition-all duration-300">
-            {game.icon ? (
-              <img src={game.icon} alt={`Icon ${game.name}`} width="130" height="130" class="w-[130px] h-[130px] rounded-[28px] object-cover mb-4 shadow-xl shadow-black/50 ring-1 ring-white/10 group-hover:ring-orange-500/50 group-hover:scale-105 group-hover:shadow-orange-950/40 transition-all duration-300" loading="lazy" />
-            ) : (
-              <div class="w-[130px] h-[130px] rounded-[28px] bg-gradient-to-br from-red-500 via-orange-500 to-amber-500 flex items-center justify-center text-white text-5xl font-black mb-4 shadow-xl shadow-black/50">
-                {game.name.charAt(0)}
-              </div>
-            )}
-            <h3 class="font-bold text-[15px] leading-snug line-clamp-2 mb-2 min-h-[2.6em]">{game.name}</h3>
-            <span class="text-xs font-semibold text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2.5 py-1 rounded-full mb-1.5">{game.genre}</span>
-            <p class="text-xs text-gray-500 dark:text-slate-500">{game.publisher}</p>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <!-- ============ GAME PC/CONSOLE GRID ============ -->
-    <section id="pc-console" class="max-w-7xl mx-auto px-4 pb-16">
-      <h2 class="text-2xl md:text-3xl font-black tracking-tight mb-6">🖥️ Game PC / Console</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5">
-        {pcGames.map((game) => (
-          <a href={`/game/${game.slug}/`} class="group bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col items-center text-center border border-gray-200 dark:border-slate-800 hover:border-cyan-500/60 hover:shadow-2xl hover:shadow-cyan-200 dark:hover:shadow-cyan-950/40 hover:-translate-y-1.5 transition-all duration-300">
-            {game.icon ? (
-              <img src={game.icon} alt={`Icon ${game.name}`} width="130" height="130" class="w-[130px] h-[130px] rounded-[28px] object-cover mb-4 shadow-xl shadow-black/50 ring-1 ring-white/10 group-hover:ring-cyan-500/50 group-hover:scale-105 group-hover:shadow-cyan-950/40 transition-all duration-300" loading="lazy" />
-            ) : (
-              <div class="w-[130px] h-[130px] rounded-[28px] bg-gradient-to-br from-indigo-600 via-blue-600 to-cyan-500 flex items-center justify-center text-white text-5xl font-black mb-4 shadow-xl shadow-black/50">
-                {game.name.charAt(0)}
-              </div>
-            )}
-            <h3 class="font-bold text-[15px] leading-snug line-clamp-2 mb-2 min-h-[2.6em]">{game.name}</h3>
-            <span class="text-xs font-semibold text-cyan-400 bg-cyan-500/10 border border-cyan-500/20 px-2.5 py-1 rounded-full mb-1.5">{game.genre}</span>
-            <p class="text-xs text-gray-500 dark:text-slate-500">{game.publisher}</p>
-          </a>
-        ))}
-      </div>
+      <p id="no-result" class="hidden text-center text-gray-500 dark:text-slate-400 py-16 font-medium">Không tìm thấy game phù hợp.</p>
     </section>
   </div>
 </Layout>
 
 <script>
+  // ===== Hero slider =====
   const slides = document.querySelectorAll('.hero-slide');
   const dots = document.querySelectorAll('.hero-dot');
   let current = 0;
@@ -202,7 +175,7 @@ const jsonLd = {
       s.classList.toggle('z-0', idx !== current);
     });
     dots.forEach((d, idx) => {
-      d.className = `hero-dot h-2.5 rounded-full transition-all duration-300 ${idx === current ? 'w-8 bg-orange-500' : 'w-2.5 bg-white/40 hover:bg-white/70'}`;
+      d.className = `hero-dot h-2 rounded-full transition-all duration-300 ${idx === current ? 'w-7 bg-violet-400' : 'w-2 bg-white/40 hover:bg-white/70'}`;
     });
   }
 
@@ -211,14 +184,49 @@ const jsonLd = {
     timer = setInterval(() => goTo(current + 1), 6000);
   }
 
-  document.getElementById('hero-prev').addEventListener('click', () => { goTo(current - 1); restart(); });
-  document.getElementById('hero-next').addEventListener('click', () => { goTo(current + 1); restart(); });
-  dots.forEach((d) => d.addEventListener('click', () => { goTo(Number(d.dataset.dot)); restart(); }));
+  document.getElementById('hero-prev')?.addEventListener('click', (e) => { e.preventDefault(); goTo(current - 1); restart(); });
+  document.getElementById('hero-next')?.addEventListener('click', (e) => { e.preventDefault(); goTo(current + 1); restart(); });
+  dots.forEach((d) => d.addEventListener('click', (e) => { e.preventDefault(); goTo(Number(d.dataset.dot)); restart(); }));
 
-  const carousel = document.getElementById('hero-carousel');
-  carousel.addEventListener('mouseenter', () => clearInterval(timer));
-  carousel.addEventListener('mouseleave', restart);
+  const heroMain = document.getElementById('hero-main');
+  heroMain?.addEventListener('mouseenter', () => clearInterval(timer));
+  heroMain?.addEventListener('mouseleave', restart);
   restart();
+
+  // ===== Filter tabs + search =====
+  const tabs = document.querySelectorAll('.filter-tab');
+  const cards = document.querySelectorAll('.game-card');
+  const searchInput = document.getElementById('game-search');
+  const noResult = document.getElementById('no-result');
+  let activeFilter = 'all';
+
+  const activeCls = ['bg-violet-600', 'text-white', 'shadow-lg', 'shadow-violet-900/40'];
+  const idleCls = ['bg-white', 'dark:bg-[#1a1433]', 'text-gray-700', 'dark:text-slate-200', 'border', 'border-gray-200', 'dark:border-white/10'];
+
+  function applyFilter() {
+    const q = (searchInput.value || '').toLowerCase().trim();
+    let visible = 0;
+    cards.forEach((c) => {
+      const matchFilter = activeFilter === 'all' || c.dataset.cat === activeFilter || c.dataset.pub === activeFilter;
+      const matchSearch = !q || (c.dataset.name || '').includes(q);
+      const show = matchFilter && matchSearch;
+      c.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    noResult.classList.toggle('hidden', visible > 0);
+  }
+
+  tabs.forEach((t) => t.addEventListener('click', () => {
+    activeFilter = t.dataset.filter;
+    tabs.forEach((x) => {
+      const isActive = x === t;
+      x.classList.remove(...activeCls, ...idleCls, 'hover:border-violet-500/60');
+      x.classList.add(...(isActive ? activeCls : [...idleCls, 'hover:border-violet-500/60']));
+    });
+    applyFilter();
+  }));
+
+  searchInput?.addEventListener('input', applyFilter);
 </script>
 
 <style>
@@ -228,11 +236,7 @@ const jsonLd = {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   html { scroll-behavior: smooth; }
 </style>
