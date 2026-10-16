@@ -40,7 +40,7 @@ const embedUrl = youtubeEmbed(game.trailer);
   title={game.seoTitle || `${game.name} | Game8.VN`}
   description={game.seoDescription || game.description}
   keywords={game.seoKeywords}
-  ogImage={game.cover || game.icon}
+  ogImage={game.icon}
   ogType="article"
   jsonLd={jsonLd}
 >
@@ -86,13 +86,6 @@ const embedUrl = youtubeEmbed(game.trailer);
         </div>
       </div>
     </div>
-
-    <!-- Cover -->
-    {game.cover && (
-      <div class="mb-8">
-        <img src={game.cover} alt={`Cover ${game.name}`} class="w-full rounded-2xl shadow-md object-cover max-h-96" loading="lazy" />
-      </div>
-    )}
 
     <!-- Trailer -->
     {embedUrl && (
