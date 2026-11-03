@@ -16,7 +16,9 @@
     "rating": 8.0,
     "seoTitle": "Au Mobile - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải Au Mobile – game nhảy casual của VTC Mobile: thi đấu vũ đạo theo nhịp nhạc hit, phối đồ thời trang và kết bạn cùng cộng đồng vũ công đông đảo.",
-    "seoKeywords": "Au Mobile, tải Au Mobile, Au Mobile VTC Mobile, game nhảy casual, game vũ đạo mobile, game nhảy nhạc, game casual mobile, tải game Au Mobile"
+    "seoKeywords": "Au Mobile, tải Au Mobile, Au Mobile VTC Mobile, game nhảy casual, game vũ đạo mobile, game nhảy nhạc, game casual mobile, tải game Au Mobile",
+    "hot": true,
+    "hotAt": "2026-10-31"
   },
   {
     "slug": "gunbound-legend-vua-toa-do",
@@ -150,7 +152,9 @@
     "rating": 8.8,
     "seoTitle": "PUBG Mobile - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải PUBG Mobile – game Battle Royale do VNG phát hành tại Việt Nam: nhảy dù, loot đồ, chạy bo và trở thành người sống sót cuối cùng ngay trên mobile.",
-    "seoKeywords": "PUBG Mobile, tải PUBG Mobile, PUBG Mobile VNG, PUBG Mobile VNGGames, game Battle Royale, game bắn súng sinh tồn, game battle royale mobile, PUBG VN"
+    "seoKeywords": "PUBG Mobile, tải PUBG Mobile, PUBG Mobile VNG, PUBG Mobile VNGGames, game Battle Royale, game bắn súng sinh tồn, game battle royale mobile, PUBG VN",
+    "hot": true,
+    "hotAt": "2026-11-03"
   },
   {
     "slug": "lien-minh-huyen-thoai-toc-chien",
@@ -188,7 +192,9 @@
     "rating": 8.3,
     "seoTitle": "Võ Lâm Truyền Kỳ Mobile - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải Võ Lâm Truyền Kỳ Mobile – MMORPG kiếm hiệp kinh điển do VNG phát hành: chọn môn phái, luyện võ công, PK Tống Kim và bang hội chiến trên mobile.",
-    "seoKeywords": "Võ Lâm Truyền Kỳ Mobile, tải Võ Lâm Truyền Kỳ Mobile, Võ Lâm Truyền Kỳ Mobile VNG, VLTK Mobile VNGGames, game MMORPG kiếm hiệp, game kiếm hiệp mobile, game võ lâm mobile"
+    "seoKeywords": "Võ Lâm Truyền Kỳ Mobile, tải Võ Lâm Truyền Kỳ Mobile, Võ Lâm Truyền Kỳ Mobile VNG, VLTK Mobile VNGGames, game MMORPG kiếm hiệp, game kiếm hiệp mobile, game võ lâm mobile",
+    "hot": true,
+    "hotAt": "2026-10-29"
   },
   {
     "slug": "genshin-impact",
@@ -207,7 +213,11 @@
     "rating": 7.6,
     "seoTitle": "Genshin Impact - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải Genshin Impact – ARPG thế giới mở của HoYoverse, Funtap phát hành bản mobile tại Việt Nam: khám phá Teyvat và chiến đấu nguyên tố đẹp mắt trên mobile.",
-    "seoKeywords": "Genshin Impact, tải Genshin Impact, Genshin Impact Funtap, game ARPG thế giới mở, game nhập vai anime, game thế giới mở mobile, game gacha mobile"
+    "seoKeywords": "Genshin Impact, tải Genshin Impact, Genshin Impact Funtap, game ARPG thế giới mở, game nhập vai anime, game thế giới mở mobile, game gacha mobile",
+    "featured": true,
+    "featuredAt": "2026-10-29",
+    "hot": true,
+    "hotAt": "2026-11-01"
   },
   {
     "slug": "infinity-kingdom",
@@ -474,7 +484,9 @@
     "rating": 7.7,
     "seoTitle": "Liên Minh Huyền Thoại - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải Liên Minh Huyền Thoại – game MOBA 5v5 trên PC do VNG phát hành: chọn tướng, phối hợp đồng đội, kiểm soát mục tiêu và leo hạng đầy kịch tính mỗi mùa.",
-    "seoKeywords": "Liên Minh Huyền Thoại, tải Liên Minh Huyền Thoại, Liên Minh Huyền Thoại VNG, Liên Minh Huyền Thoại VNGGames, game MOBA PC, game Liên Minh, tải LOL PC"
+    "seoKeywords": "Liên Minh Huyền Thoại, tải Liên Minh Huyền Thoại, Liên Minh Huyền Thoại VNG, Liên Minh Huyền Thoại VNGGames, game MOBA PC, game Liên Minh, tải LOL PC",
+    "hot": true,
+    "hotAt": "2026-10-30"
   },
   {
     "slug": "valorant",
@@ -493,7 +505,11 @@
     "rating": 7.9,
     "seoTitle": "VALORANT - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải VALORANT – game FPS chiến thuật 5v5 trên PC do VNG phát hành: chọn đặc vụ, đấu súng chính xác, phối hợp chiến thuật và leo hạng cùng đồng đội.",
-    "seoKeywords": "VALORANT, tải VALORANT, VALORANT VNG, VALORANT VNGGames, game FPS chiến thuật PC, game bắn súng 5v5, tải game VALORANT"
+    "seoKeywords": "VALORANT, tải VALORANT, VALORANT VNG, VALORANT VNGGames, game FPS chiến thuật PC, game bắn súng 5v5, tải game VALORANT",
+    "featured": true,
+    "featuredAt": "2026-10-30",
+    "hot": true,
+    "hotAt": "2026-11-02"
   },
   {
     "slug": "cuu-am-chan-kinh",
@@ -574,7 +590,9 @@
     "rating": 7.2,
     "seoTitle": "Hollow Knight: Silksong - Tải game, cập nhật, review | Game8",
     "seoDescription": "Tải Hollow Knight: Silksong – game Metroidvania của Team Cherry: đồng hành cùng Hornet khám phá vương quốc Pharloom trên PC, PlayStation, Xbox, Switch.",
-    "seoKeywords": "Hollow Knight: Silksong, tải Hollow Knight: Silksong, Hollow Knight: Silksong Team Cherry, game Metroidvania, game phiêu lưu 2D, game Switch, tải game Silksong"
+    "seoKeywords": "Hollow Knight: Silksong, tải Hollow Knight: Silksong, Hollow Knight: Silksong Team Cherry, game Metroidvania, game phiêu lưu 2D, game Switch, tải game Silksong",
+    "featured": true,
+    "featuredAt": "2026-10-31"
   },
   {
     "slug": "hades-ii",
@@ -638,7 +656,9 @@
     "rating": 7.9,
     "seoTitle": "Monster Hunter Wilds - Tải game, cập nhật, review | Game8",
     "seoDescription": "Monster Hunter Wilds - game săn quái vật của Capcom trên PC, PS5, Xbox. Khám phá Forbidden Lands, săn quái khổng lồ, rèn vũ khí và co-op tới 4 người",
-    "seoKeywords": "monster hunter wilds, tải monster hunter wilds, monster hunter wilds pc, game săn quái vật, game săn quái, capcom, game co-op, mh wilds"
+    "seoKeywords": "monster hunter wilds, tải monster hunter wilds, monster hunter wilds pc, game săn quái vật, game săn quái, capcom, game co-op, mh wilds",
+    "featured": true,
+    "featuredAt": "2026-11-02"
   },
   {
     "slug": "kingdom-come-deliverance-ii",
@@ -680,7 +700,9 @@
     "rating": 7.5,
     "seoTitle": "ELDEN RING NIGHTREIGN - Tải game, cập nhật, review | Game8",
     "seoDescription": "Elden Ring Nightreign - game hành động co-op 3 người của FromSoftware trên PC, PS5, Xbox. Sinh tồn 3 ngày đêm ở Limveld và đối đầu Chúa Tể Bóng Đêm",
-    "seoKeywords": "elden ring nightreign, tải elden ring nightreign, nightreign pc, elden ring co-op, game co-op 3 người, fromsoftware, game souls like"
+    "seoKeywords": "elden ring nightreign, tải elden ring nightreign, nightreign pc, elden ring co-op, game co-op 3 người, fromsoftware, game souls like",
+    "featured": true,
+    "featuredAt": "2026-11-01"
   },
   {
     "slug": "battlefield-6",
@@ -743,7 +765,9 @@
     "rating": 8.5,
     "seoTitle": "Crimson Desert - Tải game, cập nhật, review | Game8",
     "seoDescription": "Crimson Desert - game hành động thế giới mở của Pearl Abyss trên PC, PS5, Xbox. Theo chân lính đánh thuê Kliff khám phá lục địa Pywel với đồ họa ấn tượng",
-    "seoKeywords": "crimson desert, tải crimson desert, crimson desert pc, game thế giới mở, game hành động phiêu lưu, pearl abyss, game nhập vai"
+    "seoKeywords": "crimson desert, tải crimson desert, crimson desert pc, game thế giới mở, game hành động phiêu lưu, pearl abyss, game nhập vai",
+    "featured": true,
+    "featuredAt": "2026-11-03"
   },
   {
     "slug": "audition",

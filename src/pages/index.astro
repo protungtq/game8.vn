@@ -6,12 +6,16 @@ import { getCollection } from 'astro:content';
 import games from '../data/games.json';
 import { gameArt, latestPostImageMap } from '../lib/gameArt';
 
-// ===== Hero: game nổi bật có ảnh bìa =====
+// ===== Hero: tối đa 6 game nổi bật (tick trong CMS), game mới nhất lên trước,
+// game cũ nhất tự rơi ra dù vẫn còn tick. Chưa tick game nào thì dùng danh sách dự phòng. =====
 const featuredSlugs = ['crimson-desert', 'monster-hunter-wilds', 'elden-ring-nightreign', 'hollow-knight-silksong', 'valorant', 'genshin-impact'];
-const featured = featuredSlugs
-  .map((s) => games.find((g) => g.slug === s))
-  .filter((g) => g && g.cover)
-  .slice(0, 6);
+const featuredPool = games
+  .filter((g: any) => g.featured)
+  .sort((a: any, b: any) => String(b.featuredAt || '').localeCompare(String(a.featuredAt || '')));
+const featured = (featuredPool.length
+  ? featuredPool
+  : featuredSlugs.map((s) => games.find((g) => g.slug === s)).filter(Boolean)
+).filter((g: any) => g && g.cover).slice(0, 6);
 
 const mobileGames = games.filter((g) => g.category === 'mobile');
 const pcGames = games.filter((g) => g.category === 'pc-console');
@@ -36,13 +40,20 @@ const allPostVMs = (await getCollection('posts'))
 const latestPosts = allPostVMs.slice(0, 6);
 const postImageMap = latestPostImageMap(allPostVMs);
 
-// ===== Khối thịnh hành: thẻ game + thẻ tuyển tập =====
-const trending = [
-  games.find((g) => g.slug === 'lien-quan-mobile') || mobileGames[0],
-  games.find((g) => g.slug === 'pubg-mobile') || mobileGames[1],
+// ===== Khối thịnh hành: tối đa 6 game hot (tick trong CMS, mới nhất trước),
+// thiếu thì bù bằng các game mặc định. Thứ tự hiển thị được xáo trộn theo phiên truy cập (script bên dưới). =====
+const hotPool = games
+  .filter((g: any) => g.hot)
+  .sort((a: any, b: any) => String(b.hotAt || '').localeCompare(String(a.hotAt || '')));
+const trendingFallback = [
+  games.find((g) => g.slug === 'pubg-mobile') || mobileGames[0],
   games.find((g) => g.slug === 'valorant') || pcGames[0],
   games.find((g) => g.slug === 'genshin-impact') || pcGames[1],
+  mobileGames[1],
+  pcGames[2],
+  mobileGames[2],
 ].filter(Boolean);
+const trending = [...hotPool, ...trendingFallback.filter((g: any) => !hotPool.includes(g))].slice(0, 6);
 const mmorpgSet = games.filter((g) => (g.genre || '').includes('MMORPG') && gameArt(g, postImageMap[g.slug])).slice(0, 4);
 const mobileSet = mobileGames.filter((g) => gameArt(g, postImageMap[g.slug])).slice(0, 4);
 
@@ -114,7 +125,7 @@ const jsonLd = {
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-extrabold">Game & chủ đề đang thịnh hành</h2>
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
+      <div id="trending-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
         <GameCard game={trending[0]} postImg={postImageMap[trending[0].slug]} />
         <GameCard game={trending[1]} postImg={postImageMap[trending[1].slug]} />
         <a href="/pc/" class="group block fade">
@@ -147,6 +158,8 @@ const jsonLd = {
             {mobileSet.map((g) => <span class="text-xs rounded-full sf muted px-3 py-1">{g.name}</span>)}
           </div>
         </a>
+        {trending[4] && <GameCard game={trending[4]} postImg={postImageMap[trending[4].slug]} />}
+        {trending[5] && <GameCard game={trending[5]} postImg={postImageMap[trending[5].slug]} />}
       </div>
     </section>
 
@@ -218,7 +231,7 @@ const jsonLd = {
   }
   function restart() {
     clearInterval(timer);
-    timer = setInterval(() => goTo(cur + 1), 6000);
+    timer = setInterval(() => goTo(cur + 1), 10000);
   }
   dots.forEach((d) => d.addEventListener('click', () => { goTo(Number((d as HTMLElement).dataset.dot)); restart(); }));
   pls.forEach((b) => b.addEventListener('click', () => { goTo(Number((b as HTMLElement).dataset.pl)); restart(); }));
@@ -226,4 +239,33 @@ const jsonLd = {
   hero?.addEventListener('mouseenter', () => clearInterval(timer));
   hero?.addEventListener('mouseleave', restart);
   restart();
+
+  // ===== Thịnh hành: xáo trộn thứ tự game theo phiên truy cập =====
+  (() => {
+    const grid = document.getElementById('trending-grid');
+    if (!grid) return;
+    const children = [...grid.children] as HTMLElement[];
+    const slugOf = (el: HTMLElement) => (el.getAttribute('href') || '').replace('/game/', '').replace(/\//g, '');
+    const cardPos = children
+      .map((el, i) => ((el.getAttribute('href') || '').startsWith('/game/') ? i : -1))
+      .filter((i) => i >= 0);
+    if (cardPos.length < 2) return;
+    const current = cardPos.map((i) => slugOf(children[i]));
+    let order: string[] | null = null;
+    try { order = JSON.parse(sessionStorage.getItem('hot-shuffle') || 'null'); } catch {}
+    if (!Array.isArray(order) || order.length !== current.length || !current.every((s) => order!.includes(s))) {
+      order = [...current];
+      for (let i = order.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [order[i], order[j]] = [order[j], order[i]];
+      }
+      try { sessionStorage.setItem('hot-shuffle', JSON.stringify(order)); } catch {}
+    }
+    const bySlug = new Map(cardPos.map((i) => [slugOf(children[i]), children[i]]));
+    const next = children.map((el, i) => {
+      const k = cardPos.indexOf(i);
+      return k >= 0 ? bySlug.get(order![k])! : el;
+    });
+    grid.append(...next);
+  })();
 </script>
