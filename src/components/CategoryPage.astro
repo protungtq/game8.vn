@@ -1,0 +1,86 @@
+---
+import GameCard from './GameCard.astro';
+
+const { title, subtitle, list } = Astro.props;
+
+// Thể loại theo tần suất xuất hiện, tối đa 12 chip
+const freq = new Map<string, number>();
+for (const g of list) if (g.genre) freq.set(g.genre, (freq.get(g.genre) || 0) + 1);
+const genres = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(([g]) => g);
+---
+
+<div class="max-w-[1280px] mx-auto px-4 py-6">
+  <div class="flex flex-wrap items-end justify-between gap-3">
+    <div>
+      <h1 class="text-3xl sm:text-4xl font-extrabold">{title}</h1>
+      <p class="muted mt-1">{list.length} game · {subtitle}</p>
+    </div>
+    <div class="flex rounded-full sf p-1 text-sm font-semibold" id="sort-bar">
+      {([['def', 'Mặc định'], ['az', 'A–Z'], ['za', 'Z–A']] as const).map(([k, t]) => (
+        <button data-sort={k} class={`sort-btn px-4 h-8 rounded-full transition ${k === 'def' ? 'bg-white dark:bg-white/20 shadow-sm' : 'muted'}`}>{t}</button>
+      ))}
+    </div>
+  </div>
+
+  <div class="hs flex gap-2 mt-5 mb-7" id="genre-bar">
+    {['Tất cả', ...genres].map((x) => (
+      <button class={`chip ${x === 'Tất cả' ? 'chip-on' : ''}`} data-genre={x}>{x}</button>
+    ))}
+  </div>
+
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8" id="cat-grid">
+    {list.map((g: any) => <GameCard game={g} />)}
+  </div>
+  <p id="cat-empty" class="hidden text-center muted py-16 font-medium">Chưa có game nào thuộc thể loại này.</p>
+</div>
+
+<script>
+  const grid = document.getElementById('cat-grid');
+  const empty = document.getElementById('cat-empty');
+  const cards = grid ? [...grid.querySelectorAll('.game-card')] : [];
+  const original = [...cards];
+  let genre = 'Tất cả';
+  let sort = 'def';
+
+  function apply() {
+    let visible = cards.filter((c) => {
+      const el = c as HTMLElement;
+      const show = genre === 'Tất cả' || el.dataset.genre === genre;
+      el.classList.toggle('hidden', !show);
+      return show;
+    });
+    if (sort === 'az' || sort === 'za') {
+      visible = [...visible].sort((a, b) => {
+        const an = (a as HTMLElement).dataset.name || '';
+        const bn = (b as HTMLElement).dataset.name || '';
+        return sort === 'az' ? an.localeCompare(bn) : bn.localeCompare(an);
+      });
+      const hidden = cards.filter((c) => !visible.includes(c));
+      [...visible, ...hidden].forEach((c) => grid?.appendChild(c));
+    } else {
+      original.forEach((c) => grid?.appendChild(c));
+    }
+    empty?.classList.toggle('hidden', visible.length > 0);
+  }
+
+  document.querySelectorAll('#genre-bar .chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      genre = (chip as HTMLElement).dataset.genre || 'Tất cả';
+      document.querySelectorAll('#genre-bar .chip').forEach((x) => x.classList.toggle('chip-on', x === chip));
+      apply();
+    });
+  });
+  document.querySelectorAll('.sort-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      sort = (btn as HTMLElement).dataset.sort || 'def';
+      document.querySelectorAll('.sort-btn').forEach((x) => {
+        const on = x === btn;
+        x.classList.toggle('bg-white', on);
+        x.classList.toggle('dark:bg-white/20', on);
+        x.classList.toggle('shadow-sm', on);
+        x.classList.toggle('muted', !on);
+      });
+      apply();
+    });
+  });
+</script>

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>GameHub CMS</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6f8;--sf:#fff;--ln:#e4e7ec;--tx:#15171a;--mu:#667085;--ac:#16c79a;--ad:#0e9f7b;--dn:#e5484d;--wn:#b7791f;--in:#f1f3f5;color-scheme:light}
+html[data-t=dark]{--bg:#0e1013;--sf:#16191e;--ln:#262a31;--tx:#eceef1;--mu:#9aa3af;--in:#1d2127;--wn:#f0b429;color-scheme:dark}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 "Be Vietnam Pro",system-ui,sans-serif;background:var(--bg);color:var(--tx)}
+button,input,select,textarea{font:inherit;color:inherit}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+aside{position:sticky;top:0;height:100vh;padding:20px 14px;border-right:1px solid var(--ln);background:var(--sf);display:flex;flex-direction:column;gap:4px}
+.logo{font-weight:800;font-size:19px;padding:4px 10px 18px}.logo b{color:var(--ac)}.logo small{display:block;font-size:12px;font-weight:500;color:var(--mu)}
+.nav{display:flex;justify-content:space-between;align-items:center;border:0;background:none;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:600;color:var(--mu);text-align:left}
+.nav:hover{background:var(--in)}.nav.on{background:var(--ac);color:#fff}.nav i{font-style:normal;font-size:12px;opacity:.8}
+.sp{flex:1}
+main{padding:28px clamp(16px,3vw,40px) 110px;max-width:1180px;width:100%}
+h1{font-size:26px;margin:0 0 4px;font-weight:800}.sub{color:var(--mu);margin:0 0 20px}
+.bar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+input,select,textarea{width:100%;background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:10px 12px}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--ac);outline-offset:-1px}
+textarea{min-height:90px;resize:vertical}
+.bar input{flex:1;min-width:200px}.bar select{width:auto}
+.btn{border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;background:var(--in);white-space:nowrap}
+.btn:hover{filter:brightness(.95)}.p{background:var(--ac);color:#fff}.d{color:var(--dn)}.btn:focus-visible,.nav:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.chip{border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:5px 14px;cursor:pointer;font-weight:600;font-size:13px}.chip.on{background:var(--tx);color:var(--bg);border-color:var(--tx)}
+.list{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.gi{display:flex;gap:12px;align-items:center;background:var(--sf);border:1px solid var(--ln);border-radius:14px;padding:12px}
+.ic{width:56px;height:56px;border-radius:14px;object-fit:cover;flex:none;background:linear-gradient(135deg,var(--ac),#3b82f6);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px;overflow:hidden}
+.gi .t{flex:1;min-width:0}.gi h3{margin:0;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.gi p{margin:0;font-size:12px;color:var(--mu);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tg{display:inline-block;font-size:11px;font-weight:600;border-radius:6px;padding:1px 7px;margin:4px 4px 0 0;background:var(--in);color:var(--mu)}.tg.w{color:var(--wn)}.tg.g{color:var(--ad)}
+.rt{font-weight:800;color:var(--ad);font-size:18px;text-align:center;min-width:36px}.rt small{display:block;font-size:10px;color:var(--mu);font-weight:500}
+.ac{display:flex;flex-direction:column;gap:4px}.ac button{border:1px solid var(--ln);background:none;border-radius:8px;padding:3px 10px;cursor:pointer;font-size:12px}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:16px;padding:22px;margin-bottom:16px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.g3{display:grid;grid-template-columns:2fr 2fr 1fr;gap:14px}
+.f{margin-bottom:14px}.f>label{display:block;font-weight:600;margin-bottom:5px;font-size:13px}.hint{font-size:12px;color:var(--mu);margin-top:4px}
+.pv{max-height:90px;border-radius:8px;margin-top:8px;display:none}
+.chk{display:flex;gap:18px;flex-wrap:wrap}.chk label{display:flex;gap:8px;align-items:center;font-weight:500}.chk input{width:auto}
+details{border:1px solid var(--ln);border-radius:12px;padding:12px 14px;margin-bottom:14px}summary{cursor:pointer;font-weight:600}
+.tb{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}.tb button{padding:5px 11px;border-radius:8px;border:1px solid var(--ln);background:var(--sf);cursor:pointer;font-weight:700}
+#body{min-height:360px;font:13px/1.65 ui-monospace,Menlo,Consolas,monospace}
+.prev{min-height:360px;border:1px solid var(--ln);border-radius:10px;padding:14px 18px;display:none;background:var(--sf)}.prev img{max-width:100%;border-radius:10px}.prev h2{font-size:20px}
+.fix{position:fixed;left:230px;right:0;bottom:0;padding:12px clamp(16px,3vw,40px);background:var(--sf);border-top:1px solid var(--ln);display:flex;gap:10px;align-items:center;z-index:5}
+.fix span{flex:1;color:var(--mu)}.fix.dirty span{color:var(--wn);font-weight:600}
+#toast{position:fixed;top:16px;right:16px;z-index:9;display:flex;flex-direction:column;gap:8px}
+.ts{background:var(--tx);color:var(--bg);border-radius:10px;padding:11px 16px;font-weight:600;max-width:360px;box-shadow:0 8px 24px rgba(0,0,0,.2)}.ts.e{background:var(--dn);color:#fff}.ts.o{background:var(--ac);color:#fff}
+.empty{padding:40px;text-align:center;color:var(--mu);border:1px dashed var(--ln);border-radius:14px}
+.v{display:none}.v.on{display:block}
+@media(max-width:820px){.app{display:block}aside{position:static;height:auto;flex-direction:row;flex-wrap:wrap;padding:10px;border-right:0;border-bottom:1px solid var(--ln)}.logo{padding:6px 10px;width:100%}.sp{display:none}.fix{left:0}.g2,.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside>
+  <div class="logo">Game<b>Hub</b> CMS<small>Quản lý game và bài viết</small></div>
+  <button class="nav on" data-v="games">Game <i id="nG">0</i></button>
+  <button class="nav" data-v="posts">Bài viết</button>
+  <button class="nav" data-v="conn">Kết nối</button>
+  <div class="sp"></div>
+  <button class="nav" id="theme" aria-label="Đổi giao diện sáng hoặc tối">Giao diện sáng / tối</button>
+</aside>
+<main>
+<!-- GAMES -->
+<section class="v on" id="v-games">
+  <div id="gl">
+    <h1>Game</h1><p class="sub">Dữ liệu lưu trong <code>src/data/games.json</code>. Sửa xong bấm "Đẩy lên GitHub" ở thanh dưới để trang tự build lại.</p>
+    <div class="bar"><input id="q" placeholder="Tìm theo tên game hoặc nhà phát hành"><select id="fc"><option value="">Mọi danh mục</option><option value="mobile">Game Mobile</option><option value="pc-console">Game PC / Console</option></select><button class="btn p" id="add">Thêm game</button></div>
+    <div class="chips" id="chips"></div>
+    <div class="list" id="list"></div>
+  </div>
+  <div id="gf" style="display:none">
+    <h1 id="ft">Thêm game mới</h1><p class="sub">Các ô có dấu * là bắt buộc. Để trống phần SEO thì hệ thống tự tạo.</p>
+    <div class="card">
+      <div class="g2"><div class="f"><label>Tên game *</label><input id="name"></div><div class="f"><label>Slug *</label><input id="slug"><div class="hint">Là đường dẫn trang game. Không đổi được sau khi đã lưu.</div></div></div>
+      <div class="g2"><div class="f"><label>Nhà phát hành</label><input id="publisher"></div><div class="f"><label>Thể loại</label><input id="genre"></div></div>
+      <div class="g2"><div class="f"><label>Danh mục *</label><select id="category"><option value="mobile">Game Mobile</option><option value="pc-console">Game PC / Console</option></select></div><div class="f"><label>Nền tảng</label><input id="platforms" placeholder="Mobile hoặc PC, PS5, Xbox"><div class="hint">Cách nhau bằng dấu phẩy.</div></div></div>
+      <div class="g2"><div class="f"><label>Icon (URL)</label><input id="icon" data-pv="pi"><img id="pi" class="pv" alt=""></div><div class="f"><label>Ảnh bìa (URL)</label><input id="cover" data-pv="pc"><img id="pc" class="pv" alt=""></div></div>
+      <div class="g2"><div class="f"><label>Trailer YouTube</label><input id="trailer" placeholder="https://www.youtube.com/watch?v=..."></div><div class="f"><label>Website hoặc fanpage</label><input id="website"></div></div>
+      <div class="f"><label>Mô tả</label><textarea id="description"></textarea></div>
+      <div class="g2"><div class="f"><label>Điểm đánh giá (0 – 10)</label><input id="rating" type="number" min="0" max="10" step="0.1"><div class="hint">Nhập tay. Hiển thị ở thẻ game và trang chi tiết.</div></div>
+      <div class="f"><label>Hiển thị trên trang chủ</label><div class="chk"><label><input type="checkbox" id="featured">Game nổi bật</label><label><input type="checkbox" id="hot">Game hot</label></div></div></div>
+      <details><summary>SEO</summary><div style="margin-top:12px"><div class="f"><label>SEO title</label><input id="seoTitle"></div><div class="f"><label>SEO description</label><textarea id="seoDescription" style="min-height:60px"></textarea></div><div class="f"><label>SEO keywords</label><input id="seoKeywords"></div></div></details>
+      <div class="bar" style="margin:0"><button class="btn p" id="save">Lưu game</button><button class="btn" id="back">Quay lại danh sách</button></div>
+    </div>
+  </div>
+</section>
+
+<!-- POSTS -->
+<section class="v" id="v-posts">
+  <h1>Bài viết cập nhật</h1><p class="sub">Mỗi bài là một file Markdown trong <code>src/content/posts/</code>.</p>
+  <div class="card" style="padding:14px"><div class="bar" style="margin:0"><input id="lp" placeholder="Dán link bài hoặc nhập slug để mở bài đã đăng"><button class="btn" id="lo">Mở bài</button><button class="btn d" id="ld">Xóa bài</button><button class="btn" id="ln">Bài mới</button></div></div>
+  <div class="card">
+    <div class="g3"><div class="f"><label>Tiêu đề *</label><input id="ptitle"></div><div class="f"><label>Slug</label><input id="pslug"></div><div class="f"><label>Ngày xuất bản</label><input id="pdate" type="datetime-local"></div></div>
+    <div class="g3"><div class="f"><label>Game liên quan</label><select id="pgame"></select></div><div class="f"><label>Loại bài</label><select id="ptype"><option>Cập nhật</option><option>Hướng dẫn</option><option>Sự kiện</option></select></div><div class="f"><label>Ngày cập nhật</label><input id="pupd" type="datetime-local"></div></div>
+    <div class="f"><label>Mô tả ngắn</label><textarea id="pdesc" style="min-height:64px"></textarea></div>
+    <div class="g2"><div class="f"><label>Ảnh đại diện (URL)</label><input id="pimage" data-pv="ppi"><img id="ppi" class="pv" alt=""></div><div class="f"><label>Thẻ</label><input id="ptags" placeholder="Cách nhau bằng dấu phẩy"></div></div>
+    <details><summary>Tác giả và nguồn</summary><div class="g3" style="margin-top:12px"><div class="f"><label>Tác giả</label><input id="pauthor"></div><div class="f"><label>Tên nguồn</label><input id="psn"></div><div class="f"><label>URL nguồn</label><input id="psu"></div></div></details>
+    <div class="f"><label>Nội dung (Markdown)</label>
+      <div class="tb"><button data-w="**|**">B</button><button data-w="*|*"><i>I</i></button><button data-w="\n## |">H2</button><button data-w="\n- |">Danh sách</button><button data-w="[|](https://)">Liên kết</button><button data-w="![mô tả](|)">Ảnh</button><button id="tp" style="margin-left:auto">Xem trước</button></div>
+      <textarea id="body"></textarea><div class="prev" id="prev"></div></div>
+    <div class="chk" style="margin-bottom:16px"><label><input type="checkbox" id="pgi" checked>Báo Google index sau khi đăng</label></div>
+    <div class="bar" style="margin:0"><button class="btn p" id="ppush">Đăng lên GitHub</button><button class="btn" id="pmd">Tải file .md</button></div>
+  </div>
+</section>
+
+<!-- CONNECT -->
+<section class="v" id="v-conn">
+  <h1>Kết nối</h1><p class="sub">Lưu trên trình duyệt này. Worker dùng Cloudflare Access, nên cần đăng nhập trước.</p>
+  <div class="card">
+    <div class="f"><label>Worker proxy URL</label><input id="cw"></div>
+    <div class="g2"><div class="f"><label>GitHub repo (owner/repo)</label><input id="cr"></div><div class="f"><label>Nhánh</label><input id="cb"></div></div>
+    <div class="f"><label>Địa chỉ website</label><input id="cs" placeholder="https://game8.vn"></div>
+    <div class="f"><label>Nơi đọc games.json</label><input id="cj" placeholder="/src/data/games.json"><div class="hint">Nếu không tải được, CMS đọc từ GitHub raw. Bạn cũng có thể nhập file ở danh sách game.</div></div>
+    <button class="btn p" id="cok">Lưu kết nối</button>
+  </div>
+</section>
+</main>
+</div>
+<div class="fix" id="fix"><span id="fs"></span><button class="btn" id="imp">Nhập games.json</button><button class="btn" id="exp">Tải games.json</button><button class="btn p" id="push">Đẩy lên GitHub</button><input type="file" id="file" accept=".json" hidden></div>
+<div id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const slugify=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const LS=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+function toast(m,t=""){const e=document.createElement("div");e.className="ts "+t;e.textContent=m;$("#toast").append(e);setTimeout(()=>e.remove(),t=="e"?6000:3500)}
+/* theme */
+const sT=t=>{document.documentElement.dataset.t=t;LS("cms-theme",t)};
+sT(LS("cms-theme")||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));
+$("#theme").onclick=()=>sT(document.documentElement.dataset.t=="dark"?"light":"dark");
+/* config */
+const DEF={w:"https://tq-upload-proxy.mobitungtq.workers.dev",r:"protungtq/game8.vn",b:"main",s:"https://game8.vn",j:"/src/data/games.json"};
+let cfg={...DEF,...JSON.parse(LS("cms-cfg")||"{}")};
+const cm={w:"cw",r:"cr",b:"cb",s:"cs",j:"cj"};
+Object.entries(cm).forEach(([k,id])=>$("#"+id).value=cfg[k]);
+$("#cok").onclick=()=>{Object.entries(cm).forEach(([k,id])=>cfg[k]=$("#"+id).value.trim().replace(/\/+$/,""));LS("cms-cfg",JSON.stringify(cfg));toast("Đã lưu kết nối","o");loadGames()};
+const api=async(p,body)=>{const r=await fetch(cfg.w+p,body?{method:"POST",credentials:"include",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}:{credentials:"include"});const j=await r.json();if(!r.ok||!j.success)throw new Error(j.error||"Lỗi không xác định");return j};
+/* nav */
+$$(".nav[data-v]").forEach(b=>b.onclick=()=>{$$(".nav[data-v]").forEach(x=>x.classList.toggle("on",x==b));$$(".v").forEach(v=>v.classList.toggle("on",v.id=="v-"+b.dataset.v));$("#fix").style.display=b.dataset.v=="games"?"flex":"none"});
+/* image previews */
+document.addEventListener("input",e=>{const id=e.target.dataset?.pv;if(!id)return;const i=$("#"+id),u=e.target.value.trim();i.style.display=u?"block":"none";if(u)i.src=u});
+
+/* ===== GAMES ===== */
+let games=[],base={},fmiss="",editing=null;
+const miss={cover:g=>!g.cover,trailer:g=>!g.trailer,rating:g=>g.rating==null||g.rating===""};
+async function loadGames(){let d=null;for(const u of [cfg.j,`https://raw.githubusercontent.com/${cfg.r}/${cfg.b}/src/data/games.json`]){try{const r=await fetch(u);if(r.ok){d=await r.json();break}}catch(e){}}
+  if(!Array.isArray(d)){$("#list").innerHTML='<div class="empty">Chưa tải được games.json. Kiểm tra mục Kết nối, hoặc bấm "Nhập games.json" để chọn file từ máy.</div>';return}
+  setGames(d)}
+function setGames(d,keepBase){games=d;if(!keepBase)base=Object.fromEntries(d.map(g=>[g.slug,JSON.stringify(g)]));renderGames();fillGameSelect()}
+function diff(){const cur=Object.fromEntries(games.map(g=>[g.slug,JSON.stringify(g)]));let a=0,c=0,r=0;for(const k in cur){if(!(k in base))a++;else if(base[k]!=cur[k])c++}for(const k in base)if(!(k in cur))r++;return{a,c,r,n:a+c+r}}
+function renderGames(){const q=$("#q").value.toLowerCase(),fc=$("#fc").value;$("#nG").textContent=games.length;
+  const L=games.filter(g=>(!q||(g.name+" "+(g.publisher||"")).toLowerCase().includes(q))&&(!fc||g.category==fc)&&(!fmiss||miss[fmiss](g)));
+  $("#chips").innerHTML=[["","Tất cả",games.length],["cover","Thiếu ảnh bìa",games.filter(miss.cover).length],["trailer","Thiếu trailer",games.filter(miss.trailer).length],["rating","Chưa có điểm",games.filter(miss.rating).length]].map(([k,l,n])=>`<button class="chip ${fmiss==k?"on":""}" data-m="${k}">${l} (${n})</button>`).join("");
+  $("#list").innerHTML=L.map(g=>`<div class="gi">${g.icon?`<img class="ic" src="${esc(g.icon)}" alt="" loading="lazy" onerror="this.outerHTML='<div class=ic>${esc(g.name[0])}</div>'">`:`<div class="ic">${esc(g.name[0])}</div>`}<div class="t"><h3>${esc(g.name)}</h3><p>${esc(g.publisher||"Chưa có nhà phát hành")}</p><p>${esc(g.genre||"")}</p><span class="tg ${g.category=="mobile"?"g":""}">${g.category=="mobile"?"Mobile":"PC / Console"}</span>${g.featured?'<span class="tg g">Nổi bật</span>':""}${g.hot?'<span class="tg g">Hot</span>':""}${miss.cover(g)?'<span class="tg w">Thiếu bìa</span>':""}${miss.trailer(g)?'<span class="tg w">Thiếu trailer</span>':""}</div><div class="rt">${g.rating??"–"}<small>điểm</small></div><div class="ac"><button data-e="${esc(g.slug)}">Sửa</button><button data-x="${esc(g.slug)}" style="color:var(--dn)">Xóa</button></div></div>`).join("")||'<div class="empty">Không có game nào khớp bộ lọc.</div>';
+  const d=diff(),f=$("#fix");f.classList.toggle("dirty",d.n>0);$("#fs").textContent=d.n?`Chưa đẩy lên GitHub: ${d.a} thêm, ${d.c} sửa, ${d.r} xóa`:`${games.length} game, đã đồng bộ`}
+["q","fc"].forEach(i=>$("#"+i).oninput=renderGames);
+$("#chips").onclick=e=>{if(e.target.dataset.m!==undefined){fmiss=e.target.dataset.m;renderGames()}};
+$("#list").onclick=e=>{const s=e.target.dataset;if(s.e)openForm(s.e);if(s.x)delGame(s.x)};
+const F=["name","slug","publisher","genre","category","platforms","icon","cover","trailer","website","description","rating","seoTitle","seoDescription","seoKeywords"];
+function openForm(slug){editing=slug||null;const g=games.find(x=>x.slug==slug)||{category:"mobile"};$("#ft").textContent=slug?"Sửa game: "+g.name:"Thêm game mới";
+  F.forEach(k=>{$("#"+k).value=k=="platforms"?(g.platforms||[]).join(", "):g[k]??""});$("#slug").disabled=!!slug;$("#featured").checked=!!g.featured;$("#hot").checked=!!g.hot;
+  ["icon","cover"].forEach(k=>$("#"+k).dispatchEvent(new Event("input",{bubbles:true})));$("#gl").style.display="none";$("#gf").style.display="block";scrollTo(0,0)}
+const closeForm=()=>{$("#gf").style.display="none";$("#gl").style.display="block"};
+$("#add").onclick=()=>openForm();$("#back").onclick=closeForm;
+$("#name").oninput=()=>{if(!editing)$("#slug").value=slugify($("#name").value)};
+$("#save").onclick=()=>{const v=k=>$("#"+k).value.trim(),name=v("name"),slug=v("slug");
+  if(!name||!slug)return toast("Nhập tên game và slug trước khi lưu","e");
+  if(!editing&&games.some(g=>g.slug==slug))return toast("Slug này đã có, hãy chọn slug khác","e");
+  const rt=v("rating");if(rt!==""&&(+rt<0||+rt>10||isNaN(+rt)))return toast("Điểm đánh giá phải từ 0 đến 10","e");
+  const cat=v("category"),pub=v("publisher"),gen=v("genre"),desc=v("description");
+  const g={slug,name,publisher:pub,genre:gen,platforms:v("platforms").split(",").map(s=>s.trim()).filter(Boolean),category:cat,icon:v("icon"),cover:v("cover"),trailer:v("trailer"),description:desc,website:v("website")};
+  if(!g.platforms.length)g.platforms=[cat=="mobile"?"Mobile":"PC"];
+  if(rt!=="")g.rating=+(+rt).toFixed(1);if($("#featured").checked)g.featured=true;if($("#hot").checked)g.hot=true;
+  g.seoTitle=v("seoTitle")||`${name} - Tải game, tin tức, review | Game8.VN`;g.seoDescription=v("seoDescription")||desc.slice(0,150);g.seoKeywords=v("seoKeywords")||`${name}, tải ${name}, ${pub}, ${gen}`;
+  const i=games.findIndex(x=>x.slug==slug);i>=0?games[i]=g:games.push(g);toast(`Đã lưu "${name}". Nhớ đẩy lên GitHub để đăng`,"o");closeForm();renderGames();fillGameSelect()};
+function delGame(s){const g=games.find(x=>x.slug==s);if(g&&confirm(`Xóa game "${g.name}" khỏi danh sách?`)){games=games.filter(x=>x.slug!=s);renderGames();fillGameSelect();toast("Đã xóa. Nhớ đẩy lên GitHub để áp dụng")}}
+const gjson=()=>JSON.stringify(games,null,2);
+$("#exp").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([gjson()],{type:"application/json"}));a.download="games.json";a.click()};
+$("#imp").onclick=()=>$("#file").click();
+$("#file").onchange=async e=>{try{const d=JSON.parse(await e.target.files[0].text());if(!Array.isArray(d))throw 0;setGames(d);toast(`Đã nhập ${d.length} game`,"o")}catch(x){toast("File không phải games.json hợp lệ","e")}e.target.value=""};
+$("#push").onclick=async()=>{const d=diff();if(!d.n&&!confirm("Chưa có thay đổi nào. Vẫn đẩy lên?"))return;if(!confirm(`Đẩy ${games.length} game lên ${cfg.r}?`))return;
+  try{await api("/github-push",{title:`Cập nhật games.json (${games.length} game)`,filename:"games.json",path:"src/data/games.json",markdownContent:gjson(),repo:cfg.r});base=Object.fromEntries(games.map(g=>[g.slug,JSON.stringify(g)]));renderGames();toast("Đã đẩy lên GitHub. Trang sẽ tự build lại sau vài phút","o")}catch(e){toast("Đẩy thất bại: "+e.message,"e")}};
+addEventListener("beforeunload",e=>{if(diff().n){e.preventDefault();e.returnValue=""}});
+
+/* ===== POSTS ===== */
+const P=k=>$("#"+k);let slugEdited=false;
+function fillGameSelect(){const c=P("pgame").value;P("pgame").innerHTML='<option value="">Không gắn game</option>'+games.slice().sort((a,b)=>a.name.localeCompare(b.name)).map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join("");P("pgame").value=c}
+P("ptitle").oninput=()=>{if(!slugEdited)P("pslug").value=slugify(P("ptitle").value)};P("pslug").oninput=()=>slugEdited=true;
+const yq=s=>String(s).replace(/"/g,'\\"'),un=s=>s.replace(/^"(.*)"$/,"$1").replace(/\\"/g,'"');
+const iso=v=>v?v+":00+07:00":"";
+function buildMd(){const L=["---",`title: "${yq(P("ptitle").value.trim())}"`,`description: "${yq(P("pdesc").value.trim())}"`,`date: "${iso(P("pdate").value)}"`];
+  if(P("pupd").value)L.push(`updated: "${iso(P("pupd").value)}"`);L.push(`image: "${yq(P("pimage").value.trim())}"`);
+  if(P("pauthor").value.trim())L.push(`author: "${yq(P("pauthor").value.trim())}"`);
+  if(P("pgame").value)L.push(`game: "${yq(P("pgame").value)}"`);L.push(`type: "${P("ptype").value}"`);
+  if(P("psn").value.trim()||P("psu").value.trim()){L.push("source:");if(P("psn").value.trim())L.push(`  name: "${yq(P("psn").value.trim())}"`);if(P("psu").value.trim())L.push(`  url: "${yq(P("psu").value.trim())}"`)}
+  const t=P("ptags").value.split(",").map(s=>s.trim()).filter(Boolean);if(t.length){L.push("tags:");t.forEach(x=>L.push(`  - "${yq(x)}"`))}
+  return L.concat("---","",P("body").value.trim()).join("\n")}
+function parseMd(t){const m=t.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);if(!m)return{f:{tags:[]},b:t};const f={tags:[]};let s="",x;
+  for(const l of m[1].split(/\r?\n/)){if(x=l.match(/^(\w+):\s*(.*)$/)){s=x[1];if(x[2])f[s]=un(x[2]);else if(s!="tags")f[s]={}}else if(x=l.match(/^\s+-\s*(.*)$/))f.tags.push(un(x[1]));else if((x=l.match(/^\s+(\w+):\s*(.*)$/))&&f[s])f[s][x[1]]=un(x[2])}return{f,b:m[2].trim()}}
+function fillPost(f,b,slug){P("ptitle").value=f.title||"";P("pslug").value=slug||"";slugEdited=!!slug;P("pdate").value=(f.date||"").slice(0,16);P("pupd").value=(f.updated||"").slice(0,16);P("pdesc").value=f.description||"";P("pimage").value=f.image||"";P("pauthor").value=f.author||"";
+  P("ptype").value=f.type||"Cập nhật";if(f.game&&![...P("pgame").options].some(o=>o.value==f.game))P("pgame").add(new Option(f.game,f.game));P("pgame").value=f.game||"";
+  P("psn").value=f.source?.name||"";P("psu").value=f.source?.url||"";P("ptags").value=(f.tags||[]).join(", ");P("body").value=b||"";P("pimage").dispatchEvent(new Event("input",{bubbles:true}))}
+const fname=()=>{let s=P("lp").value.trim()||P("pslug").value.trim();if(s.includes("/"))s=s.replace(/\/$/,"").split("/").pop();return s?s.replace(/\.md$/,"")+".md":""};
+P("ln").onclick=()=>{fillPost({},"","");P("lp").value="";P("pdate").value=new Date(Date.now()+7*36e5).toISOString().slice(0,16)};
+P("lo").onclick=async()=>{const f=fname();if(!f)return toast("Nhập slug hoặc link bài viết","e");try{const j=await api("/github-get?file="+encodeURIComponent(f));const p=parseMd(j.markdown);fillPost(p.f,p.b,f.replace(/\.md$/,""));toast("Đã mở bài viết","o")}catch(e){toast("Không mở được bài: "+e.message,"e")}};
+P("ld").onclick=async()=>{const f=fname();if(!f)return toast("Nhập slug hoặc link bài cần xóa","e");if(!confirm(`Xóa vĩnh viễn bài "${f}" khỏi GitHub?`))return;try{await api("/github-delete",{filename:f,path:"src/content/posts/"+f});toast("Đã xóa bài viết","o")}catch(e){toast("Xóa thất bại: "+e.message,"e")}};
+P("ppush").onclick=async()=>{const t=P("ptitle").value.trim();if(!t)return toast("Nhập tiêu đề bài viết","e");if(!P("pdate").value)return toast("Chọn ngày xuất bản","e");const slug=P("pslug").value.trim()||slugify(t),f=slug+".md";if(!confirm(`Đăng hoặc ghi đè bài "${f}" lên GitHub?`))return;
+  try{await api("/github-push",{title:t,filename:f,path:"src/content/posts/"+f,markdownContent:buildMd()});P("pslug").value=slug;toast("Đã đăng bài lên GitHub","o");
+    if(P("pgi").checked)try{await api("/google-index",{articleUrl:`${cfg.s}/${slug}/`});toast("Đã báo Google index","o")}catch(e){toast("Đã đăng bài, nhưng báo Google lỗi: "+e.message,"e")}}catch(e){toast("Đăng thất bại: "+e.message,"e")}};
+P("pmd").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([buildMd()],{type:"text/markdown"}));a.download=(P("pslug").value.trim()||slugify(P("ptitle").value)||"bai-viet")+".md";a.click()};
+$$(".tb [data-w]").forEach(b=>b.onclick=()=>{const t=P("body"),[a,z]=b.dataset.w.replace(/\\n/g,"\n").split("|"),s=t.selectionStart,e=t.selectionEnd;t.setRangeText(a+t.value.slice(s,e)+z,s,e,"end");t.focus()});
+const md=s=>esc(s).replace(/^## (.*)$/gm,"<h2>$1</h2>").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/\*(.+?)\*/g,"<i>$1</i>").replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<img alt="$1" src="$2">').replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2">$1</a>').replace(/^- (.*)$/gm,"<li>$1</li>").replace(/\n{2,}/g,"<br><br>");
+P("tp").onclick=function(){const on=P("prev").style.display=="block";P("prev").style.display=on?"none":"block";P("body").style.display=on?"block":"none";this.textContent=on?"Xem trước":"Soạn thảo";if(!on)P("prev").innerHTML=md(P("body").value)};
+
+loadGames();P("ln").click();
+</script>
+</body>
+</html>

@@ -3,6 +3,6 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://game8.vn',
-  integrations: [tailwind()],
+  integrations: [tailwind({ applyBaseStyles: false })],
   output: 'static',
 });

@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CategoryPage from '../components/CategoryPage.astro';
+import games from '../data/games.json';
+
+const list = games.filter((g) => g.category === 'pc-console');
+---
+
+<Layout
+  title="Game PC / Console - Game Steam, PlayStation, Xbox, Switch"
+  description="Tổng hợp game PC và console đáng chơi nhất: Steam, PlayStation, Xbox, Nintendo Switch — từ indie tới bom tấn AAA."
+  keywords="game pc, game console, game steam, game ps5, game xbox, game switch"
+>
+  <CategoryPage title="Game PC / Console" subtitle="Steam, PlayStation, Xbox, Switch" list={list} />
+</Layout>

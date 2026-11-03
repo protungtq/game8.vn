@@ -6,7 +6,11 @@ export default {
     extend: {
       colors: {
         primary: '#dc2626',
-      }
+        tap: '#16c79a',
+      },
+      fontFamily: {
+        sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
+      },
     },
   },
   plugins: [],

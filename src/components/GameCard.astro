@@ -1,0 +1,35 @@
+---
+const { game } = Astro.props;
+const platText = (game.platforms || []).join(' · ');
+---
+
+<a
+  href={`/game/${game.slug}/`}
+  class="game-card group block fade"
+  data-name={(game.name || '').toLowerCase()}
+  data-genre={game.genre || ''}
+>
+  <div class="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
+    {game.cover ? (
+      <img src={game.cover} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+    ) : (
+      <div class="absolute inset-0 bg-gradient-to-br from-slate-600 via-slate-800 to-slate-950 grid place-items-center">
+        {game.icon ? (
+          <img src={game.icon} alt={game.name} loading="lazy" class="h-[78%] aspect-square object-cover rounded-[22%] shadow-2xl ring-1 ring-white/20" />
+        ) : (
+          <span class="text-white/40 text-6xl font-black">{game.name.charAt(0)}</span>
+        )}
+        <span class="absolute left-4 top-3 right-4 text-white font-black italic uppercase leading-tight text-lg sm:text-xl drop-shadow-md line-clamp-2">{game.name}</span>
+      </div>
+    )}
+    <i class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition pointer-events-none"></i>
+  </div>
+  <div class="mt-3 min-w-0">
+    <h3 class="text-lg sm:text-xl font-extrabold truncate">{game.name}</h3>
+    <div class="mt-1 text-xs muted flex items-center gap-1.5 flex-wrap">
+      <span>{game.genre}</span>
+      {platText && <span>• {platText}</span>}
+    </div>
+    <div class="mt-0.5 text-xs muted truncate">{game.publisher}</div>
+  </div>
+</a>

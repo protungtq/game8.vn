@@ -1,0 +1,15 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CategoryPage from '../components/CategoryPage.astro';
+import games from '../data/games.json';
+
+const list = games.filter((g) => g.category === 'mobile');
+---
+
+<Layout
+  title="Game Mobile - Tải game Android, iOS mới nhất"
+  description="Tổng hợp game mobile hay nhất: game VTC, VNG, Funtap, Gosu và các bom tấn quốc tế trên Android & iOS."
+  keywords="game mobile, game android, game ios, tải game mobile, game hay cho điện thoại"
+>
+  <CategoryPage title="Game Mobile" subtitle="Android & iOS" list={list} />
+</Layout>

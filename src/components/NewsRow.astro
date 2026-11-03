@@ -1,0 +1,31 @@
+---
+const { post, game } = Astro.props;
+const BADGES = ['bg-cyan-500', 'bg-violet-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500'];
+const tagText = post.tag || 'Tin tức';
+let hash = 0;
+for (const ch of tagText) hash += ch.charCodeAt(0);
+const badge = BADGES[hash % BADGES.length];
+const thumb = post.image || game?.cover || game?.icon || '';
+---
+
+<a
+  href={`/tin/${post.slug}/`}
+  class="news-row sf rounded-2xl p-3 flex gap-3.5 hover:bg-black/10 dark:hover:bg-white/10 transition fade"
+  data-tags={(post.tags || []).join('|').toLowerCase()}
+>
+  <div class="w-28 sm:w-40 aspect-[16/10] rounded-xl relative overflow-hidden shrink-0 bg-gradient-to-br from-slate-600 to-slate-900">
+    {thumb ? (
+      <img src={thumb} alt={post.title} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+    ) : (
+      <span class="absolute inset-0 grid place-items-center text-white/40 text-3xl font-black">{(game?.name || 'G').charAt(0)}</span>
+    )}
+  </div>
+  <div class="min-w-0 self-center">
+    <div class="flex items-center gap-2 flex-wrap">
+      <span class={`text-[11px] font-bold text-white rounded px-1.5 py-0.5 ${badge}`}>{tagText}</span>
+      {post.dateText && <span class="text-xs muted">{post.dateText}</span>}
+    </div>
+    <h3 class="font-bold mt-1.5 line-clamp-2">{post.title}</h3>
+    {game && <div class="text-xs muted mt-1">{game.name}</div>}
+  </div>
+</a>
