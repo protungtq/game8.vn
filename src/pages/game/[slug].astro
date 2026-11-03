@@ -70,6 +70,32 @@ const embedUrl = youtubeEmbed(game.trailer);
 const ratingVal = typeof game.rating === 'number' ? game.rating : null;
 const filledStars = ratingVal != null ? Math.round(ratingVal / 2) : 0;
 const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l6.1-.7z';
+
+// Header kiểu app-store (mobile): biểu tượng nền tảng + nút tải chính/phụ
+const GLYPH: Record<string, string> = {
+  android: 'M6 18c0 .6.4 1 1 1h1v3a1.5 1.5 0 003 0v-3h2v3a1.5 1.5 0 003 0v-3h1c.6 0 1-.4 1-1V8H6zM3.5 8A1.5 1.5 0 002 9.5v6a1.5 1.5 0 003 0v-6A1.5 1.5 0 003.5 8zm17 0a1.5 1.5 0 00-1.5 1.5v6a1.5 1.5 0 003 0v-6A1.5 1.5 0 0020.5 8zM15.5 2.2l1.3-1.3-.5-.5-1.5 1.5A6 6 0 0012 1.5c-.9 0-1.7.2-2.3.6L8.2.4l-.5.5 1.3 1.3A5.900 5.900 0 006 7h12a5.900 5.900 0 00-2.500-4.800z',
+  ios: 'M16.400 12.600c0-2.300 1.900-3.400 2-3.500-1.100-1.600-2.800-1.800-3.400-1.800-1.400-.1-2.800.8-3.500.8s-1.800-.8-3-.8C6.900 7.400 5.400 8.300 4.600 9.700c-1.700 2.900-.4 7.100 1.200 9.400.8 1.100 1.700 2.400 2.900 2.300 1.200 0 1.600-.7 3-.7s1.800.7 3 .7c1.300 0 2.100-1.100 2.800-2.300.9-1.300 1.300-2.500 1.300-2.600-.1 0-2.400-.9-2.400-3.900zM14.200 5.800c.6-.8 1.100-1.800.9-2.800-.9 0-2 .6-2.600 1.400-.6.700-1.100 1.700-.9 2.700 1 .1 2-.5 2.600-1.300z',
+  win: 'M3 5l8-1.200V11H3zM12 3.700L21 2.500V11h-9zM3 12h8v7.200L3 18zM12 12h9v9.500L12 20.300z',
+};
+const platTokens: string[] = [];
+for (const p of game.platforms || []) {
+  if (p === 'Mobile') platTokens.push('android', 'ios');
+  else if (p === 'PC') platTokens.push('win');
+  else platTokens.push(p);
+}
+type Act = { href: string; label: string; kind: string };
+const primary: Act | null = game.android
+  ? { href: game.android, label: 'Tải xuống', kind: 'android' }
+  : game.ios
+    ? { href: game.ios, label: 'Tải xuống', kind: 'ios' }
+    : game.website
+      ? { href: game.website, label: isMobile ? 'Trang chủ game' : 'Tải xuống', kind: 'web' }
+      : null;
+const secondary: Act[] = [
+  game.android && primary?.kind !== 'android' ? { href: game.android, label: 'Tải Android', kind: 'android' } : null,
+  game.ios && primary?.kind !== 'ios' ? { href: game.ios, label: 'Tải iOS', kind: 'ios' } : null,
+  game.website && primary?.kind !== 'web' ? { href: game.website, label: 'Trang chủ game', kind: 'web' } : null,
+].filter(Boolean) as Act[];
 ---
 
 <Layout
@@ -88,8 +114,56 @@ const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l
       <span class="font-semibold text-[#15171a] dark:text-white">{game.name}</span>
     </div>
 
-    <!-- Đầu trang game -->
-    <div class="flex flex-col sm:flex-row gap-5 sm:gap-7 sm:items-center">
+    <!-- Đầu trang game (mobile, kiểu app-store) -->
+    <div class="sm:hidden">
+      <div class="flex gap-3.5">
+        {game.icon ? (
+          <img src={game.icon} alt={`Icon ${game.name}`} class="w-[72px] h-[72px] rounded-[20%] object-cover ring-1 ring-black/10 shrink-0 shadow" loading="eager" />
+        ) : (
+          <div class="w-[72px] h-[72px] rounded-[20%] bg-gradient-to-br from-tap to-cyan-500 grid place-items-center text-white text-3xl font-black shrink-0 shadow">{game.name.charAt(0)}</div>
+        )}
+        <div class="min-w-0 flex-1">
+          <h1 class="text-xl font-extrabold leading-snug line-clamp-2">{game.name}</h1>
+          <div class="mt-1 flex items-center gap-1.5 text-xs muted flex-wrap">
+            {platTokens.map((t) => (
+              GLYPH[t]
+                ? <svg class="w-3.5 h-3.5 fill-current opacity-70" viewBox="0 0 24 24"><path d={GLYPH[t]} /></svg>
+                : <b class="text-[10px] opacity-70">{t}</b>
+            ))}
+            <span>•</span><span>{game.genre}</span>
+            {ratingVal != null && (<><span>•</span><span class="text-tap font-bold">★ {ratingVal.toFixed(1)}</span></>)}
+          </div>
+          <div class="mt-1 text-xs font-bold uppercase tracking-wider text-tap">{game.publisher}</div>
+        </div>
+      </div>
+      {primary ? (
+        <div class="relative mt-4">
+          <div class="flex gap-2">
+            <a href={primary.href} target="_blank" rel="noopener" class="btn btn-p flex-1 !h-12 !text-base">
+              {primary.kind !== 'web' && GLYPH[primary.kind] && (
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d={GLYPH[primary.kind]} /></svg>
+              )}
+              {primary.label}
+            </a>
+            <button id="dl-more" type="button" aria-label="Thêm lựa chọn tải" class="btn btn-s !px-3.5 !h-12 shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+          </div>
+          <div id="dl-menu" class="hidden absolute right-0 top-full mt-2 w-60 max-w-[85vw] rounded-2xl bg-white dark:bg-[#1b1e23] ring-1 ring-black/10 dark:ring-white/10 shadow-xl p-1.5 z-30">
+            {secondary.map((a) => (
+              <a href={a.href} target="_blank" rel="noopener" class="flex items-center gap-2 px-3 h-10 rounded-xl text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10">{a.label}</a>
+            ))}
+            {embedUrl && <a href="#trailer" class="flex items-center gap-2 px-3 h-10 rounded-xl text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10">Xem trailer</a>}
+            <button type="button" class="follow-btn flex items-center gap-2 px-3 h-10 rounded-xl text-sm font-semibold hover:bg-black/5 dark:hover:bg-white/10 w-full text-left" data-slug={game.slug}>♡ Theo dõi</button>
+          </div>
+        </div>
+      ) : (
+        <button type="button" class="follow-btn btn btn-o w-full mt-4 !h-12" data-slug={game.slug}>♡ Theo dõi</button>
+      )}
+    </div>
+
+    <!-- Đầu trang game (màn hình lớn) -->
+    <div class="hidden sm:flex flex-row gap-5 sm:gap-7 sm:items-center">
       {game.icon ? (
         <img src={game.icon} alt={`Icon ${game.name}`} class="w-[136px] h-[136px] rounded-[22.5%] object-cover ring-1 ring-black/10 shrink-0 shadow-lg" loading="eager" />
       ) : (
@@ -114,7 +188,7 @@ const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l
             <a href={game.website} target="_blank" rel="noopener" class="btn btn-p">{isMobile ? 'Trang chủ game' : 'Tải game'}</a>
           )}
           {embedUrl && <a href="#trailer" class="btn btn-s">Xem trailer</a>}
-          <button id="follow-btn" data-slug={game.slug} class="btn btn-o">♡ Theo dõi</button>
+          <button type="button" data-slug={game.slug} class="btn btn-o follow-btn">♡ Theo dõi</button>
         </div>
       </div>
       {ratingVal != null && (
@@ -162,7 +236,8 @@ const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l
 
         <section>
           <h2 class="text-xl font-extrabold mb-3">Giới thiệu</h2>
-          <p class="muted leading-relaxed">{game.description}</p>
+          <p id="game-desc" class="muted leading-relaxed line-clamp-3 sm:line-clamp-none">{game.description}</p>
+          <button id="desc-more" type="button" class="sm:hidden hidden text-tap text-sm font-semibold mt-1">Thêm</button>
         </section>
 
         <section>
@@ -226,25 +301,52 @@ const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l
   });
 
   // ===== Theo dõi game (lưu trên máy người dùng) =====
-  const btn = document.getElementById('follow-btn') as HTMLButtonElement | null;
-  if (btn) {
-    const slug = btn.dataset.slug || '';
+  const followBtns = [...document.querySelectorAll('.follow-btn')] as HTMLButtonElement[];
+  if (followBtns.length) {
+    const slug = followBtns[0].dataset.slug || '';
     const KEY = 'followed-games';
     const read = (): string[] => {
       try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
     };
     const paint = () => {
       const on = read().includes(slug);
-      btn.textContent = on ? '♥ Đã theo dõi' : '♡ Theo dõi';
-      btn.classList.toggle('chip-on', on);
+      followBtns.forEach((b) => {
+        b.textContent = on ? '♥ Đã theo dõi' : '♡ Theo dõi';
+        b.classList.toggle('chip-on', on);
+      });
     };
-    btn.addEventListener('click', () => {
+    followBtns.forEach((b) => b.addEventListener('click', () => {
       const list = read();
       const i = list.indexOf(slug);
       if (i >= 0) list.splice(i, 1); else list.push(slug);
       try { localStorage.setItem(KEY, JSON.stringify(list)); } catch {}
       paint();
-    });
+    }));
     paint();
+  }
+
+  // ===== Menu tải phụ (mobile) =====
+  const dlMore = document.getElementById('dl-more');
+  const dlMenu = document.getElementById('dl-menu');
+  dlMore?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    dlMenu?.classList.toggle('hidden');
+  });
+  document.addEventListener('click', (e) => {
+    if (dlMenu && !dlMenu.classList.contains('hidden') && !dlMenu.contains(e.target as Node)) {
+      dlMenu.classList.add('hidden');
+    }
+  });
+  dlMenu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dlMenu.classList.add('hidden')));
+
+  // ===== Mô tả: Thêm / Thu gọn (mobile) =====
+  const desc = document.getElementById('game-desc');
+  const descMore = document.getElementById('desc-more');
+  if (desc && descMore) {
+    if (desc.scrollHeight > desc.clientHeight + 2) descMore.classList.remove('hidden');
+    descMore.addEventListener('click', () => {
+      const clamped = desc.classList.toggle('line-clamp-3');
+      descMore.textContent = clamped ? 'Thêm' : 'Thu gọn';
+    });
   }
 </script>
