@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Manager - Game8.VN Control</title>
+  <title>Game Manager - Game8 Control</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -53,7 +53,7 @@
 <div class="container">
   <div class="header">
     <h1>🎮 Game Manager</h1>
-    <p>Quản lý game trên Game8.VN — thêm / sửa / xóa, đẩy lên GitHub qua Worker Proxy</p>
+    <p>Quản lý game trên Game8 — thêm / sửa / xóa, đẩy lên GitHub qua Worker Proxy</p>
   </div>
 
   <!-- Config -->
@@ -342,7 +342,7 @@ function saveGame() {
     trailer: document.getElementById('fTrailer').value.trim(),
     description,
     website: document.getElementById('fWebsite').value.trim(),
-    seoTitle: document.getElementById('fSeoTitle').value.trim() || `${name} - Tải game, tin tức, review | Game8.VN`,
+    seoTitle: document.getElementById('fSeoTitle').value.trim() || `${name} - Tải game, cập nhật, review | Game8`,
     seoDescription: document.getElementById('fSeoDescription').value.trim() || description.substring(0, 150),
     seoKeywords: document.getElementById('fSeoKeywords').value.trim() || `${name}, tải ${name}, ${publisher}, ${genre}`
   };

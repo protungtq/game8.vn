@@ -177,7 +177,7 @@ $("#save").onclick=()=>{const v=k=>$("#"+k).value.trim(),name=v("name"),slug=v("
   const g={slug,name,publisher:pub,genre:gen,platforms:v("platforms").split(",").map(s=>s.trim()).filter(Boolean),category:cat,icon:v("icon"),cover:v("cover"),trailer:v("trailer"),description:desc,website:v("website")};
   if(!g.platforms.length)g.platforms=[cat=="mobile"?"Mobile":"PC"];
   if(rt!=="")g.rating=+(+rt).toFixed(1);const an=v("android"),io=v("ios");if(an)g.android=an;if(io)g.ios=io;if($("#featured").checked)g.featured=true;if($("#hot").checked)g.hot=true;
-  g.seoTitle=v("seoTitle")||`${name} - Tải game, tin tức, review | Game8.VN`;g.seoDescription=v("seoDescription")||desc.slice(0,150);g.seoKeywords=v("seoKeywords")||`${name}, tải ${name}, ${pub}, ${gen}`;
+  g.seoTitle=v("seoTitle")||`${name} - Tải game, cập nhật, review | Game8`;g.seoDescription=v("seoDescription")||desc.slice(0,150);g.seoKeywords=v("seoKeywords")||`${name}, tải ${name}, ${pub}, ${gen}`;
   const i=games.findIndex(x=>x.slug==slug);i>=0?games[i]=g:games.push(g);toast(`Đã lưu "${name}". Nhớ đẩy lên GitHub để đăng`,"o");closeForm();renderGames();fillGameSelect()};
 function delGame(s){const g=games.find(x=>x.slug==s);if(g&&confirm(`Xóa game "${g.name}" khỏi danh sách?`)){games=games.filter(x=>x.slug!=s);renderGames();fillGameSelect();toast("Đã xóa. Nhớ đẩy lên GitHub để áp dụng")}}
 const gjson=()=>JSON.stringify(games,null,2);
