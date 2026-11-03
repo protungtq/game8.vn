@@ -30,7 +30,7 @@ const searchIndex = [
   ...postEntries.map((p) => ({
     t: p.data.title,
     s: gameBySlug[p.data.game]?.name || 'Tin tức',
-    u: `/tin/${p.id.replace(/\.(md|mdx)$/i, '')}/`,
+    u: `/p/${p.id.replace(/\.(md|mdx)$/i, '')}/`,
     i: p.data.image || gameBySlug[p.data.game]?.icon || '',
   })),
 ];
@@ -41,10 +41,10 @@ const NAV = [
   { href: '/', label: 'Trang chủ', icon: '<path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>' },
   { href: '/mobile/', label: 'Game Mobile', icon: '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>' },
   { href: '/pc/', label: 'PC / Console', icon: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>' },
-  { href: '/tin-tuc/', label: 'Cập nhật', icon: '<path d="M6 8a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/>' },
+  { href: '/cap-nhat/', label: 'Cập nhật', icon: '<path d="M6 8a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/>' },
 ];
 const isActive = (href: string) =>
-  href === '/' ? path === '/' : path.startsWith(href) || (href === '/tin-tuc/' && path.startsWith('/tin/'));
+  href === '/' ? path === '/' : path.startsWith(href) || (href === '/cap-nhat/' && path.startsWith('/p/'));
 ---
 
 <!DOCTYPE html>
@@ -151,7 +151,7 @@ const isActive = (href: string) =>
           <li><a class="hover:text-tap" href="/">Trang chủ</a></li>
           <li><a class="hover:text-tap" href="/mobile/">Game Mobile</a></li>
           <li><a class="hover:text-tap" href="/pc/">Game PC / Console</a></li>
-          <li><a class="hover:text-tap" href="/tin-tuc/">Cập nhật mới</a></li>
+          <li><a class="hover:text-tap" href="/cap-nhat/">Cập nhật mới</a></li>
         </ul>
       </div>
       <div>

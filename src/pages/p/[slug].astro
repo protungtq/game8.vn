@@ -1,0 +1,134 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NewsRow from '../../components/NewsRow.astro';
+import { getCollection, render } from 'astro:content';
+import games from '../../data/games.json';
+import { latestPostImageMap } from '../../lib/gameArt';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.(md|mdx)$/i, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const title = post.data.title ?? 'Bài viết';
+const description = post.data.description ?? '';
+const image = post.data.image ?? '';
+const tags: string[] = post.data.tags || [];
+const tagText = tags[0] || 'Tin tức';
+const dateText = post.data.date
+  ? new Date(post.data.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  : '';
+
+const game = games.find((g) => g.slug === post.data.game);
+const BADGES = ['bg-cyan-500', 'bg-violet-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500'];
+let hash = 0;
+for (const ch of tagText) hash += ch.charCodeAt(0);
+const badge = BADGES[hash % BADGES.length];
+
+// Bài khác: ưu tiên cùng game, thiếu thì lấy bài mới nhất khác
+const fmtDate = (d: any) =>
+  d ? new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
+const gameBySlug = Object.fromEntries(games.map((g) => [g.slug, g]));
+const selfSlug = post.id.replace(/\.(md|mdx)$/i, '');
+const allPosts = (await getCollection('posts'))
+  .filter((p) => p.id.replace(/\.(md|mdx)$/i, '') !== selfSlug)
+  .map((p) => ({
+    slug: p.id.replace(/\.(md|mdx)$/i, ''),
+    title: p.data.title,
+    description: p.data.description || '',
+    image: p.data.image || '',
+    tag: (p.data.tags && p.data.tags[0]) || 'Tin tức',
+    tags: p.data.tags || [],
+    dateText: fmtDate(p.data.date),
+    _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
+    gameSlug: p.data.game || '',
+  }))
+  .sort((a, b) => b._ts - a._ts);
+const postImageMap = latestPostImageMap([
+  ...allPosts,
+  { gameSlug: post.data.game || '', image: image, _ts: post.data.date ? new Date(post.data.date).getTime() : 0 },
+]);
+const sameGame = allPosts.filter((p) => game && p.gameSlug === game.slug);
+const morePosts = (sameGame.length > 0 ? sameGame : allPosts).slice(0, 3);
+const moreTitle = sameGame.length > 0 && game ? `Bài viết khác về ${game.name}` : 'Bài viết mới khác';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": title,
+  "description": description,
+  "datePublished": post.data.date ?? '',
+};
+---
+
+<Layout
+  title={title}
+  description={description}
+  ogImage={image || game?.cover || game?.icon || ''}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-3xl mx-auto px-4 py-6">
+    <div class="text-sm muted mb-5 flex items-center gap-1.5 flex-wrap">
+      <a href="/" class="hover:text-tap">Trang chủ</a><span>›</span>
+      {game ? (
+        <>
+          <a href={`/game/${game.slug}/`} class="hover:text-tap">{game.name}</a><span>›</span>
+        </>
+      ) : (
+        <>
+          <a href="/cap-nhat/" class="hover:text-tap">Cập nhật</a><span>›</span>
+        </>
+      )}
+      <span class="font-semibold text-[#15171a] dark:text-white">{tagText}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <span class={`text-[11px] font-bold text-white rounded px-1.5 py-0.5 ${badge}`}>{tagText}</span>
+      <span class="text-sm muted">{dateText}{game ? ` · ${game.publisher}` : ''}</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mt-3">{title}</h1>
+
+    {game && (
+      <a href={`/game/${game.slug}/`} class="sf rounded-2xl p-3 flex items-center gap-3 mt-5 hover:bg-black/10 dark:hover:bg-white/10 transition">
+        {game.icon ? (
+          <img src={game.icon} alt={game.name} class="w-11 h-11 rounded-[22.5%] object-cover ring-1 ring-black/10 shrink-0" />
+        ) : (
+          <span class="w-11 h-11 rounded-[22.5%] bg-gradient-to-br from-tap to-cyan-500 grid place-items-center text-white font-black shrink-0">{game.name.charAt(0)}</span>
+        )}
+        <span class="min-w-0 flex-1">
+          <span class="block font-bold text-sm truncate">{game.name}</span>
+          <span class="block text-xs muted">{game.genre} · {(game.platforms || []).join(' · ')}</span>
+        </span>
+        <span class="btn btn-o !h-8 !px-4 text-xs shrink-0">Xem game</span>
+      </a>
+    )}
+
+    {image && <img src={image} alt={title} class="mt-6 w-full rounded-2xl" />}
+
+    <article class="article-body mt-7">
+      <Content />
+    </article>
+
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-10">
+        {tags.map((t) => <span class="text-xs font-medium rounded-full sf px-3 py-1">{t}</span>)}
+      </div>
+    )}
+
+    {morePosts.length > 0 && (
+      <section class="mt-12">
+        <h2 class="text-xl font-extrabold mb-4">{moreTitle}</h2>
+        <div class="space-y-3">
+          {morePosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} postImg={postImageMap[p.gameSlug]} />)}
+        </div>
+      </section>
+    )}
+  </div>
+</Layout>

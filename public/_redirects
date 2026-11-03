@@ -1,0 +1,3 @@
+/tin-tuc /cap-nhat/ 301
+/tin-tuc/ /cap-nhat/ 301
+/tin/* /p/:splat 301
