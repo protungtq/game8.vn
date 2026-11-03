@@ -65,6 +65,11 @@ function youtubeEmbed(url: string): string {
 }
 
 const embedUrl = youtubeEmbed(game.trailer);
+
+// Điểm đánh giá: điền tay trong dữ liệu (rating), hiển thị 1 chữ số lẻ + sao
+const ratingVal = typeof game.rating === 'number' ? game.rating : null;
+const filledStars = ratingVal != null ? Math.round(ratingVal / 2) : 0;
+const starPath = 'M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6-5.4-3-5.4 3 1.2-6L1.3 7.8l6.1-.7z';
 ---
 
 <Layout
@@ -99,18 +104,33 @@ const embedUrl = youtubeEmbed(game.trailer);
           ))}
         </div>
         <div class="flex gap-2 mt-4 flex-wrap">
-          {game.website && (
-            <a href={game.website} target="_blank" rel="noopener" class="btn btn-p">Trang chủ game</a>
+          {game.android && (
+            <a href={game.android} target="_blank" rel="noopener" class="btn btn-p">Tải Android</a>
+          )}
+          {game.ios && (
+            <a href={game.ios} target="_blank" rel="noopener" class="btn btn-s">Tải iOS</a>
+          )}
+          {!game.android && !game.ios && game.website && (
+            <a href={game.website} target="_blank" rel="noopener" class="btn btn-p">{isMobile ? 'Trang chủ game' : 'Tải game'}</a>
           )}
           {embedUrl && <a href="#trailer" class="btn btn-s">Xem trailer</a>}
           <button id="follow-btn" data-slug={game.slug} class="btn btn-o">♡ Theo dõi</button>
         </div>
       </div>
-      <div class="sf rounded-2xl px-7 py-4 text-center shrink-0 sm:ml-auto">
-        <div class="text-2xl font-extrabold text-tap leading-tight">{isMobile ? 'Mobile' : 'PC · Console'}</div>
-        <div class="text-sm muted mt-1">{platText}</div>
-        <div class="text-xs muted mt-1">{game.genre}</div>
-      </div>
+      {ratingVal != null && (
+        <div class="sf rounded-2xl px-7 py-4 text-center shrink-0 sm:ml-auto">
+          <div class="text-5xl font-extrabold text-tap leading-none">{ratingVal.toFixed(1)}</div>
+          <div class="text-amber-400 mt-2 flex justify-center gap-0.5">
+            {Array.from({ length: filledStars }).map(() => (
+              <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d={starPath} /></svg>
+            ))}
+            {Array.from({ length: 5 - filledStars }).map(() => (
+              <svg class="w-3 h-3 fill-current opacity-25" viewBox="0 0 20 20"><path d={starPath} /></svg>
+            ))}
+          </div>
+          <div class="text-xs muted mt-1.5">Điểm đánh giá</div>
+        </div>
+      )}
     </div>
 
     <!-- Nội dung chính + cột phải -->
@@ -164,9 +184,6 @@ const embedUrl = youtubeEmbed(game.trailer);
             <div class="flex justify-between gap-3 py-3"><dt class="muted">Nhà phát hành</dt><dd class="font-semibold text-right">{game.publisher}</dd></div>
             <div class="flex justify-between gap-3 py-3"><dt class="muted">Nền tảng</dt><dd class="font-semibold text-right">{platText}</dd></div>
             <div class="flex justify-between gap-3 py-3"><dt class="muted">Thể loại</dt><dd class="font-semibold text-right">{game.genre}</dd></div>
-            {game.website && (
-              <div class="flex justify-between gap-3 py-3"><dt class="muted">Website</dt><dd class="font-semibold text-right"><a href={game.website} target="_blank" rel="noopener" class="text-tap hover:underline">Trang chủ</a></dd></div>
-            )}
           </dl>
         </div>
         <div>
@@ -183,6 +200,9 @@ const embedUrl = youtubeEmbed(game.trailer);
                   <span class="block font-bold text-sm truncate">{x.name}</span>
                   <span class="block text-xs muted truncate">{x.genre} • {(x.platforms || [])[0] || ''}</span>
                 </span>
+                {typeof x.rating === 'number' && (
+                  <span class="text-base font-extrabold text-tap leading-none shrink-0">{x.rating.toFixed(1)}</span>
+                )}
               </a>
             ))}
           </div>

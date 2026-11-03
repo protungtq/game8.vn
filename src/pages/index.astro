@@ -101,7 +101,7 @@ const jsonLd = {
               </span>
               <span class="min-w-0 flex-1">
                 <span class="block font-bold truncate">{game.name}</span>
-                <span class="block text-xs muted mt-1 truncate">{game.genre} · {game.publisher}</span>
+                <span class="block text-xs muted mt-1 truncate">{game.genre}{game.rating != null ? ` · ★ ${Number(game.rating).toFixed(1)}` : ` · ${game.publisher}`}</span>
               </span>
             </button>
           ))}

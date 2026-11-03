@@ -11,6 +11,7 @@ const art = gameArt(game, postImg);
   class="game-card group block fade"
   data-name={(game.name || '').toLowerCase()}
   data-genre={game.genre || ''}
+  data-rating={game.rating ?? ''}
 >
   <div class="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
     {art ? (
@@ -27,12 +28,17 @@ const art = gameArt(game, postImg);
     )}
     <i class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition pointer-events-none"></i>
   </div>
-  <div class="mt-3 min-w-0">
-    <h3 class="text-lg sm:text-xl font-extrabold truncate">{game.name}</h3>
-    <div class="mt-1 text-xs muted flex items-center gap-1.5 flex-wrap">
-      <span>{game.genre}</span>
-      {platText && <span>• {platText}</span>}
+  <div class="flex items-start justify-between gap-3 mt-3">
+    <div class="min-w-0">
+      <h3 class="text-lg sm:text-xl font-extrabold truncate">{game.name}</h3>
+      <div class="mt-1 text-xs muted flex items-center gap-1.5 flex-wrap">
+        <span>{game.genre}</span>
+        {platText && <span>• {platText}</span>}
+      </div>
+      <div class="mt-0.5 text-xs muted truncate">{game.publisher}</div>
     </div>
-    <div class="mt-0.5 text-xs muted truncate">{game.publisher}</div>
+    {game.rating != null && (
+      <div class="text-xl font-extrabold text-tap leading-none shrink-0">{Number(game.rating).toFixed(1)}</div>
+    )}
   </div>
 </a>
