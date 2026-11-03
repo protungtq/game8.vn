@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import NewsRow from '../../components/NewsRow.astro';
 import { getCollection } from 'astro:content';
 import games from '../../data/games.json';
+import { gameArt } from '../../lib/gameArt';
 
 export async function getStaticPaths() {
   const entries = await getCollection('posts');
@@ -117,8 +118,8 @@ const embedUrl = youtubeEmbed(game.trailer);
           <section id="trailer">
             <h2 class="text-xl font-extrabold mb-4">Trailer</h2>
             <div id="trailer-cover" class="relative aspect-video rounded-2xl overflow-hidden cursor-pointer group ring-1 ring-black/5 dark:ring-white/10" data-embed={embedUrl}>
-              {game.cover ? (
-                <img src={game.cover} alt={`Trailer ${game.name}`} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+              {gameArt(game) ? (
+                <img src={gameArt(game)} alt={`Trailer ${game.name}`} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               ) : (
                 <div class="absolute inset-0 bg-gradient-to-br from-slate-600 to-slate-950 grid place-items-center">
                   {game.icon && <img src={game.icon} alt={game.name} class="h-[72%] aspect-square object-cover rounded-[22%] opacity-80" />}

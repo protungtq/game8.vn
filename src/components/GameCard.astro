@@ -1,6 +1,9 @@
 ---
+import { gameArt } from '../lib/gameArt';
+
 const { game } = Astro.props;
 const platText = (game.platforms || []).join(' · ');
+const art = gameArt(game);
 ---
 
 <a
@@ -10,8 +13,8 @@ const platText = (game.platforms || []).join(' · ');
   data-genre={game.genre || ''}
 >
   <div class="relative aspect-video rounded-2xl overflow-hidden ring-1 ring-black/5 dark:ring-white/10">
-    {game.cover ? (
-      <img src={game.cover} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+    {art ? (
+      <img src={art} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
     ) : (
       <div class="absolute inset-0 bg-gradient-to-br from-slate-600 via-slate-800 to-slate-950 grid place-items-center">
         {game.icon ? (

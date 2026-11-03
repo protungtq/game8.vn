@@ -1,11 +1,13 @@
 ---
+import { gameImage } from '../lib/gameArt';
+
 const { post, game } = Astro.props;
 const BADGES = ['bg-cyan-500', 'bg-violet-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500'];
 const tagText = post.tag || 'Tin tức';
 let hash = 0;
 for (const ch of tagText) hash += ch.charCodeAt(0);
 const badge = BADGES[hash % BADGES.length];
-const thumb = post.image || game?.cover || game?.icon || '';
+const thumb = post.image || gameImage(game);
 ---
 
 <a
