@@ -54,6 +54,9 @@ const featured = (featuredPool.length
   : featuredSlugs.map((s) => games.find((g) => g.slug === s)).filter(Boolean)
 ).filter((g: any) => g && g.cover).slice(0, 6);
 
+// Ảnh hero: ưu tiên ảnh của bài cập nhật mới nhất gắn vào game, thiếu mới dùng ảnh bìa game.
+const heroArt = (g: any) => postImageMap[g.slug] || gameArt(g);
+
 // ===== Khối thịnh hành: tối đa 6 game hot (tick trong CMS, mới nhất trước),
 // thiếu thì bù bằng các game mặc định. Thứ tự hiển thị được xáo trộn theo phiên truy cập (script bên dưới). =====
 const hotPool = games
@@ -98,7 +101,7 @@ const jsonLd = {
               class={`hero-slide absolute inset-0 text-white transition-opacity duration-700 ${i === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}
               data-slide={i}
             >
-              <img src={game.cover} alt={game.name} class="absolute inset-0 w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
+              <img src={heroArt(game)} alt={game.name} class="absolute inset-0 w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
               <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
               <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
                 <h1 class="text-2xl sm:text-4xl font-extrabold">{game.name}</h1>
@@ -122,7 +125,7 @@ const jsonLd = {
           {featured.map((game, i) => (
             <button data-pl={i} class={`hero-pl w-full flex items-center gap-3 p-2 rounded-xl text-left transition ${i === 0 ? 'bg-black/10 dark:bg-white/15 ring-1 ring-[#15171a] dark:ring-white/60' : 'hover:bg-black/5 dark:hover:bg-white/5'}`}>
               <span class="w-36 aspect-[16/10] rounded-lg overflow-hidden relative shrink-0 block">
-                <img src={game.cover} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+                <img src={heroArt(game)} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               </span>
               <span class="min-w-0 flex-1">
                 <span class="block font-bold truncate">{game.name}</span>
