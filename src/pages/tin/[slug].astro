@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import NewsRow from '../../components/NewsRow.astro';
 import { getCollection, render } from 'astro:content';
 import games from '../../data/games.json';
+import { latestPostImageMap } from '../../lib/gameArt';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -49,6 +50,10 @@ const allPosts = (await getCollection('posts'))
     gameSlug: p.data.game || '',
   }))
   .sort((a, b) => b._ts - a._ts);
+const postImageMap = latestPostImageMap([
+  ...allPosts,
+  { gameSlug: post.data.game || '', image: image, _ts: post.data.date ? new Date(post.data.date).getTime() : 0 },
+]);
 const sameGame = allPosts.filter((p) => game && p.gameSlug === game.slug);
 const morePosts = (sameGame.length > 0 ? sameGame : allPosts).slice(0, 3);
 const moreTitle = sameGame.length > 0 && game ? `Bài viết khác về ${game.name}` : 'Bài viết mới khác';
@@ -121,7 +126,7 @@ const jsonLd = {
       <section class="mt-12">
         <h2 class="text-xl font-extrabold mb-4">{moreTitle}</h2>
         <div class="space-y-3">
-          {morePosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} />)}
+          {morePosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} postImg={postImageMap[p.gameSlug]} />)}
         </div>
       </section>
     )}

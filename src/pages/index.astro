@@ -4,7 +4,7 @@ import GameCard from '../components/GameCard.astro';
 import NewsRow from '../components/NewsRow.astro';
 import { getCollection } from 'astro:content';
 import games from '../data/games.json';
-import { gameArt } from '../lib/gameArt';
+import { gameArt, latestPostImageMap } from '../lib/gameArt';
 
 // ===== Hero: game nổi bật có ảnh bìa =====
 const featuredSlugs = ['crimson-desert', 'monster-hunter-wilds', 'elden-ring-nightreign', 'hollow-knight-silksong', 'valorant', 'genshin-impact'];
@@ -16,21 +16,11 @@ const featured = featuredSlugs
 const mobileGames = games.filter((g) => g.category === 'mobile');
 const pcGames = games.filter((g) => g.category === 'pc-console');
 
-// ===== Khối thịnh hành: thẻ game + thẻ tuyển tập =====
-const trending = [
-  games.find((g) => g.slug === 'lien-quan-mobile') || mobileGames[0],
-  games.find((g) => g.slug === 'pubg-mobile') || mobileGames[1],
-  games.find((g) => g.slug === 'valorant') || pcGames[0],
-  games.find((g) => g.slug === 'genshin-impact') || pcGames[1],
-].filter(Boolean);
-const mmorpgSet = games.filter((g) => (g.genre || '').includes('MMORPG') && gameArt(g)).slice(0, 4);
-const mobileSet = mobileGames.filter((g) => gameArt(g)).slice(0, 4);
-
 // ===== Bài viết mới nhất =====
 const fmtDate = (d: any) =>
   d ? new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
 const gameBySlug = Object.fromEntries(games.map((g) => [g.slug, g]));
-const latestPosts = (await getCollection('posts'))
+const allPostVMs = (await getCollection('posts'))
   .map((p) => ({
     slug: p.id.replace(/\.(md|mdx)$/i, ''),
     title: p.data.title,
@@ -42,8 +32,19 @@ const latestPosts = (await getCollection('posts'))
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
     gameSlug: p.data.game || '',
   }))
-  .sort((a, b) => b._ts - a._ts)
-  .slice(0, 6);
+  .sort((a, b) => b._ts - a._ts);
+const latestPosts = allPostVMs.slice(0, 6);
+const postImageMap = latestPostImageMap(allPostVMs);
+
+// ===== Khối thịnh hành: thẻ game + thẻ tuyển tập =====
+const trending = [
+  games.find((g) => g.slug === 'lien-quan-mobile') || mobileGames[0],
+  games.find((g) => g.slug === 'pubg-mobile') || mobileGames[1],
+  games.find((g) => g.slug === 'valorant') || pcGames[0],
+  games.find((g) => g.slug === 'genshin-impact') || pcGames[1],
+].filter(Boolean);
+const mmorpgSet = games.filter((g) => (g.genre || '').includes('MMORPG') && gameArt(g, postImageMap[g.slug])).slice(0, 4);
+const mobileSet = mobileGames.filter((g) => gameArt(g, postImageMap[g.slug])).slice(0, 4);
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -114,13 +115,13 @@ const jsonLd = {
         <h2 class="text-xl font-extrabold">Game & chủ đề đang thịnh hành</h2>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
-        <GameCard game={trending[0]} />
-        <GameCard game={trending[1]} />
+        <GameCard game={trending[0]} postImg={postImageMap[trending[0].slug]} />
+        <GameCard game={trending[1]} postImg={postImageMap[trending[1].slug]} />
         <a href="/pc/" class="group block fade">
           <div class="relative aspect-video rounded-2xl overflow-hidden flex ring-1 ring-black/5 dark:ring-white/10">
             {mmorpgSet.map((g) => (
               <div class="flex-1 relative overflow-hidden">
-                <img src={gameArt(g)} alt={g.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+                <img src={gameArt(g, postImageMap[g.slug])} alt={g.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               </div>
             ))}
             <span class="absolute left-2 top-2 text-xs bg-white/90 text-slate-700 rounded-full px-3 py-1 font-medium">Danh sách game</span>
@@ -130,13 +131,13 @@ const jsonLd = {
             {mmorpgSet.map((g) => <span class="text-xs rounded-full sf muted px-3 py-1">{g.name}</span>)}
           </div>
         </a>
-        <GameCard game={trending[2]} />
-        <GameCard game={trending[3]} />
+        <GameCard game={trending[2]} postImg={postImageMap[trending[2].slug]} />
+        <GameCard game={trending[3]} postImg={postImageMap[trending[3].slug]} />
         <a href="/mobile/" class="group block fade">
           <div class="relative aspect-video rounded-2xl overflow-hidden flex ring-1 ring-black/5 dark:ring-white/10">
             {mobileSet.map((g) => (
               <div class="flex-1 relative overflow-hidden">
-                <img src={gameArt(g)} alt={g.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+                <img src={gameArt(g, postImageMap[g.slug])} alt={g.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               </div>
             ))}
             <span class="absolute left-2 top-2 text-xs bg-white/90 text-slate-700 rounded-full px-3 py-1 font-medium">Danh sách game</span>
@@ -158,7 +159,7 @@ const jsonLd = {
         </a>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
-        {mobileGames.slice(0, 6).map((g) => <GameCard game={g} />)}
+        {mobileGames.slice(0, 6).map((g) => <GameCard game={g} postImg={postImageMap[g.slug]} />)}
       </div>
     </section>
 
@@ -171,7 +172,7 @@ const jsonLd = {
         </a>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
-        {pcGames.slice(0, 6).map((g) => <GameCard game={g} />)}
+        {pcGames.slice(0, 6).map((g) => <GameCard game={g} postImg={postImageMap[g.slug]} />)}
       </div>
     </section>
 
@@ -185,7 +186,7 @@ const jsonLd = {
           </a>
         </div>
         <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {latestPosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} />)}
+          {latestPosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} postImg={postImageMap[p.gameSlug]} />)}
         </div>
       </section>
     )}

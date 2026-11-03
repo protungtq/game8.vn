@@ -1,9 +1,9 @@
 ---
 import { gameArt } from '../lib/gameArt';
 
-const { game } = Astro.props;
+const { game, postImg } = Astro.props;
 const platText = (game.platforms || []).join(' · ');
-const art = gameArt(game);
+const art = gameArt(game, postImg);
 ---
 
 <a

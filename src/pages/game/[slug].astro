@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import NewsRow from '../../components/NewsRow.astro';
 import { getCollection } from 'astro:content';
 import games from '../../data/games.json';
-import { gameArt } from '../../lib/gameArt';
+import { gameArt, latestPostImageMap } from '../../lib/gameArt';
 
 export async function getStaticPaths() {
   const entries = await getCollection('posts');
@@ -20,16 +20,18 @@ export async function getStaticPaths() {
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
     gameSlug: p.data.game || '',
   }));
+  const imgMap = latestPostImageMap(posts);
   return games.map((game) => ({
     params: { slug: game.slug },
     props: {
       game,
       relatedPosts: posts.filter((p) => p.gameSlug === game.slug).sort((a, b) => b._ts - a._ts),
+      postImg: imgMap[game.slug] || '',
     },
   }));
 }
 
-const { game, relatedPosts } = Astro.props;
+const { game, relatedPosts, postImg } = Astro.props;
 
 const isMobile = game.category === 'mobile';
 const catHref = isMobile ? '/mobile/' : '/pc/';
@@ -118,8 +120,8 @@ const embedUrl = youtubeEmbed(game.trailer);
           <section id="trailer">
             <h2 class="text-xl font-extrabold mb-4">Trailer</h2>
             <div id="trailer-cover" class="relative aspect-video rounded-2xl overflow-hidden cursor-pointer group ring-1 ring-black/5 dark:ring-white/10" data-embed={embedUrl}>
-              {gameArt(game) ? (
-                <img src={gameArt(game)} alt={`Trailer ${game.name}`} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+              {gameArt(game, postImg) ? (
+                <img src={gameArt(game, postImg)} alt={`Trailer ${game.name}`} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               ) : (
                 <div class="absolute inset-0 bg-gradient-to-br from-slate-600 to-slate-950 grid place-items-center">
                   {game.icon && <img src={game.icon} alt={game.name} class="h-[72%] aspect-square object-cover rounded-[22%] opacity-80" />}
@@ -147,7 +149,7 @@ const embedUrl = youtubeEmbed(game.trailer);
           <h2 class="text-xl font-extrabold mb-4">Cập nhật mới</h2>
           {relatedPosts.length > 0 ? (
             <div class="space-y-3">
-              {relatedPosts.map((p: any) => <NewsRow post={p} game={game} />)}
+              {relatedPosts.map((p: any) => <NewsRow post={p} game={game} postImg={postImg} />)}
             </div>
           ) : (
             <p class="muted text-sm">Chưa có bài viết nào về {game.name}. Hãy quay lại sau!</p>

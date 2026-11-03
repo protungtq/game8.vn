@@ -1,9 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import CategoryPage from '../components/CategoryPage.astro';
+import { getCollection } from 'astro:content';
 import games from '../data/games.json';
+import { latestPostImageMap } from '../lib/gameArt';
 
 const list = games.filter((g) => g.category === 'mobile');
+const postImages = latestPostImageMap(
+  (await getCollection('posts')).map((p) => ({
+    gameSlug: p.data.game || '',
+    image: p.data.image || '',
+    _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
+  }))
+);
 ---
 
 <Layout
@@ -11,5 +20,5 @@ const list = games.filter((g) => g.category === 'mobile');
   description="Tổng hợp game mobile hay nhất: game VTC, VNG, Funtap, Gosu và các bom tấn quốc tế trên Android & iOS."
   keywords="game mobile, game android, game ios, tải game mobile, game hay cho điện thoại"
 >
-  <CategoryPage title="Game Mobile" subtitle="Android & iOS" list={list} />
+  <CategoryPage title="Game Mobile" subtitle="Android & iOS" list={list} postImages={postImages} />
 </Layout>

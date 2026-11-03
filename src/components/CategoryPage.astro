@@ -1,7 +1,7 @@
 ---
 import GameCard from './GameCard.astro';
 
-const { title, subtitle, list } = Astro.props;
+const { title, subtitle, list, postImages = {} } = Astro.props;
 
 // Thể loại theo tần suất xuất hiện, tối đa 12 chip
 const freq = new Map<string, number>();
@@ -29,7 +29,7 @@ const genres = [...freq.entries()].sort((a, b) => b[1] - a[1]).slice(0, 12).map(
   </div>
 
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8" id="cat-grid">
-    {list.map((g: any) => <GameCard game={g} />)}
+    {list.map((g: any) => <GameCard game={g} postImg={postImages[g.slug]} />)}
   </div>
   <p id="cat-empty" class="hidden text-center muted py-16 font-medium">Chưa có game nào thuộc thể loại này.</p>
 </div>

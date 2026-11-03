@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import NewsRow from '../components/NewsRow.astro';
 import { getCollection } from 'astro:content';
 import games from '../data/games.json';
+import { latestPostImageMap } from '../lib/gameArt';
 
 const fmtDate = (d: any) =>
   d ? new Date(d).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }) : '';
@@ -24,6 +25,7 @@ const posts = entries
   .sort((a, b) => b._ts - a._ts);
 
 const allTags = [...new Set(posts.flatMap((p) => p.tags))];
+const postImageMap = latestPostImageMap(posts);
 ---
 
 <Layout
@@ -45,7 +47,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.tags))];
 
     {posts.length > 0 ? (
       <div class="grid lg:grid-cols-2 gap-4" id="post-grid">
-        {posts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} />)}
+        {posts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} postImg={postImageMap[p.gameSlug]} />)}
       </div>
     ) : (
       <div class="sf rounded-2xl p-12 text-center">
