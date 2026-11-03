@@ -29,7 +29,7 @@ const searchIndex = [
   })),
   ...postEntries.map((p) => ({
     t: p.data.title,
-    s: gameBySlug[p.data.game]?.name || 'Tin tức',
+    s: gameBySlug[p.data.game]?.name || 'Cập nhật',
     u: `/p/${p.id.replace(/\.(md|mdx)$/i, '')}/`,
     i: p.data.image || gameBySlug[p.data.game]?.icon || '',
   })),
@@ -110,7 +110,7 @@ const isActive = (href: string) =>
       </nav>
       <div class="relative flex-1 max-w-xl ml-auto">
         <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 muted pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" placeholder="Trò chơi, bài viết và nhà phát hành" autocomplete="off" class="w-full h-11 rounded-full bg-[#e8eaec] dark:bg-white/10 pl-11 pr-4 text-sm outline-none focus:ring-2 ring-tap" />
+        <input id="q" placeholder="Trò chơi, cập nhật và nhà phát hành" autocomplete="off" class="w-full h-11 rounded-full bg-[#e8eaec] dark:bg-white/10 pl-11 pr-4 text-sm outline-none focus:ring-2 ring-tap" />
         <div id="sr" class="hidden absolute left-0 right-0 top-full mt-2 rounded-2xl bg-white dark:bg-[#1b1e23] ring-1 ring-black/10 dark:ring-white/10 shadow-xl p-2 max-h-80 overflow-auto z-50"></div>
       </div>
       <button id="tg" type="button" aria-label="Chuyển giao diện sáng / tối" title="Sáng / tối" class="w-11 h-11 shrink-0 rounded-full sf grid place-items-center hover:bg-black/10 dark:hover:bg-white/15 transition">
@@ -143,7 +143,7 @@ const isActive = (href: string) =>
           </span>
           Game8<span class="text-tap -ml-2">.VN</span>
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-xs">Khám phá, theo dõi và cập nhật tin tức những tựa game mobile, PC và console đáng chơi nhất.</p>
+        <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-xs">Khám phá, theo dõi và cập nhật những tựa game mobile, PC và console đáng chơi nhất.</p>
       </div>
       <div>
         <h4 class="font-bold text-white mb-3">Khám phá</h4>

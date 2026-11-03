@@ -26,7 +26,7 @@ const allPostVMs = (await getCollection('posts'))
     title: p.data.title,
     description: p.data.description || '',
     image: p.data.image || '',
-    tag: (p.data.tags && p.data.tags[0]) || 'Tin tức',
+    tag: (p.data.tags && p.data.tags[0]) || 'Cập nhật',
     tags: p.data.tags || [],
     dateText: fmtDate(p.data.date),
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
@@ -51,13 +51,13 @@ const jsonLd = {
   "@type": "WebSite",
   "name": "Game8.VN",
   "url": "https://game8.vn",
-  "description": "Cổng thông tin game Việt Nam — tải game mobile, game PC/console, tin tức và review.",
+  "description": "Cổng thông tin game Việt Nam — tải game mobile, game PC/console, cập nhật và review.",
 };
 ---
 
 <Layout
-  title="Game8.VN - Tải game mobile, game PC, tin tức game mới nhất"
-  description="Game8.VN — cổng thông tin game Việt Nam: tải game mobile VTC, VNG, Funtap, Gosu; game PC/console; tin tức và review game mới nhất."
+  title="Game8.VN - Tải game mobile, game PC, cập nhật game mới nhất"
+  description="Game8.VN — cổng thông tin game Việt Nam: tải game mobile VTC, VNG, Funtap, Gosu; game PC/console; cập nhật và review game mới nhất."
   keywords="game mobile, game pc, tải game, VTC Game, VNG, Funtap, Gosu, tin game, review game"
   jsonLd={jsonLd}
 >

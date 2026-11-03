@@ -14,7 +14,7 @@ export async function getStaticPaths() {
     title: p.data.title,
     description: p.data.description || '',
     image: p.data.image || '',
-    tag: (p.data.tags && p.data.tags[0]) || 'Tin tức',
+    tag: (p.data.tags && p.data.tags[0]) || 'Cập nhật',
     tags: p.data.tags || [],
     dateText: fmt(p.data.date),
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
@@ -247,7 +247,7 @@ const secondary: Act[] = [
               {relatedPosts.map((p: any) => <NewsRow post={p} game={game} postImg={postImg} />)}
             </div>
           ) : (
-            <p class="muted text-sm">Chưa có bài viết nào về {game.name}. Hãy quay lại sau!</p>
+            <p class="muted text-sm">Chưa có cập nhật nào về {game.name}. Hãy quay lại sau!</p>
           )}
         </section>
       </div>
