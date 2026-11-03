@@ -57,8 +57,8 @@ const featured = (featuredPool.length
 // Ảnh hero: ưu tiên ảnh của bài cập nhật mới nhất gắn vào game, thiếu mới dùng ảnh bìa game.
 const heroArt = (g: any) => postImageMap[g.slug] || gameArt(g);
 
-// ===== Khối thịnh hành: tối đa 6 game hot (tick trong CMS, mới nhất trước),
-// thiếu thì bù bằng các game mặc định. Thứ tự hiển thị được xáo trộn theo phiên truy cập (script bên dưới). =====
+// ===== Khối thịnh hành: 4 game hot (tick trong CMS, mới nhất trước) + 2 thẻ tuyển tập,
+// thiếu thì bù bằng các game mặc định. Thứ tự game được xáo trộn theo phiên truy cập (script bên dưới). =====
 const hotPool = games
   .filter((g: any) => g.hot)
   .sort((a: any, b: any) => String(b.hotAt || '').localeCompare(String(a.hotAt || '')));
@@ -70,7 +70,7 @@ const trendingFallback = [
   pcGames[2],
   mobileGames[2],
 ].filter(Boolean);
-const trending = [...hotPool, ...trendingFallback.filter((g: any) => !hotPool.includes(g))].slice(0, 6);
+const trending = [...hotPool, ...trendingFallback.filter((g: any) => !hotPool.includes(g))].slice(0, 4);
 const mmorpgSet = games.filter((g) => (g.genre || '').includes('MMORPG') && gameArt(g, postImageMap[g.slug])).slice(0, 4);
 const mobileSet = mobileGames.filter((g) => gameArt(g, postImageMap[g.slug])).slice(0, 4);
 
@@ -175,8 +175,6 @@ const jsonLd = {
             {mobileSet.map((g) => <span class="text-xs rounded-full sf muted px-3 py-1">{g.name}</span>)}
           </div>
         </a>
-        {trending[4] && <GameCard game={trending[4]} postImg={postImageMap[trending[4].slug]} />}
-        {trending[5] && <GameCard game={trending[5]} postImg={postImageMap[trending[5].slug]} />}
       </div>
     </section>
 
