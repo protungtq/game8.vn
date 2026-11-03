@@ -47,16 +47,47 @@ const relatedGames = games
   })
   .slice(0, 4);
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "VideoGame",
-  "name": game.name,
-  "description": game.description,
-  "genre": game.genre,
-  "publisher": { "@type": "Organization", "name": game.publisher },
-  ...(game.icon && { "image": game.icon }),
-  ...(game.trailer && { "trailer": { "@type": "VideoObject", "embedUrl": game.trailer } }),
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "VideoGame",
+    "name": game.name,
+    "description": game.description,
+    "genre": game.genre,
+    "gamePlatform": game.platforms,
+    "applicationCategory": "Game",
+    "inLanguage": "vi-VN",
+    "url": `https://game8.vn/game/${game.slug}/`,
+    "publisher": { "@type": "Organization", "name": game.publisher },
+    ...((game.cover || game.icon) && { "image": game.cover || game.icon }),
+    ...(typeof game.rating === 'number' && {
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": game.rating,
+        "bestRating": 10,
+        "worstRating": 0,
+        "ratingCount": 1,
+      },
+    }),
+    ...(game.trailer && {
+      "trailer": {
+        "@type": "VideoObject",
+        "name": `Trailer ${game.name}`,
+        "embedUrl": game.trailer,
+        "thumbnailUrl": gameArt(game),
+      },
+    }),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://game8.vn/" },
+      { "@type": "ListItem", "position": 2, "name": catLabel, "item": `https://game8.vn${catHref}` },
+      { "@type": "ListItem", "position": 3, "name": game.name, "item": `https://game8.vn/game/${game.slug}/` },
+    ],
+  },
+];
 
 function youtubeEmbed(url: string): string {
   if (!url) return '';

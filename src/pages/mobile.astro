@@ -13,12 +13,25 @@ const postImages = latestPostImageMap(
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
   }))
 );
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Game Mobile',
+  itemListElement: list.map((g, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: g.name,
+    url: `https://game8.vn/game/${g.slug}/`,
+  })),
+};
 ---
 
 <Layout
   title="Game Mobile - Tải game Android, iOS mới nhất"
-  description="Tổng hợp game mobile hay nhất: game VTC, VNG, Funtap, Gosu và các bom tấn quốc tế trên Android & iOS."
+  description="Tổng hợp game mobile hay nhất: game VTC, VNGGames, Funtap, Gosu và các bom tấn quốc tế trên Android & iOS."
   keywords="game mobile, game android, game ios, tải game mobile, game hay cho điện thoại"
+  jsonLd={jsonLd}
 >
   <CategoryPage title="Game Mobile" subtitle="Android & iOS" list={list} postImages={postImages} />
 </Layout>

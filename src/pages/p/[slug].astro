@@ -58,13 +58,31 @@ const sameGame = allPosts.filter((p) => game && p.gameSlug === game.slug);
 const morePosts = (sameGame.length > 0 ? sameGame : allPosts).slice(0, 3);
 const moreTitle = 'Liên quan';
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": title,
-  "description": description,
-  "datePublished": post.data.date ?? '',
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": title,
+    "description": description,
+    "datePublished": post.data.date ?? '',
+    "dateModified": post.data.date ?? '',
+    "inLanguage": "vi-VN",
+    "mainEntityOfPage": `https://game8.vn/p/${Astro.params.slug}/`,
+    ...((image || game?.cover || game?.icon) && { "image": image || game?.cover || game?.icon }),
+    "author": { "@type": "Organization", "name": "Game8", "url": "https://game8.vn" },
+    "publisher": { "@type": "Organization", "name": "Game8", "url": "https://game8.vn" },
+    ...(game && { "about": { "@type": "VideoGame", "name": game.name, "url": `https://game8.vn/game/${game.slug}/` } }),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://game8.vn/" },
+      { "@type": "ListItem", "position": 2, "name": "Cập nhật", "item": "https://game8.vn/cap-nhat/" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": `https://game8.vn/p/${Astro.params.slug}/` },
+    ],
+  },
+];
 ---
 
 <Layout

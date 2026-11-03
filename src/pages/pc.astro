@@ -13,12 +13,25 @@ const postImages = latestPostImageMap(
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
   }))
 );
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Game PC / Console',
+  itemListElement: list.map((g, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: g.name,
+    url: `https://game8.vn/game/${g.slug}/`,
+  })),
+};
 ---
 
 <Layout
   title="Game PC / Console - Game Steam, PlayStation, Xbox, Switch"
   description="Tổng hợp game PC và console đáng chơi nhất: Steam, PlayStation, Xbox, Nintendo Switch — từ indie tới bom tấn AAA."
   keywords="game pc, game console, game steam, game ps5, game xbox, game switch"
+  jsonLd={jsonLd}
 >
   <CategoryPage title="Game PC / Console" subtitle="Steam, PlayStation, Xbox, Switch" list={list} postImages={postImages} />
 </Layout>

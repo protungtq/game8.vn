@@ -1,0 +1,15 @@
+# Game8
+
+> Game8 là trang game lấy game làm trung tâm dành cho game thủ Việt. Danh mục gồm game mobile và game PC/console; mỗi game có một trang riêng với trailer, điểm đánh giá, link tải Android/iOS/Steam và các cập nhật mới nhất.
+
+## Các mục chính
+
+- [Game Mobile](https://game8.vn/mobile/): game cho Android và iOS — VTC, VNGGames, Funtap, Gosu và các nhà phát hành quốc tế.
+- [Game PC / Console](https://game8.vn/pc/): game trên Steam, PlayStation, Xbox và Nintendo Switch, từ indie đến bom tấn AAA.
+- [Cập nhật](https://game8.vn/cap-nhat/): các cập nhật mới nhất của từng game — ra mắt, sự kiện, phiên bản mới.
+
+## Cách Game8 tổ chức nội dung
+
+- Mỗi game một trang riêng tại /game/<slug>/: thể loại, nền tảng, nhà phát hành, trailer, điểm đánh giá và các cập nhật liên quan.
+- Người chơi có thể bấm Theo dõi để lưu game quan tâm ngay trên trình duyệt, không cần tài khoản.
+- Ô tìm kiếm hỗ trợ gõ tiếng Việt không dấu.
