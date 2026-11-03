@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 const entries = await getCollection('posts');
 const posts = entries
   .map((p) => ({
-    slug: p.id,
+    slug: p.id.replace(/\.(md|mdx)$/i, ''),
     title: p.data.title ?? 'Bài viết',
     description: p.data.description ?? '',
     image: p.data.image ?? '',
