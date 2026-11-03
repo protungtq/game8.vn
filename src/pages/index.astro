@@ -6,16 +6,8 @@ import { getCollection } from 'astro:content';
 import games from '../data/games.json';
 import { gameArt, latestPostImageMap } from '../lib/gameArt';
 
-// ===== Hero: tối đa 6 game nổi bật (tick trong CMS), game mới nhất lên trước,
-// game cũ nhất tự rơi ra dù vẫn còn tick. Chưa tick game nào thì dùng danh sách dự phòng. =====
+// ===== Hero: danh sách dự phòng khi chưa tick game nổi bật nào (cơ chế chính ở dưới, sau khi nạp bài viết) =====
 const featuredSlugs = ['crimson-desert', 'monster-hunter-wilds', 'elden-ring-nightreign', 'hollow-knight-silksong', 'valorant', 'genshin-impact'];
-const featuredPool = games
-  .filter((g: any) => g.featured)
-  .sort((a: any, b: any) => String(b.featuredAt || '').localeCompare(String(a.featuredAt || '')));
-const featured = (featuredPool.length
-  ? featuredPool
-  : featuredSlugs.map((s) => games.find((g) => g.slug === s)).filter(Boolean)
-).filter((g: any) => g && g.cover).slice(0, 6);
 
 const mobileGames = games.filter((g) => g.category === 'mobile');
 const pcGames = games.filter((g) => g.category === 'pc-console');
@@ -39,6 +31,28 @@ const allPostVMs = (await getCollection('posts'))
   .sort((a, b) => b._ts - a._ts);
 const latestPosts = allPostVMs.slice(0, 6);
 const postImageMap = latestPostImageMap(allPostVMs);
+
+// ===== Hero: tối đa 6 game nổi bật (tick trong CMS). Độ "mới" của một game =
+// thời điểm gần nhất giữa lúc được tick và bài cập nhật mới nhất gắn vào game đó —
+// game tick lâu rồi nhưng hôm nay có bài mới vẫn được đẩy lên đầu.
+// Đủ 6 thì game kém mới nhất tự rơi ra dù vẫn còn tick. =====
+const latestPostTs: Record<string, number> = {};
+for (const p of allPostVMs) {
+  if (p.gameSlug && p._ts > (latestPostTs[p.gameSlug] || 0)) latestPostTs[p.gameSlug] = p._ts;
+}
+const featuredFresh = (g: any) =>
+  Math.max(g.featuredAt ? new Date(g.featuredAt).getTime() || 0 : 0, latestPostTs[g.slug] || 0);
+const featuredPool = games
+  .filter((g: any) => g.featured)
+  .sort(
+    (a: any, b: any) =>
+      featuredFresh(b) - featuredFresh(a) ||
+      String(b.featuredAt || '').localeCompare(String(a.featuredAt || ''))
+  );
+const featured = (featuredPool.length
+  ? featuredPool
+  : featuredSlugs.map((s) => games.find((g) => g.slug === s)).filter(Boolean)
+).filter((g: any) => g && g.cover).slice(0, 6);
 
 // ===== Khối thịnh hành: tối đa 6 game hot (tick trong CMS, mới nhất trước),
 // thiếu thì bù bằng các game mặc định. Thứ tự hiển thị được xáo trộn theo phiên truy cập (script bên dưới). =====
