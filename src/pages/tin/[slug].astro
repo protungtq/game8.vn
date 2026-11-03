@@ -1,30 +1,38 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
 
-// In production, this uses getStaticPaths with content collection.
-// Placeholder for article detail page.
-const post = {
-  title: 'Bài viết mẫu',
-  description: 'Đây là bài viết mẫu cho Game8.VN',
-  date: '2026-10-16',
-  image: '',
-  game: '',
-  content: '<p>Nội dung bài viết sẽ được render từ Markdown.</p>',
-};
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const title = post.data.title ?? 'Bài viết';
+const description = post.data.description ?? '';
+const image = post.data.image ?? '';
+const dateText = post.data.date
+  ? new Date(post.data.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+  : '';
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": post.title,
-  "description": post.description,
-  "datePublished": post.date,
+  "headline": title,
+  "description": description,
+  "datePublished": post.data.date ?? '',
 };
 ---
 
 <Layout
-  title={post.title}
-  description={post.description}
-  ogImage={post.image}
+  title={title}
+  description={description}
+  ogImage={image}
   ogType="article"
   jsonLd={jsonLd}
 >
@@ -34,14 +42,16 @@ const jsonLd = {
       <span class="mx-2">/</span>
       <a href="/tin-tuc" class="hover:text-red-600 dark:hover:text-red-400">Tin tức</a>
       <span class="mx-2">/</span>
-      <span class="text-gray-900 dark:text-white font-medium">{post.title}</span>
+      <span class="text-gray-900 dark:text-white font-medium">{title}</span>
     </nav>
 
     <article class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm p-6 md:p-10 border border-gray-100 dark:border-slate-800">
-      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">{post.title}</h1>
-      <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">{post.date}</p>
-      {post.image && <img src={post.image} alt={post.title} class="w-full rounded-xl mb-6" />}
-      <div class="prose dark:prose-invert max-w-none" set:html={post.content} />
+      <h1 class="text-3xl md:text-4xl font-extrabold mb-4">{title}</h1>
+      {dateText && <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">{dateText}</p>}
+      {image && <img src={image} alt={title} class="w-full rounded-xl mb-6" />}
+      <div class="prose dark:prose-invert max-w-none">
+        <Content />
+      </div>
     </article>
   </div>
 </Layout>

@@ -1,9 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 
-// Posts will be loaded from content collection in production.
-// For now, this page lists posts from a static data source.
-const posts: any[] = [];
+const entries = await getCollection('posts');
+const posts = entries
+  .map((p) => ({
+    slug: p.id,
+    title: p.data.title ?? 'Bài viết',
+    description: p.data.description ?? '',
+    image: p.data.image ?? '',
+    date: p.data.date
+      ? new Date(p.data.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
+      : '',
+    _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
+  }))
+  .sort((a, b) => b._ts - a._ts);
 ---
 
 <Layout
