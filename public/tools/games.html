@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản lý game | 9Gate</title>
+  <title>Game Manager - Game8 Control</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -52,19 +52,19 @@
 <body>
 <div class="container">
   <div class="header">
-    <h1>🎮 Quản lý game 9Gate</h1>
-    <p>Quản lý game trên 9Gate — thêm / sửa / xóa, đẩy lên GitHub qua Worker Proxy</p>
+    <h1>🎮 Game Manager</h1>
+    <p>Quản lý game trên Game8 — thêm / sửa / xóa, đẩy lên GitHub qua Worker Proxy</p>
   </div>
 
   <!-- Config -->
   <div class="card" id="configBox">
     <div class="field">
       <label>Worker Proxy URL</label>
-      <input type="text" id="workerProxyUrl" placeholder="https://worker.example.com" />
+      <input type="text" id="workerProxyUrl" value="https://tq-upload-proxy.mobitungtq.workers.dev/" />
     </div>
     <div class="field">
       <label>GitHub Repo (owner/repo)</label>
-      <input type="text" id="githubRepo" placeholder="owner/repo" />
+      <input type="text" id="githubRepo" value="protungtq/game8.vn" />
     </div>
   </div>
 
@@ -231,8 +231,7 @@ async function loadGames() {
       data = await res.json();
     } else {
       // Try loading from GitHub raw
-      const repo = document.getElementById('githubRepo').value.trim();
-      if (!repo) throw new Error('Nhập repo GitHub của 9Gate để tải danh sách game.');
+      const repo = document.getElementById('githubRepo').value;
       const ghRes = await fetch(`https://raw.githubusercontent.com/${repo}/main/src/data/games.json`);
       data = await ghRes.json();
     }
@@ -343,7 +342,7 @@ function saveGame() {
     trailer: document.getElementById('fTrailer').value.trim(),
     description,
     website: document.getElementById('fWebsite').value.trim(),
-    seoTitle: document.getElementById('fSeoTitle').value.trim() || `${name} - Tải game, cập nhật, review | 9Gate`,
+    seoTitle: document.getElementById('fSeoTitle').value.trim() || `${name} - Tải game, cập nhật, review | Game8`,
     seoDescription: document.getElementById('fSeoDescription').value.trim() || description.substring(0, 150),
     seoKeywords: document.getElementById('fSeoKeywords').value.trim() || `${name}, tải ${name}, ${publisher}, ${genre}`
   };
@@ -376,12 +375,6 @@ async function pushToGitHub() {
   const workerUrl = document.getElementById('workerProxyUrl').value.replace(/\/+$/, '');
   const repo = document.getElementById('githubRepo').value.trim();
   const st = document.getElementById('pushStatus');
-
-  if (!workerUrl || !repo) {
-    st.className = 'status show error';
-    st.textContent = 'Nhập Worker Proxy và repo GitHub của 9Gate trước khi đẩy nội dung.';
-    return;
-  }
 
   if (!confirm(`Đẩy ${allGames.length} game lên GitHub (${repo})?`)) return;
 
@@ -418,7 +411,6 @@ async function pushToGitHub() {
 }
 
 // Init
-document.getElementById("githubRepo").addEventListener("change", loadGames);
 loadGames();
 </script>
 </body>

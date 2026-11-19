@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { title, description, keywords, ogImage, ogType = 'website', canonical, jsonLd } = Astro.props;
-const siteName = '9Gate';
+const siteName = 'Game8';
 const fullTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 
 // ===== Mục lục tìm kiếm (game + bài viết) =====
@@ -29,7 +29,7 @@ const searchIndex = [
   })),
   ...postEntries.map((p) => ({
     t: p.data.title,
-    s: gameBySlug[p.data.game]?.name || 'Bài viết',
+    s: gameBySlug[p.data.game]?.name || 'Cập nhật',
     u: `/p/${p.id.replace(/\.(md|mdx)$/i, '')}/`,
     i: p.data.image || gameBySlug[p.data.game]?.icon || '',
   })),
@@ -41,7 +41,7 @@ const NAV = [
   { href: '/', label: 'Trang chủ', icon: '<path d="M3 11l9-8 9 8v9a1 1 0 01-1 1h-5v-6H9v6H4a1 1 0 01-1-1z"/>' },
   { href: '/mobile/', label: 'Game Mobile', icon: '<rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/>' },
   { href: '/pc/', label: 'PC / Console', icon: '<rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>' },
-  { href: '/cap-nhat/', label: 'Cập nhật mới', icon: '<path d="M6 8a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/>' },
+  { href: '/cap-nhat/', label: 'Cập nhật', icon: '<path d="M6 8a6 6 0 0112 0c0 7 3 8 3 8H3s3-1 3-8M10 21h4"/>' },
 ];
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path.startsWith(href) || (href === '/cap-nhat/' && path.startsWith('/p/'));
@@ -56,7 +56,7 @@ const isActive = (href: string) =>
   <meta name="description" content={description} />
   {keywords && <meta name="keywords" content={keywords} />}
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#f0f4f8" />
+  <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href={canonical || Astro.url.href} />
 
   <!-- Open Graph -->
@@ -89,52 +89,34 @@ const isActive = (href: string) =>
       if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.classList.toggle('dark', t === 'dark');
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#f0f4f8');
+      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#ffffff');
     })();
   </script>
 </head>
 <body>
-  <header class="site-chrome sticky top-[env(safe-area-inset-top,0px)] z-50 dark:bg-[#111316]/95 backdrop-blur shadow-[0_6px_24px_-10px_rgba(0,0,0,.25)] border-b border-black/5 dark:border-white/10">
+  <header class="sticky top-[env(safe-area-inset-top,0px)] z-50 bg-white/95 dark:bg-[#111316]/95 backdrop-blur shadow-[0_6px_24px_-10px_rgba(0,0,0,.25)] border-b border-black/5 dark:border-white/10">
     <div class="h-[3px] bg-gradient-to-r from-tap via-cyan-400 to-violet-500"></div>
-    <div class="max-w-[1280px] mx-auto px-3 sm:px-4 h-16 lg:h-[72px] flex items-center gap-2 lg:gap-4">
+    <div class="max-w-[1280px] mx-auto px-4 h-[72px] flex items-center gap-4 sm:gap-5">
       <a href="/" class="flex items-center gap-2 font-black text-2xl tracking-tight shrink-0">
         <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-tap to-cyan-500 shadow-lg shadow-tap/30 grid place-items-center">
-          <span aria-hidden="true" class="text-[21px] font-black leading-none text-white">9</span>
+          <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5M16 11.5h.01M18.5 14h.01"/></svg>
         </span>
-        {siteName}
+        Game8
       </a>
-      <nav aria-label="Điều hướng chính" class="hidden lg:flex shrink-0 gap-1 text-sm font-semibold">
+      <nav class="hidden md:flex gap-1 text-sm font-semibold">
         {NAV.map((n) => (
-          <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined} class={`px-4 h-10 grid place-items-center whitespace-nowrap rounded-full transition ${isActive(n.href) ? 'bg-tap/10 text-tap' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>{n.label}</a>
+          <a href={n.href} class={`px-4 h-10 grid place-items-center rounded-full transition ${isActive(n.href) ? 'bg-tap text-white shadow-md shadow-tap/30' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>{n.label}</a>
         ))}
       </nav>
-      <button id="search-toggle" type="button" aria-label="Tìm kiếm" aria-controls="header-search" aria-expanded="false" class="ml-auto grid h-11 w-11 shrink-0 place-items-center rounded-full sf hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-tap dark:hover:bg-white/15 lg:hidden">
-        <svg aria-hidden="true" class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      </button>
-      <div id="header-search" role="search" class="hidden absolute inset-x-3 top-full z-20 mt-2 rounded-2xl bg-white p-2 shadow-lg ring-1 ring-black/10 dark:bg-[#1b1e23] dark:ring-white/10 lg:relative lg:inset-auto lg:mt-0 lg:ml-auto lg:block lg:min-w-0 lg:flex-1 lg:max-w-xl lg:bg-transparent lg:p-0 lg:shadow-none lg:ring-0 lg:dark:bg-transparent">
-        <div class="relative">
-          <svg aria-hidden="true" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 muted pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input id="q" type="search" aria-label="Tìm game hoặc bài viết" placeholder="Tìm game, bài viết…" autocomplete="off" class="w-full h-11 rounded-full bg-slate-100 dark:bg-white/10 pl-10 pr-4 text-base lg:text-sm placeholder:text-slate-600 dark:placeholder:text-slate-400 outline-none focus:ring-2 ring-tap" />
-          <div id="sr" class="hidden absolute left-0 right-0 top-full mt-2 rounded-2xl bg-white dark:bg-[#1b1e23] ring-1 ring-black/10 dark:ring-white/10 shadow-xl p-2 max-h-80 overflow-auto z-50"></div>
-        </div>
+      <div class="relative flex-1 max-w-xl ml-auto">
+        <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 muted pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" placeholder="Trò chơi, cập nhật và nhà phát hành" autocomplete="off" class="w-full h-11 rounded-full bg-[#e8eaec] dark:bg-white/10 pl-11 pr-4 text-sm outline-none focus:ring-2 ring-tap" />
+        <div id="sr" class="hidden absolute left-0 right-0 top-full mt-2 rounded-2xl bg-white dark:bg-[#1b1e23] ring-1 ring-black/10 dark:ring-white/10 shadow-xl p-2 max-h-80 overflow-auto z-50"></div>
       </div>
       <button id="tg" type="button" aria-label="Chuyển giao diện sáng / tối" title="Sáng / tối" class="w-11 h-11 shrink-0 rounded-full sf grid place-items-center hover:bg-black/10 dark:hover:bg-white/15 transition">
         <svg class="w-5 h-5 hidden dark:block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <svg class="w-5 h-5 dark:hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
       </button>
-      <details id="header-menu" class="relative shrink-0 lg:hidden">
-        <summary aria-label="Menu điều hướng" class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full sf hover:bg-black/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-tap dark:hover:bg-white/15 [&::-webkit-details-marker]:hidden">
-          <svg aria-hidden="true" class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </summary>
-        <nav aria-label="Điều hướng trên màn hình nhỏ" class="absolute right-0 top-full z-30 mt-2 w-56 max-w-[calc(100vw-1.5rem)] rounded-2xl border border-black/10 bg-white p-1.5 shadow-xl dark:border-white/10 dark:bg-[#1b1e23]">
-          {NAV.map((n) => (
-            <a href={n.href} aria-current={isActive(n.href) ? "page" : undefined} class={`flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-tap ${isActive(n.href) ? 'bg-tap/10 text-tap' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>
-              <svg aria-hidden="true" class="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={n.icon}></svg>
-              {n.label}
-            </a>
-          ))}
-        </nav>
-      </details>
     </div>
   </header>
 
@@ -142,17 +124,26 @@ const isActive = (href: string) =>
     <slot />
   </main>
 
+  <nav class="md:hidden fixed bottom-0 inset-x-0 z-50 grid grid-cols-4 bg-white/95 dark:bg-[#111316]/95 backdrop-blur border-t border-black/5 dark:border-white/10 pb-[env(safe-area-inset-bottom,0px)]">
+    {NAV.map((n) => (
+      <a href={n.href} class={`flex flex-col items-center gap-1 py-2.5 text-[11px] font-semibold ${isActive(n.href) ? 'text-tap' : 'muted'}`}>
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={n.icon}></svg>
+        {n.label}
+      </a>
+    ))}
+  </nav>
+
   <footer class="mt-16 bg-[#0e1114] text-slate-300">
     <div class="h-[3px] bg-gradient-to-r from-tap via-cyan-400 to-violet-500"></div>
-    <div class="max-w-[1280px] mx-auto px-4 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr]">
+    <div class="max-w-[1280px] mx-auto px-4 py-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
       <div>
         <div class="flex items-center gap-2 font-black text-2xl text-white">
           <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-tap to-cyan-500 grid place-items-center">
-            <span aria-hidden="true" class="text-[21px] font-black leading-none text-white">9</span>
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10v5M4.5 12.5h5M16 11.5h.01M18.5 14h.01"/></svg>
           </span>
-          {siteName}
+          Game8
         </div>
-        <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-xs">Chỗ mình ghi lại những điều hay ho về game mobile, PC và console.</p>
+        <p class="mt-4 text-sm leading-relaxed text-slate-400 max-w-xs">Khám phá, theo dõi và cập nhật những tựa game mobile, PC và console đáng chơi nhất.</p>
       </div>
       <div>
         <h4 class="font-bold text-white mb-3">Khám phá</h4>
@@ -172,10 +163,18 @@ const isActive = (href: string) =>
           <li><a class="hover:text-tap" href="/pc/">PlayStation · Xbox · Switch</a></li>
         </ul>
       </div>
+      <div>
+        <h4 class="font-bold text-white mb-3">Kết nối</h4>
+        <ul class="space-y-2 text-sm">
+          <li><a class="hover:text-tap" href="https://www.facebook.com/game8.vn" target="_blank" rel="noopener">Facebook: Game8.VN</a></li>
+          <li><a class="hover:text-tap" href="https://www.tiktok.com/@Game8.VN" target="_blank" rel="noopener">TikTok: @Game8.VN</a></li>
+          <li><a class="hover:text-tap" href="https://game8.info" target="_blank" rel="noopener">Blog: game8.info</a></li>
+        </ul>
+      </div>
     </div>
     <div class="border-t border-white/10">
       <div class="max-w-[1280px] mx-auto px-4 py-5 text-xs text-slate-500 flex flex-wrap justify-between gap-2">
-        <span>© 2026 {siteName} — Blog game cá nhân.</span>
+        <span>© 2026 Game8 — Nhà mới của game thủ Việt.</span>
         <span>Điều khoản · Chính sách bảo mật</span>
       </div>
     </div>
@@ -187,7 +186,7 @@ const isActive = (href: string) =>
       document.documentElement.classList.toggle('dark', t === 'dark');
       try { localStorage.setItem('theme', t); } catch (e) {}
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#f0f4f8');
+      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#ffffff');
     }
     var tgBtn = document.getElementById('tg');
     if (tgBtn) tgBtn.addEventListener('click', function () {
@@ -217,59 +216,16 @@ const isActive = (href: string) =>
         sr.classList.remove('hidden');
       });
       q.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' && !sr.classList.contains('hidden')) {
+        if (e.key === 'Escape') hideSr();
+        if (e.key === 'Enter') {
           var first = sr.querySelector('a');
           if (first) window.location.href = first.getAttribute('href');
         }
       });
+      document.addEventListener('click', function (e) {
+        if (!sr.contains(e.target) && e.target !== q) hideSr();
+      });
     }
-
-    // ===== Điều hướng và tìm kiếm trên màn hình nhỏ =====
-    var headerMenu = document.getElementById('header-menu');
-    var searchToggle = document.getElementById('search-toggle');
-    var headerSearch = document.getElementById('header-search');
-    var desktopHeader = window.matchMedia('(min-width: 1024px)');
-    function setMobileSearch(open) {
-      headerSearch.classList.toggle('hidden', !open);
-      searchToggle.setAttribute('aria-expanded', String(open));
-      if (open) {
-        headerMenu.open = false;
-        q.focus();
-        if (q.value.trim()) q.dispatchEvent(new Event('input'));
-      } else {
-        hideSr();
-      }
-    }
-    searchToggle.addEventListener('click', function () {
-      setMobileSearch(searchToggle.getAttribute('aria-expanded') !== 'true');
-    });
-    headerMenu.addEventListener('toggle', function () {
-      if (headerMenu.open) setMobileSearch(false);
-    });
-    desktopHeader.addEventListener('change', function () {
-      headerMenu.open = false;
-      setMobileSearch(false);
-    });
-    document.addEventListener('click', function (e) {
-      if (!headerMenu.contains(e.target)) headerMenu.open = false;
-      if (!headerSearch.contains(e.target) && !searchToggle.contains(e.target)) {
-        if (desktopHeader.matches) hideSr();
-        else setMobileSearch(false);
-      }
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key !== 'Escape') return;
-      if (headerMenu.open) {
-        headerMenu.open = false;
-        headerMenu.querySelector('summary').focus();
-      } else if (searchToggle.getAttribute('aria-expanded') === 'true') {
-        setMobileSearch(false);
-        searchToggle.focus();
-      } else if (!sr.classList.contains('hidden')) {
-        hideSr();
-        q.focus();
-      }
-    });
   </script>
 </body>
 </html>

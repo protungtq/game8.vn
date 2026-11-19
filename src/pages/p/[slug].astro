@@ -16,18 +16,16 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-const title = post.data.title ?? 'Bài viết';
+const title = post.data.title ?? 'Cập nhật';
 const description = post.data.description ?? '';
 const image = post.data.image ?? '';
 const tags: string[] = post.data.tags || [];
-const tagText = tags[0] || 'Bài viết';
+const tagText = tags[0] || 'Cập nhật';
 const dateText = post.data.date
   ? new Date(post.data.date).toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' })
   : '';
 
 const game = games.find((g) => g.slug === post.data.game);
-const cover = image || game?.cover || game?.icon || '';
-const shareImage = /^\/(?!\/)/.test(cover) ? new URL(cover, Astro.site ?? Astro.url).href : cover;
 const BADGES = ['bg-cyan-500', 'bg-violet-500', 'bg-rose-500', 'bg-amber-500', 'bg-emerald-500'];
 let hash = 0;
 for (const ch of tagText) hash += ch.charCodeAt(0);
@@ -45,7 +43,7 @@ const allPosts = (await getCollection('posts'))
     title: p.data.title,
     description: p.data.description || '',
     image: p.data.image || '',
-    tag: (p.data.tags && p.data.tags[0]) || 'Bài viết',
+    tag: (p.data.tags && p.data.tags[0]) || 'Cập nhật',
     tags: p.data.tags || [],
     dateText: fmtDate(p.data.date),
     _ts: p.data.date ? new Date(p.data.date).getTime() : 0,
@@ -69,19 +67,19 @@ const jsonLd = [
     "datePublished": post.data.date ?? '',
     "dateModified": post.data.date ?? '',
     "inLanguage": "vi-VN",
-    "mainEntityOfPage": `https://www.9gate.net/p/${Astro.params.slug}/`,
-    ...(shareImage && { "image": shareImage }),
-    "author": { "@type": "Organization", "name": "9Gate", "url": "https://www.9gate.net" },
-    "publisher": { "@type": "Organization", "name": "9Gate", "url": "https://www.9gate.net" },
-    ...(game && { "about": { "@type": "VideoGame", "name": game.name, "url": `https://www.9gate.net/game/${game.slug}/` } }),
+    "mainEntityOfPage": `https://game8.vn/p/${Astro.params.slug}/`,
+    ...((image || game?.cover || game?.icon) && { "image": image || game?.cover || game?.icon }),
+    "author": { "@type": "Organization", "name": "Game8", "url": "https://game8.vn" },
+    "publisher": { "@type": "Organization", "name": "Game8", "url": "https://game8.vn" },
+    ...(game && { "about": { "@type": "VideoGame", "name": game.name, "url": `https://game8.vn/game/${game.slug}/` } }),
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://www.9gate.net/" },
-      { "@type": "ListItem", "position": 2, "name": "Cập nhật mới", "item": "https://www.9gate.net/cap-nhat/" },
-      { "@type": "ListItem", "position": 3, "name": title, "item": `https://www.9gate.net/p/${Astro.params.slug}/` },
+      { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://game8.vn/" },
+      { "@type": "ListItem", "position": 2, "name": "Cập nhật", "item": "https://game8.vn/cap-nhat/" },
+      { "@type": "ListItem", "position": 3, "name": title, "item": `https://game8.vn/p/${Astro.params.slug}/` },
     ],
   },
 ];
@@ -90,11 +88,11 @@ const jsonLd = [
 <Layout
   title={title}
   description={description}
-  ogImage={shareImage}
+  ogImage={image || game?.cover || game?.icon || ''}
   ogType="article"
   jsonLd={jsonLd}
 >
-  <div class="max-w-[832px] mx-auto px-3 sm:px-5 py-6 sm:py-8">
+  <div class="max-w-3xl mx-auto px-4 py-6">
     <div class="text-sm muted mb-5 flex items-center gap-1.5 flex-wrap">
       <a href="/" class="hover:text-tap">Trang chủ</a><span>›</span>
       {game ? (
@@ -103,50 +101,48 @@ const jsonLd = [
         </>
       ) : (
         <>
-          <a href="/cap-nhat/" class="hover:text-tap">Cập nhật mới</a><span>›</span>
+          <a href="/cap-nhat/" class="hover:text-tap">Cập nhật</a><span>›</span>
         </>
       )}
       <span class="font-semibold text-[#15171a] dark:text-white">{tagText}</span>
     </div>
 
-    <article class="post-panel p-4 sm:p-8">
-      <div class="flex items-center gap-2">
-        <span class={`text-[11px] font-bold text-white rounded px-1.5 py-0.5 ${badge}`}>{tagText}</span>
-        <span class="text-sm muted">{dateText}{game ? ` · ${game.publisher}` : ''}</span>
-      </div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mt-3">{title}</h1>
+    <div class="flex items-center gap-2">
+      <span class={`text-[11px] font-bold text-white rounded px-1.5 py-0.5 ${badge}`}>{tagText}</span>
+      <span class="text-sm muted">{dateText}{game ? ` · ${game.publisher}` : ''}</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight mt-3">{title}</h1>
 
-      {game && (
-        <a href={`/game/${game.slug}/`} class="rounded-xl border border-[var(--gate-border)] dark:border-slate-700 bg-[var(--gate-inset)] dark:bg-slate-800/60 p-3 flex items-center gap-3 mt-5 hover:border-tap focus-visible:border-tap transition-colors">
-          {game.icon ? (
-            <img src={game.icon} alt={game.name} class="w-11 h-11 rounded-[22.5%] object-cover ring-1 ring-black/10 shrink-0" />
-          ) : (
-            <span class="w-11 h-11 rounded-[22.5%] bg-gradient-to-br from-tap to-cyan-500 grid place-items-center text-white font-black shrink-0">{game.name.charAt(0)}</span>
-          )}
-          <span class="min-w-0 flex-1">
-            <span class="block font-bold text-sm truncate">{game.name}</span>
-            <span class="block text-xs muted">{game.genre} · {(game.platforms || []).join(' · ')}</span>
-          </span>
-          <span class="btn btn-o !h-8 !px-4 text-xs shrink-0">Xem game</span>
-        </a>
-      )}
+    {game && (
+      <a href={`/game/${game.slug}/`} class="sf rounded-2xl p-3 flex items-center gap-3 mt-5 hover:bg-black/10 dark:hover:bg-white/10 transition">
+        {game.icon ? (
+          <img src={game.icon} alt={game.name} class="w-11 h-11 rounded-[22.5%] object-cover ring-1 ring-black/10 shrink-0" />
+        ) : (
+          <span class="w-11 h-11 rounded-[22.5%] bg-gradient-to-br from-tap to-cyan-500 grid place-items-center text-white font-black shrink-0">{game.name.charAt(0)}</span>
+        )}
+        <span class="min-w-0 flex-1">
+          <span class="block font-bold text-sm truncate">{game.name}</span>
+          <span class="block text-xs muted">{game.genre} · {(game.platforms || []).join(' · ')}</span>
+        </span>
+        <span class="btn btn-o !h-8 !px-4 text-xs shrink-0">Xem game</span>
+      </a>
+    )}
 
-      {image && <img src={image} alt={title} class="mt-6 w-full rounded-2xl" />}
+    {image && <img src={image} alt={title} class="mt-6 w-full rounded-2xl" />}
 
-      <div class="article-body mt-7 flow-root">
-        <Content />
-      </div>
-
-      {tags.length > 0 && (
-        <ul class="flex flex-wrap gap-2 mt-6 border-t border-[var(--gate-border)] dark:border-slate-700 pt-4" aria-label="Chủ đề bài viết">
-          {tags.map((t) => <li class="text-xs font-medium rounded-full border border-[var(--gate-border)] dark:border-slate-600 bg-[var(--gate-inset)] dark:bg-slate-800 px-3 py-1">{t}</li>)}
-        </ul>
-      )}
+    <article class="article-body mt-7">
+      <Content />
     </article>
 
+    {tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-10">
+        {tags.map((t) => <span class="text-xs font-medium rounded-full sf px-3 py-1">{t}</span>)}
+      </div>
+    )}
+
     {morePosts.length > 0 && (
-      <section class="post-panel post-related mt-6 sm:mt-8 p-4 sm:p-6" aria-labelledby="related-heading">
-        <h2 id="related-heading" class="section-title text-xl mb-4">{moreTitle}</h2>
+      <section class="mt-12">
+        <h2 class="text-xl font-extrabold mb-4">{moreTitle}</h2>
         <div class="space-y-3">
           {morePosts.map((p) => <NewsRow post={p} game={gameBySlug[p.gameSlug]} postImg={postImageMap[p.gameSlug]} />)}
         </div>
