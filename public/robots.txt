@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.9gate.net/sitemap.xml
+Sitemap: https://game8.vn/sitemap.xml

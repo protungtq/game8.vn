@@ -4,7 +4,7 @@ import games from '../data/games.json';
 export const prerender = true;
 
 export async function GET({ site }: { site?: URL }) {
-  const base = (site?.href || 'https://www.9gate.net/').replace(/\/?$/, '/');
+  const base = (site?.href || 'https://game8.vn/').replace(/\/?$/, '/');
   const posts = await getCollection('posts');
   const today = new Date().toISOString().slice(0, 10);
 
