@@ -92,7 +92,7 @@ const jsonLd = {
   <div class="max-w-[1280px] mx-auto px-4 py-6">
 
     <!-- ============ HERO ============ -->
-    <div id="hero" class="sf rounded-3xl p-2.5 grid lg:grid-cols-[1fr_340px] gap-3">
+    <div id="hero" class="game-feature p-2.5 grid lg:grid-cols-[1fr_340px] gap-3">
       <div class="min-w-0">
         <div class="relative aspect-[16/10] sm:aspect-video rounded-2xl overflow-hidden">
           {featured.map((game, i) => (
@@ -102,7 +102,7 @@ const jsonLd = {
               data-slide={i}
             >
               <img src={heroArt(game)} alt={game.name} class="absolute inset-0 w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent"></div>
               <div class="absolute inset-x-0 bottom-0 p-5 sm:p-7">
                 <h1 class="text-2xl sm:text-4xl font-extrabold">{game.name}</h1>
                 <p class="mt-1.5 text-sm sm:text-lg font-semibold text-white/90 line-clamp-2 max-w-2xl">{game.description}</p>
@@ -116,14 +116,14 @@ const jsonLd = {
         </div>
         <div class="flex justify-center gap-1.5 mt-3 lg:hidden">
           {featured.map((_, i) => (
-            <button aria-label={`Slide ${i + 1}`} data-dot={i} class={`hero-dot h-1.5 rounded-full transition-all ${i === 0 ? 'w-6 bg-tap' : 'w-1.5 bg-black/20 dark:bg-white/30'}`}></button>
+            <button aria-label={`Hiện ${featured[i]?.name}`} aria-pressed={i === 0 ? 'true' : 'false'} data-dot={i} class={`hero-dot h-1.5 rounded-full transition-all ${i === 0 ? 'w-6 bg-tap' : 'w-1.5 bg-black/20 dark:bg-white/30'}`}></button>
           ))}
         </div>
       </div>
       <div class="hidden lg:block relative">
         <div class="absolute inset-0 overflow-y-auto fadeb space-y-1 pb-10" style="scrollbar-width:none">
           {featured.map((game, i) => (
-            <button data-pl={i} class={`hero-pl w-full flex items-center gap-3 p-2 rounded-xl text-left transition ${i === 0 ? 'bg-black/10 dark:bg-white/15 ring-1 ring-[#15171a] dark:ring-white/60' : 'hover:bg-black/5 dark:hover:bg-white/5'}`}>
+            <button type="button" aria-pressed={i === 0 ? 'true' : 'false'} data-pl={i} class={`hero-pl w-full flex items-center gap-3 p-2 rounded-xl text-left transition ${i === 0 ? 'bg-tap/10 ring-1 ring-inset ring-tap/35' : 'hover:bg-black/5 dark:hover:bg-white/5'}`}>
               <span class="w-36 aspect-[16/10] rounded-lg overflow-hidden relative shrink-0 block">
                 <img src={heroArt(game)} alt={game.name} loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
               </span>
@@ -138,14 +138,14 @@ const jsonLd = {
     </div>
 
     <!-- ============ THỊNH HÀNH ============ -->
-    <section class="mt-10">
+    <section class="home-section">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-extrabold">Game & chủ đề đang thịnh hành</h2>
+        <h2 class="section-title">Game & chủ đề đang thịnh hành</h2>
       </div>
       <div id="trending-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-8">
         <GameCard game={trending[0]} postImg={postImageMap[trending[0].slug]} />
         <GameCard game={trending[1]} postImg={postImageMap[trending[1].slug]} />
-        <a href="/pc/" class="group block fade">
+        <a href="/pc/" class="collection-card group block fade">
           <div class="relative aspect-video rounded-2xl overflow-hidden flex ring-1 ring-black/5 dark:ring-white/10">
             {mmorpgSet.map((g) => (
               <div class="flex-1 relative overflow-hidden">
@@ -161,7 +161,7 @@ const jsonLd = {
         </a>
         <GameCard game={trending[2]} postImg={postImageMap[trending[2].slug]} />
         <GameCard game={trending[3]} postImg={postImageMap[trending[3].slug]} />
-        <a href="/mobile/" class="group block fade">
+        <a href="/mobile/" class="collection-card group block fade">
           <div class="relative aspect-video rounded-2xl overflow-hidden flex ring-1 ring-black/5 dark:ring-white/10">
             {mobileSet.map((g) => (
               <div class="flex-1 relative overflow-hidden">
@@ -179,9 +179,9 @@ const jsonLd = {
     </section>
 
     <!-- ============ GAME MOBILE ============ -->
-    <section class="mt-10">
+    <section class="home-section">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-extrabold">Game Mobile</h2>
+        <h2 class="section-title">Game Mobile</h2>
         <a href="/mobile/" class="text-sm font-semibold muted hover:text-tap flex items-center">Xem thêm
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
         </a>
@@ -192,9 +192,9 @@ const jsonLd = {
     </section>
 
     <!-- ============ GAME PC / CONSOLE ============ -->
-    <section class="mt-10">
+    <section class="home-section">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-extrabold">Game PC / Console</h2>
+        <h2 class="section-title">Game PC / Console</h2>
         <a href="/pc/" class="text-sm font-semibold muted hover:text-tap flex items-center">Xem thêm
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
         </a>
@@ -206,9 +206,9 @@ const jsonLd = {
 
     <!-- ============ CẬP NHẬT MỚI ============ -->
     {latestPosts.length > 0 && (
-      <section class="mt-10">
+      <section class="home-section">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xl font-extrabold">Cập nhật mới</h2>
+          <h2 class="section-title">Cập nhật mới</h2>
           <a href="/cap-nhat/" class="text-sm font-semibold muted hover:text-tap flex items-center">Xem thêm
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
           </a>
@@ -238,10 +238,12 @@ const jsonLd = {
       s.classList.toggle('pointer-events-none', idx !== cur);
     });
     dots.forEach((d, idx) => {
+      d.setAttribute('aria-pressed', String(idx === cur));
       d.className = `hero-dot h-1.5 rounded-full transition-all ${idx === cur ? 'w-6 bg-tap' : 'w-1.5 bg-black/20 dark:bg-white/30'}`;
     });
     pls.forEach((b, idx) => {
-      b.className = `hero-pl w-full flex items-center gap-3 p-2 rounded-xl text-left transition ${idx === cur ? 'bg-black/10 dark:bg-white/15 ring-1 ring-[#15171a] dark:ring-white/60' : 'hover:bg-black/5 dark:hover:bg-white/5'}`;
+      b.setAttribute('aria-pressed', String(idx === cur));
+      b.className = `hero-pl w-full flex items-center gap-3 p-2 rounded-xl text-left transition ${idx === cur ? 'bg-tap/10 ring-1 ring-inset ring-tap/35' : 'hover:bg-black/5 dark:hover:bg-white/5'}`;
     });
   }
   function restart() {

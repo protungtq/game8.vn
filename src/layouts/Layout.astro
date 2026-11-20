@@ -56,7 +56,7 @@ const isActive = (href: string) =>
   <meta name="description" content={description} />
   {keywords && <meta name="keywords" content={keywords} />}
   <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#f0f4f8" />
   <link rel="canonical" href={canonical || Astro.url.href} />
 
   <!-- Open Graph -->
@@ -89,12 +89,12 @@ const isActive = (href: string) =>
       if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.classList.toggle('dark', t === 'dark');
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#ffffff');
+      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#f0f4f8');
     })();
   </script>
 </head>
 <body>
-  <header class="sticky top-[env(safe-area-inset-top,0px)] z-50 bg-white/95 dark:bg-[#111316]/95 backdrop-blur shadow-[0_6px_24px_-10px_rgba(0,0,0,.25)] border-b border-black/5 dark:border-white/10">
+  <header class="site-chrome sticky top-[env(safe-area-inset-top,0px)] z-50 dark:bg-[#111316]/95 backdrop-blur shadow-[0_6px_24px_-10px_rgba(0,0,0,.25)] border-b border-black/5 dark:border-white/10">
     <div class="h-[3px] bg-gradient-to-r from-tap via-cyan-400 to-violet-500"></div>
     <div class="max-w-[1280px] mx-auto px-4 h-[72px] flex items-center gap-4 sm:gap-5">
       <a href="/" class="flex items-center gap-2 font-black text-2xl tracking-tight shrink-0">
@@ -105,12 +105,12 @@ const isActive = (href: string) =>
       </a>
       <nav class="hidden md:flex gap-1 text-sm font-semibold">
         {NAV.map((n) => (
-          <a href={n.href} class={`px-4 h-10 grid place-items-center rounded-full transition ${isActive(n.href) ? 'bg-tap text-white shadow-md shadow-tap/30' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>{n.label}</a>
+          <a href={n.href} class={`px-4 h-10 grid place-items-center rounded-full transition ${isActive(n.href) ? 'bg-tap/10 text-tap' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>{n.label}</a>
         ))}
       </nav>
       <div class="relative flex-1 max-w-xl ml-auto">
         <svg class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 muted pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-        <input id="q" placeholder="Trò chơi, cập nhật và nhà phát hành" autocomplete="off" class="w-full h-11 rounded-full bg-[#e8eaec] dark:bg-white/10 pl-11 pr-4 text-sm outline-none focus:ring-2 ring-tap" />
+        <input id="q" placeholder="Trò chơi, cập nhật và nhà phát hành" autocomplete="off" class="w-full h-11 rounded-full bg-slate-100 dark:bg-white/10 pl-11 pr-4 text-sm placeholder:text-slate-600 dark:placeholder:text-slate-400 outline-none focus:ring-2 ring-tap" />
         <div id="sr" class="hidden absolute left-0 right-0 top-full mt-2 rounded-2xl bg-white dark:bg-[#1b1e23] ring-1 ring-black/10 dark:ring-white/10 shadow-xl p-2 max-h-80 overflow-auto z-50"></div>
       </div>
       <button id="tg" type="button" aria-label="Chuyển giao diện sáng / tối" title="Sáng / tối" class="w-11 h-11 shrink-0 rounded-full sf grid place-items-center hover:bg-black/10 dark:hover:bg-white/15 transition">
@@ -124,7 +124,7 @@ const isActive = (href: string) =>
     <slot />
   </main>
 
-  <nav class="md:hidden fixed bottom-0 inset-x-0 z-50 grid grid-cols-4 bg-white/95 dark:bg-[#111316]/95 backdrop-blur border-t border-black/5 dark:border-white/10 pb-[env(safe-area-inset-bottom,0px)]">
+  <nav class="site-chrome md:hidden fixed bottom-0 inset-x-0 z-50 grid grid-cols-4 dark:bg-[#111316]/95 backdrop-blur border-t border-black/5 dark:border-white/10 pb-[env(safe-area-inset-bottom,0px)]">
     {NAV.map((n) => (
       <a href={n.href} class={`flex flex-col items-center gap-1 py-2.5 text-[11px] font-semibold ${isActive(n.href) ? 'text-tap' : 'muted'}`}>
         <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={n.icon}></svg>
@@ -186,7 +186,7 @@ const isActive = (href: string) =>
       document.documentElement.classList.toggle('dark', t === 'dark');
       try { localStorage.setItem('theme', t); } catch (e) {}
       var m = document.querySelector('meta[name="theme-color"]');
-      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#ffffff');
+      if (m) m.setAttribute('content', t === 'dark' ? '#111316' : '#f0f4f8');
     }
     var tgBtn = document.getElementById('tg');
     if (tgBtn) tgBtn.addEventListener('click', function () {

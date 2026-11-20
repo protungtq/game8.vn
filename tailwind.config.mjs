@@ -6,7 +6,7 @@ export default {
     extend: {
       colors: {
         primary: '#dc2626',
-        tap: '#16c79a',
+        tap: 'rgb(var(--game8-accent) / <alpha-value>)',
       },
       fontFamily: {
         sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
